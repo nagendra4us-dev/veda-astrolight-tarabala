@@ -1,0 +1,18 @@
+{
+  "name": "Veda Astrolight Tarabala",
+  "short_name": "VA Tarabala",
+  "description": "Vedic Astrology Tarabala, Chandrabala, Panchanga & Gochara Vedha App by Satyabodha Nagendra",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#f0fdf4",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%23f0fdf4'/><circle cx='256' cy='256' r='200' fill='none' stroke='%23059669' stroke-width='16'/><path d='M256 96 L290 200 L400 200 L310 264 L344 368 L256 304 L168 368 L202 264 L112 200 L222 200 Z' fill='%23c2410c'/><circle cx='256' cy='256' r='40' fill='%23f0fdf4'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

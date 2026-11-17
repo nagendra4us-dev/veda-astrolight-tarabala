@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Tarabala & Chandrabala | Satyabodha Nagendra</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f0fdf4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Veda Astrolight Tarabala">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Kannada&family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Tiro Kannada', serif;
+            background-color: #f0fdf4;
+            color: #0f382c;
+        }
+        .cinzel { font-family: 'Cinzel', serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #e8f5ed; }
+        ::-webkit-scrollbar-thumb { background: #a7d7b9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #059669; }
+
+        .title-saffron {
+            color: #c2410c;
+            text-shadow: 0 1px 2px rgba(194, 65, 12, 0.15);
+        }
+        .brand-royal-blue {
+            color: #1d4ed8;
+            letter-spacing: 0.08em;
+        }
+
+        .active-tab {
+            background-color: #047857 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 10px rgba(4, 120, 87, 0.25);
+        }
+        .clean-card {
+            background: #fffdf7;
+            border: 1px solid #d1fae5;
+            box-shadow: 0 2px 8px rgba(6, 78, 59, 0.04);
+        }
+        .kundali-cell {
+            background: #ffffff;
+            border: 1px solid #bbf7d0;
+            min-height: 76px;
+            padding: 3px 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        .planet-btn.active-planet {
+            background-color: #047857;
+            color: #ffffff;
+            border-color: #065f46;
+            box-shadow: 0 0 10px rgba(4, 120, 87, 0.35);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- ==================== LICENSE & ACTIVATION LOCK GATE ==================== -->
+    <div id="license-lock-overlay" class="hidden fixed inset-0 z-[100] bg-emerald-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdf7] border-2 border-emerald-300 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden p-6 space-y-5">
+            <div class="text-center space-y-1 border-b border-emerald-100 pb-4">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-orange-100 text-orange-700 text-2xl mb-1 shadow-sm">🔐</div>
+                <h2 class="cinzel text-xl font-extrabold title-saffron">Veda Astrolight Tarabala</h2>
+                <p class="cinzel text-xs font-bold brand-royal-blue">Satyabodha Nagendra • Licensed Edition</p>
+                <p id="lock-status-msg" class="text-xs text-rose-700 font-bold pt-1">ಈ ಆ್ಯಪ್ ಬಳಸಲು ಸಕ್ರಿಯ ಲೈಸೆನ್ಸ್ (Active Subscription) ಅಗತ್ಯವಿದೆ.</p>
+            </div>
+
+            <!-- Unique Device ID Box -->
+            <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-bold text-emerald-800 uppercase block">ನಿಮ್ಮ ಡಿವೈಸ್ ಐಡಿ (Device ID):</span>
+                    <strong id="lock-device-id" class="mono text-base text-emerald-950 tracking-wider">VA-0000</strong>
+                </div>
+                <button onclick="copyDeviceId()" class="px-3 py-1.5 rounded-xl bg-white border border-emerald-300 text-emerald-900 text-xs font-bold hover:bg-emerald-100 transition shadow-sm">
+                    📋 ಕಾಪಿ ಮಾಡಿ
+                </button>
+            </div>
+
+            <!-- Client Details Form -->
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">ನಿಮ್ಮ ಹೆಸರು (Full Name):</label>
+                    <input type="text" id="lic-user-name" placeholder="ಉದಾ: ರಮೇಶ್ ಕುಮಾರ್" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2.5 text-sm text-slate-900 focus:border-emerald-600 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">ನಿಮ್ಮ ಇಮೇಲ್ (Email Address):</label>
+                    <input type="email" id="lic-user-email" placeholder="example@gmail.com" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2.5 text-sm text-slate-900 focus:border-emerald-600 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2.5 pt-1">
+                <button onclick="requestActivationWhatsApp()" class="w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm transition shadow-md flex items-center justify-center gap-2">
+                    <span>📲</span> WhatsApp ಮೂಲಕ ಆಕ್ಟಿವೇಶನ್ ಕೇಳಿ
+                </button>
+
+                <button onclick="verifyLicenseNow(true)" id="btn-verify-license" class="w-full py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-2">
+                    <span>🔄</span> ಆಕ್ಟಿವೇಟ್ ಆಗಿದೆಯೇ ಪರಿಶೀಲಿಸಿ (Verify License)
+                </button>
+
+                <button id="btn-start-trial" onclick="activateFreeTrial()" class="w-full py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 font-bold text-xs transition">
+                    ✨ ಮೊದಲ 3 ದಿನ ಉಚಿತವಾಗಿ ಬಳಸಿ (Start 3-Day Free Trial)
+                </button>
+            </div>
+
+            <div class="text-center text-[11px] text-slate-500 border-t border-emerald-100 pt-3">
+                ಸಹಾಯಕ್ಕಾಗಿ ಸಂಪರ್ಕಿಸಿ: <strong class="mono text-blue-900">7349577177</strong> • ಸತ್ಯಬೋಧ ನಾಗೇಂದ್ರ
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Branding -->
+    <header class="border-b border-emerald-100 bg-white/95 sticky top-0 z-50 backdrop-blur-md px-4 py-3 shadow-sm">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div>
+                <h1 class="cinzel text-xl sm:text-2xl font-extrabold tracking-wider title-saffron">
+                    Tarabala & Chandrabala
+                </h1>
+                <p class="cinzel text-xs font-bold brand-royal-blue">
+                    Satyabodha Nagendra • Veda Astrolight
+                </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-2.5 text-xs">
+                <button onclick="showLicenseInfoModal()" id="license-status-pill" class="px-2.5 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-300 font-bold flex items-center gap-1 shadow-sm" title="ಲೈಸೆನ್ಸ್ ವಿವರ ನೋಡಿ">
+                    <span>🔑</span> <span id="license-pill-text">ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...</span>
+                </button>
+                <button onclick="openProfileModal()" class="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-300 hover:bg-emerald-200 transition font-bold flex items-center gap-1.5 shadow-sm">
+                    <span id="active-profile-nav-label">👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ</span>
+                </button>
+                <a href="tel:7349577177" class="mono px-3 py-1.5 rounded-lg border border-blue-300 bg-blue-50 text-blue-900 hover:bg-blue-100 transition font-bold">
+                    📞 7349577177
+                </a>
+                <a href="https://wa.me/917349577177" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition font-medium shadow-sm">
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="max-w-6xl mx-auto w-full px-4 py-5 flex-1">
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-emerald-200 pb-3">
+            <button onclick="switchTab('main-tab')" id="btn-main-tab" class="tab-btn active-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-emerald-50 text-emerald-900 border border-emerald-200">
+                ⚡ ಮುಖ್ಯ ವಿಶ್ಲೇಷಣೆ
+            </button>
+            <button onclick="switchTab('panchanga-tab')" id="btn-panchanga-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
+                📅 ದಿನದ ಪಂಚಾಂಗ
+            </button>
+            <button onclick="switchTab('matrix-tab')" id="btn-matrix-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
+                ☸ 27 ನಕ್ಷತ್ರ ಚಕ್ರ
+            </button>
+            <button onclick="switchTab('sutra-tab')" id="btn-sutra-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
+                📜 ಶಾಸ್ತ್ರ ಸೂತ್ರ & ದಾನ
+            </button>
+            <button onclick="switchTab('kundali-tab')" id="btn-kundali-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
+                🪐 ಜಾತಕ & ಶನಿ/ಗುರು ಗೋಚಾರ
+            </button>
+        </div>
+
+        <!-- ==================== TAB 1: ಮುಖ್ಯ ವಿಶ್ಲೇಷಣೆ ==================== -->
+        <section id="main-tab" class="space-y-6">
+            <div class="clean-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 border-emerald-200 bg-emerald-50/60">
+                <div class="flex items-center gap-3">
+                    <span class="inline-block w-3 h-3 rounded-full bg-emerald-600 animate-pulse"></span>
+                    <div>
+                        <span class="text-xs text-emerald-800 font-bold tracking-wide uppercase">ಲೈವ್ ಇಂದಿನ ಗೋಚಾರ ಚಂದ್ರ:</span>
+                        <div id="live-moon-display" class="text-sm font-bold text-emerald-950 mono">ಲೆಕ್ಕಾಚಾರವಾಗುತ್ತಿದೆ...</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="datetime-local" id="live-dt-override" class="mono bg-white border border-emerald-300 rounded-lg px-2.5 py-1 text-xs text-emerald-900 focus:outline-none focus:border-emerald-600 shadow-sm">
+                    <button onclick="resetToNow()" class="px-2.5 py-1 text-xs rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition font-medium shadow-sm">
+                        🔄 ಇಂದಿಗೆ ಮರುಹೊಂದಿಸಿ
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Left Input Controls -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="clean-card rounded-2xl p-5 space-y-4">
+                        <div class="flex items-center justify-between border-b border-emerald-100 pb-2">
+                            <h2 class="text-base font-bold text-emerald-900 flex items-center gap-2">
+                                <span>✨</span> 1. ಜನ್ಮ ವಿವರಗಳು (Client Input)
+                            </h2>
+                            <button onclick="openProfileModal()" class="text-xs text-blue-700 hover:text-blue-900 font-bold underline">
+                                🔄 ಪ್ರೊಫೈಲ್ ಆಯ್ಕೆ
+                            </button>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-800 mb-1">ಜನ್ಮ ನಕ್ಷತ್ರ:</label>
+                            <select id="janma-nakshatra" onchange="runAnalysis(); calculateKundaliTab();" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm"></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-800 mb-1">ಪಾದ:</label>
+                                <select id="janma-pada" onchange="syncJanmaRashiFromPada(); runAnalysis(); calculateKundaliTab();" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                                    <option value="1">1 ನೇ ಪಾದ</option>
+                                    <option value="2">2 ನೇ ಪಾದ</option>
+                                    <option value="3">3 ನೇ ಪಾದ</option>
+                                    <option value="4">4 ನೇ ಪಾದ</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-800 mb-1">ಜನ್ಮ ರಾಶಿ:</label>
+                                <select id="janma-rashi" onchange="runAnalysis(); calculateKundaliTab();" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm"></select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-800 mb-1">ಉದ್ದೇಶ / ಕಾರ್ಯ ಆಯ್ಕೆ:</label>
+                            <select id="karya-select" onchange="runAnalysis()" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                                <option value="general">ಸಾಮಾನ್ಯ ಶುಭಕಾರ್ಯ / ದಿನಚರಿ</option>
+                                <option value="travel">ಪ್ರಯಾಣ / ದೇಶಾಂತರ / ವಾಹನ ಖರೀದಿ</option>
+                                <option value="business">ಹಣಕಾಸು / ಹೂಡಿಕೆ / ವ್ಯಾಪಾರ ಆರಂಭ</option>
+                                <option value="medical">ವೈದ್ಯಕೀಯ ಚಿಕಿತ್ಸೆ / ಔಷಧ ಸೇವನೆ</option>
+                                <option value="marriage">ವಿವಾಹ / ನಿಶ್ಚಿತಾರ್ಥ / ಮಂಗಳ ಕಾರ್ಯ</option>
+                                <option value="griha">ಗೃಹಪ್ರವೇಶ / ಆಸ್ತಿ ಖರೀದಿ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="clean-card rounded-2xl p-5 space-y-4">
+                        <h2 class="text-base font-bold text-emerald-900 border-b border-emerald-100 pb-2 flex items-center gap-2">
+                            <span>🪐</span> 2. ದಿನದ ಗೋಚಾರ (Transit Moon)
+                        </h2>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-800 mb-1">ಗೋಚಾರ ನಕ್ಷತ್ರ (ಸ್ವಯಂಚಾಲಿತ ಲೈವ್):</label>
+                            <select id="gochara-nakshatra" onchange="runAnalysis()" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm"></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-800 mb-1">ಗೋಚಾರ ಪಾದ:</label>
+                                <select id="gochara-pada" onchange="syncGocharaRashiFromPada(); runAnalysis();" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                                    <option value="1">1 ನೇ ಪಾದ</option>
+                                    <option value="2">2 ನೇ ಪಾದ</option>
+                                    <option value="3">3 ನೇ ಪಾದ</option>
+                                    <option value="4">4 ನೇ ಪಾದ</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-800 mb-1">ಗೋಚಾರ ರಾಶಿ:</label>
+                                <select id="gochara-rashi" onchange="runAnalysis()" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Analysis Displays -->
+                <div class="md:col-span-7 space-y-4">
+                    <div id="verdict-banner" class="clean-card rounded-2xl p-5 border-l-4">
+                        <div class="flex items-center justify-between gap-3 mb-2">
+                            <span id="verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"></span>
+                            <span id="score-display" class="mono text-sm font-bold text-emerald-900"></span>
+                        </div>
+                        <h3 id="verdict-title" class="text-lg font-bold text-emerald-950 mb-1"></h3>
+                        <p id="verdict-desc" class="text-sm text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="clean-card rounded-2xl p-4 space-y-2 border-emerald-200">
+                            <span class="text-xs text-emerald-800 font-bold uppercase">ತಾರಾಬಲ ನಿರ್ಣಯ</span>
+                            <div id="tara-name-badge" class="text-base font-bold text-emerald-950"></div>
+                            <div id="paryaya-badge" class="text-xs text-slate-600"></div>
+                            <p id="tara-detail-text" class="text-xs text-slate-600 leading-relaxed pt-1"></p>
+                        </div>
+                        <div class="clean-card rounded-2xl p-4 space-y-2 border-emerald-200">
+                            <span class="text-xs text-emerald-800 font-bold uppercase">ಚಂದ್ರಬಲ ನಿರ್ಣಯ</span>
+                            <div id="chandra-name-badge" class="text-base font-bold text-emerald-950"></div>
+                            <div id="ashtama-badge" class="text-xs text-slate-600"></div>
+                            <p id="chandra-detail-text" class="text-xs text-slate-600 leading-relaxed pt-1"></p>
+                        </div>
+                    </div>
+
+                    <!-- Ghata Chakra Check Card -->
+                    <div id="ghata-chakra-box" class="clean-card rounded-2xl p-3.5 border-emerald-200 flex items-center justify-between gap-3 text-xs">
+                        <div>
+                            <span class="font-bold text-emerald-950 uppercase block">ಘಾತ ಚಕ್ರ ಶುದ್ಧಿ (Ghata Chakra):</span>
+                            <span id="ghata-chakra-detail" class="text-slate-700 font-medium">ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...</span>
+                        </div>
+                        <span id="ghata-chakra-badge" class="px-2.5 py-1 rounded-lg font-bold whitespace-nowrap"></span>
+                    </div>
+
+                    <div class="clean-card rounded-2xl p-4 space-y-2 border-amber-200 bg-amber-50/40">
+                        <h4 class="text-xs font-bold text-amber-900 uppercase">ಶಾಸ್ತ್ರೀಯ ಸೂಕ್ಷ್ಮತೆ & ಪರಿಹಾರ ಕ್ರಮ</h4>
+                        <p id="paryaya-warning-box" class="text-xs text-amber-950 leading-relaxed font-medium"></p>
+                        <div class="pt-2 border-t border-amber-200 flex flex-wrap items-center justify-between gap-2">
+                            <span id="remedy-short-text" class="text-xs text-slate-700"></span>
+                            <button onclick="copyReport()" class="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs hover:bg-emerald-800 transition font-medium shadow-sm">
+                                📋 ವರದಿ ನಕಲಿಸಿ (Copy Report)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7-Day Quick Outlook Strip -->
+            <div class="clean-card rounded-2xl p-4 border-emerald-200 space-y-3">
+                <div class="flex items-center justify-between border-b border-emerald-100 pb-2">
+                    <h3 class="text-sm font-bold text-emerald-900 flex items-center gap-1.5">
+                        <span>🗓️</span> ಮುಂದಿನ 7 ದಿನಗಳ ತಾರಾಬಲ ಕಿರುನೋಟ (7-Day Outlook)
+                    </h3>
+                    <span class="text-[11px] text-slate-500">ಯಾವುದೇ ದಿನವನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ ವಿವರ ನೋಡಿ</span>
+                </div>
+                <div id="seven-day-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: ದಿನದ ಪಂಚಾಂಗ ==================== -->
+        <section id="panchanga-tab" class="hidden space-y-6">
+            <div class="clean-card rounded-2xl p-5 border-emerald-200">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-100 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-orange-600 text-lg">✦</span>
+                            <h2 class="text-lg font-bold text-emerald-950">ಭಾರತೀಯ ಪಂಚಾಂಗ ನಿರ್ಣಯ</h2>
+                            <span class="text-orange-600 text-lg">✦</span>
+                        </div>
+                        <p class="text-xs text-slate-500">ಸ್ಥಳೀಯ ಅಕ್ಷಾಂಶ-ರೇಖಾಂಶ & ಸೌರ ಗಣಿತ (Equation of Time) ಆಧಾರಿತ</p>
+                    </div>
+                    <div class="text-right">
+                        <div id="p-cur-date-disp" class="mono text-base font-bold text-emerald-900"></div>
+                        <div id="p-cur-vara-disp" class="px-3 py-0.5 mt-1 rounded-full bg-orange-600 text-white text-xs font-bold inline-block"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-b border-emerald-100 text-center">
+                    <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-100">
+                        <span class="text-[11px] text-amber-800 font-semibold block">🌅 ಸೂರ್ಯೋದಯ</span>
+                        <strong id="p-sunrise-disp" class="mono text-sm text-slate-800 block mt-0.5">-</strong>
+                    </div>
+                    <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-100">
+                        <span class="text-[11px] text-orange-800 font-semibold block">🌇 ಸೂರ್ಯಾಸ್ತ</span>
+                        <strong id="p-sunset-disp" class="mono text-sm text-slate-800 block mt-0.5">-</strong>
+                    </div>
+                    <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100">
+                        <span class="text-[11px] text-emerald-800 font-semibold block">☀️ ದಿನಮಾನ</span>
+                        <strong id="p-dinamana-disp" class="mono text-sm text-slate-800 block mt-0.5">-</strong>
+                    </div>
+                    <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-100">
+                        <span class="text-[11px] text-blue-800 font-semibold block">🌌 ರಾತ್ರಿಮಾನ</span>
+                        <strong id="p-rathrimana-disp" class="mono text-sm text-slate-800 block mt-0.5">-</strong>
+                    </div>
+                </div>
+
+                <div class="py-4 space-y-3 border-b border-emerald-100">
+                    <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wide">ಮುಖ್ಯ ಪಂಚಾಂಗ ಅಂಗಗಳು (Panchanga Angas)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-xl bg-white border border-slate-200 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">ತಿಥಿ (Tithi):</span>
+                            <span id="p-tithi-disp" class="font-bold text-emerald-900">-</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-slate-200 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">ನಕ್ಷತ್ರ & ಮುಕ್ತಾಯ ಕಾಲ:</span>
+                            <span id="p-nak-disp" class="font-bold text-emerald-900 text-right">-</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-slate-200 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">ಯೋಗ (Yoga):</span>
+                            <span id="p-yoga-disp" class="font-bold text-emerald-900">-</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-slate-200 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">ಕರಣ (Karana):</span>
+                            <span id="p-karana-disp" class="font-bold text-emerald-900">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2 text-xs">
+                        <h4 class="font-bold text-emerald-950 flex items-center gap-1.5">
+                            <span>✨</span> ಶುಭ ಮುಹೂರ್ತ ಕಾಲಗಳು
+                        </h4>
+                        <div class="flex justify-between border-b border-emerald-100 pb-1">
+                            <span class="text-slate-600 font-medium">ಅಭಿಜಿತ್ ಮುಹೂರ್ತ:</span>
+                            <strong id="p-abhijit-disp" class="mono text-emerald-900">-</strong>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-600 font-medium">ಗೋಧೂಳಿ ಮುಹೂರ್ತ:</span>
+                            <strong id="p-godhuli-disp" class="mono text-emerald-900">-</strong>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200 space-y-2 text-xs">
+                        <h4 class="font-bold text-rose-950 flex items-center gap-1.5">
+                            <span>⚠️</span> ದಿನದ ವರ್ಜ್ಯ & ಅಶುಭ ಕಾಲ ಸಮಯಗಳು
+                        </h4>
+                        <div class="flex justify-between border-b border-rose-100 pb-1">
+                            <span class="text-slate-700 font-medium flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-rose-600 inline-block"></span> ರಾಹು ಕಾಲ:
+                            </span>
+                            <strong id="p-rahu-disp" class="mono text-rose-900">-</strong>
+                        </div>
+                        <div class="flex justify-between border-b border-rose-100 pb-1">
+                            <span class="text-slate-700 font-medium flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-orange-600 inline-block"></span> ಯಮಗಂಡ ಕಾಲ:
+                            </span>
+                            <strong id="p-yamaganda-disp" class="mono text-orange-900">-</strong>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-700 font-medium flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span> ಗುಳಿಕ ಕಾಲ:
+                            </span>
+                            <strong id="p-gulika-disp" class="mono text-amber-900">-</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: 27 ನಕ್ಷತ್ರ ಚಕ್ರ ==================== -->
+        <section id="matrix-tab" class="hidden space-y-4">
+            <div class="clean-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h3 class="text-base font-bold text-emerald-900">27 ನಕ್ಷತ್ರಗಳ ಸಮಗ್ರ ತಾರಾಬಲ ಕೋಷ್ಟಕ</h3>
+                    <p class="text-xs text-slate-600">ಆಯ್ಕೆ ಮಾಡಿದ ಜನ್ಮ ನಕ್ಷತ್ರಕ್ಕೆ ತಕ್ಕಂತೆ 9 ತಾರೆಗಳು ಮತ್ತು 3 ಪರ್ಯಾಯಗಳ ವಿಂಗಡಣೆ</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="filterMatrix('all', this)" class="matrix-filter-btn px-3 py-1 rounded-lg text-xs bg-emerald-700 text-white font-medium">ಎಲ್ಲವೂ</button>
+                    <button onclick="filterMatrix('shubha', this)" class="matrix-filter-btn px-3 py-1 rounded-lg text-xs bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">ಶುಭ ತಾರೆಗಳು</button>
+                    <button onclick="filterMatrix('ashubha', this)" class="matrix-filter-btn px-3 py-1 rounded-lg text-xs bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">ವರ್ಜ್ಯ/ಅಶುಭ</button>
+                </div>
+            </div>
+            <div id="matrix-grid-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- ==================== TAB 4: ಶಾಸ್ತ್ರ ಸೂತ್ರ & ದಾನ ==================== -->
+        <section id="sutra-tab" class="hidden space-y-4">
+            <div class="clean-card rounded-2xl p-5 space-y-4">
+                <h3 class="text-lg font-bold text-emerald-900 border-b border-emerald-100 pb-2">9 ತಾರೆಗಳ ಶಾಸ್ತ್ರ ಸೂತ್ರ ಹಾಗೂ ದೋಷ ಪರಿಹಾರ ಕ್ರಮಗಳು</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                        <span class="font-bold text-amber-900 text-sm">3. ವಿಪತ್ ತಾರಾ (ಅಶುಭ):</span>
+                        <p class="text-slate-700 mt-1">ಕಾರ್ಯ ವಿಘ್ನ, ಅಪಘಾತ ಭಯ. 1ನೇ ಪರ್ಯಾಯದಲ್ಲಿ ತೀವ್ರ.<br><strong class="text-emerald-900">ಪರಿಹಾರ:</strong> ಬೆಲ್ಲ ದಾನ (Jaggery donation).</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                        <span class="font-bold text-amber-900 text-sm">5. ಪ್ರತ್ಯಕ್ ತಾರಾ (ಅಶುಭ):</span>
+                        <p class="text-slate-700 mt-1">ವಿರೋಧ, ನಿಷ್ಪ್ರಯೋಜಕ ಶ್ರಮ. 2ನೇ ಪರ್ಯಾಯದಲ್ಲಿ ಅತಿ ಕೆಟ್ಟದ್ದು.<br><strong class="text-emerald-900">ಪರಿಹಾರ:</strong> ಉಪ್ಪು ದಾನ (Salt donation).</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-rose-50 border border-rose-200">
+                        <span class="font-bold text-rose-800 text-sm">7. ನೈಧನ / ವೈನಾಶಿಕ (ಅತ್ಯಂತ ವರ್ಜ್ಯ):</span>
+                        <p class="text-slate-700 mt-1">ನಾಶ, ಮೃತ್ಯು ಸಮಾನ ಕಷ್ಟ. 3ನೇ ಪರ್ಯಾಯದ 25ನೇ ನಕ್ಷತ್ರ ಮಹಾ ದೋಷ.<br><strong class="text-rose-900">ಪರಿಹಾರ:</strong> ಎಳ್ಳು ಅಥವಾ ಚಿನ್ನ ದಾನ, ಮಹಾಮೃತ್ಯುಂಜಯ ಜಪ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: ಜಾತಕ & ಶನಿ/ಗುರು ಗೋಚಾರ ==================== -->
+        <section id="kundali-tab" class="hidden space-y-6">
+            <div class="clean-card rounded-2xl p-5 space-y-4 border-emerald-200">
+                <div class="flex items-center justify-between border-b border-emerald-100 pb-2">
+                    <div>
+                        <h3 class="text-base font-bold text-emerald-900 flex items-center gap-2">
+                            <span>✨</span> ಕುಂಡಲಿ ತಯಾರಿಸಿ & ಸ್ಥಳ ಶೋಧನೆ
+                        </h3>
+                        <p class="text-[11px] text-slate-500">ಭಾರತದ ಯಾವುದೇ ರಾಜ್ಯ, ಜಿಲ್ಲೆ, ತಾಲೂಕು, ಹೋಬಳಿ ಅಥವಾ ಗ್ರಾಮವನ್ನು ಟೈಪ್ ಮಾಡಿ</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200 text-[11px]">
+                        <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-900 font-semibold border border-purple-200">ಜನ್ಮ D1</span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-semibold">ಗೋಚಾರ D1</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-emerald-800 mb-1">ಹೆಸರು / ಗುರುತು:</label>
+                        <input type="text" id="k-name" placeholder="ಹೆಸರು ನಮೂದಿಸಿ" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-emerald-800 mb-1">ಜನ್ಮ ದಿನಾಂಕ:</label>
+                        <input type="date" id="k-date" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-emerald-800 mb-1">ಜನ್ಮ ಸಮಯ:</label>
+                        <input type="time" id="k-time" class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                    </div>
+                    <div class="relative">
+                        <label class="block text-xs font-semibold text-emerald-800 mb-1">ಜನ್ಮ ಸ್ಥಳ (Pan-India Live Search):</label>
+                        <input type="text" id="k-loc-search" oninput="handleLocationInput(this.value)" placeholder="ಉದಾ: Puttur, Andhra, Thekkatte..." class="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-sm text-emerald-950 focus:border-emerald-600 focus:outline-none shadow-sm">
+                        <div id="loc-dropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-emerald-200 rounded-xl max-h-56 overflow-y-auto z-50 text-xs shadow-2xl"></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-emerald-100">
+                    <div class="flex gap-4 text-xs mono text-slate-600">
+                        <span>ಸ್ಥಳ: <strong id="k-loc-disp" class="text-blue-900 font-bold">Kundapura, Udupi</strong></span>
+                        <span>ಅಕ್ಷಾಂಶ: <strong id="k-lat-disp" class="text-emerald-700 font-bold">13.6268</strong></span>
+                        <span>ರೇಖಾಂಶ: <strong id="k-lng-disp" class="text-emerald-700 font-bold">74.6917</strong></span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="saveCurrentInputToProfile()" class="px-3 py-2 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-xs hover:bg-emerald-200 transition shadow-sm">
+                            💾 ಪ್ರೊಫೈಲ್ ಆಗಿ ಉಳಿಸಿ
+                        </button>
+                        <button onclick="calculateKundaliTab()" class="px-5 py-2 rounded-xl bg-orange-600 text-white font-bold text-sm hover:bg-orange-700 transition shadow-md flex items-center gap-2">
+                            <span>⚡</span> ಜಾತಕ & ಗೋಚಾರ ಲೆಕ್ಕಹಾಕಿ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transit Header Bar -->
+            <div class="clean-card rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 border-emerald-200 bg-emerald-50/70">
+                <div class="flex items-center gap-2 text-sm font-bold text-emerald-900">
+                    <span>🪐</span> ಗೋಚಾರ (Transit Position)
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="date" id="transit-date-input" class="bg-white border border-emerald-300 rounded-lg px-2.5 py-1 text-xs text-emerald-950 shadow-sm">
+                    <input type="time" id="transit-time-input" class="bg-white border border-emerald-300 rounded-lg px-2 py-1 text-xs text-emerald-950 shadow-sm">
+                    <button onclick="updateTransitChartOnly()" class="px-2.5 py-1 text-xs rounded-lg bg-teal-700 text-white hover:bg-teal-800 transition font-medium shadow-sm">
+                        🔄 ಗೋಚಾರ ರಿಫ್ರೆಶ್
+                    </button>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Dual South Indian Charts with Degrees & Minutes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Janma D1 -->
+                <div class="clean-card rounded-2xl p-4 border border-purple-200">
+                    <div class="text-center mb-2">
+                        <h4 class="text-sm font-bold text-purple-900">ಜನ್ಮ D1 (ಅಂಶ-ಕಲೆ ಸಹಿತ)</h4>
+                        <span id="janma-d1-sub" class="text-[11px] text-slate-500 mono"></span>
+                    </div>
+                    <div id="janma-grid" class="grid grid-cols-4 grid-rows-4 gap-1.5 aspect-square max-w-[380px] mx-auto bg-slate-50 p-2 rounded-xl border border-purple-200 shadow-inner"></div>
+                    <div class="text-center mt-3">
+                        <button onclick="syncToTarabalaFromKundali()" class="px-3 py-1.5 rounded-lg bg-purple-700 text-white text-xs hover:bg-purple-800 transition font-medium shadow-sm">
+                            ⟲ ಈ ಜನ್ಮ ನಕ್ಷತ್ರ & ರಾಶಿಯನ್ನು ಮುಖ್ಯ ತಾರಾಬಲಕ್ಕೆ ಕಳುಹಿಸಿ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gochara D1 -->
+                <div class="clean-card rounded-2xl p-4 border border-emerald-200">
+                    <div class="text-center mb-2">
+                        <h4 class="text-sm font-bold text-emerald-900">ಗೋಚಾರ D1 (ಅಂಶ-ಕಲೆ ಸಹಿತ)</h4>
+                        <span id="gochara-d1-sub" class="text-[11px] text-slate-500 mono"></span>
+                    </div>
+                    <div id="gochara-grid" class="grid grid-cols-4 grid-rows-4 gap-1.5 aspect-square max-w-[380px] mx-auto bg-slate-50 p-2 rounded-xl border border-emerald-200 shadow-inner"></div>
+                    <div class="text-center mt-3 text-xs text-slate-500">
+                        ಖಗೋಳ ಸಿದ್ಧ ಗೋಚಾರ (Lahiri Ayanamsha)
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9-Planet Transit Results & Vedha Table -->
+            <div class="clean-card rounded-2xl p-5 border-emerald-200 space-y-4">
+                <div class="flex items-center justify-between border-b border-emerald-100 pb-2">
+                    <h4 class="text-sm font-bold text-emerald-900 flex items-center gap-2">
+                        <span>🪐</span> ಗೋಚಾರ ಫಲಿತಾಂಶಗಳು & ವೇಧ ವಿಶ್ಲೇಷಣೆ (Gochara Vedha)
+                    </h4>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-2 pt-1">
+                    <button onclick="selectPlanetResult('sun')" id="pbtn-sun" class="planet-btn active-planet w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಸೂ</button>
+                    <button onclick="selectPlanetResult('moon')" id="pbtn-moon" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಚಂ</button>
+                    <button onclick="selectPlanetResult('mars')" id="pbtn-mars" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಕು</button>
+                    <button onclick="selectPlanetResult('mercury')" id="pbtn-mercury" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಬು</button>
+                    <button onclick="selectPlanetResult('jupiter')" id="pbtn-jupiter" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಗು</button>
+                    <button onclick="selectPlanetResult('venus')" id="pbtn-venus" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಶು</button>
+                    <button onclick="selectPlanetResult('saturn')" id="pbtn-saturn" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಶ</button>
+                    <button onclick="selectPlanetResult('rahu')" id="pbtn-rahu" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ರಾ</button>
+                    <button onclick="selectPlanetResult('ketu')" id="pbtn-ketu" class="planet-btn w-9 h-9 rounded-full border border-emerald-300 bg-white text-xs font-bold text-emerald-950 transition shadow-sm">ಕೇ</button>
+                </div>
+
+                <div class="rounded-xl border border-emerald-200 bg-white overflow-hidden text-xs shadow-sm">
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100 bg-emerald-50/40">
+                        <span class="text-emerald-900 font-bold">ಗ್ರಹ</span>
+                        <span id="tbl-planet-name" class="col-span-2 text-emerald-950 font-bold text-sm">ಸೂರ್ಯ</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">ಆಧಿಪತ್ಯ</span>
+                        <span id="tbl-adhipatya" class="col-span-2 text-slate-800 mono font-medium">-</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">ಜನ್ಮ ಸ್ಥಾನ</span>
+                        <span id="tbl-janma-sthana" class="col-span-2 text-slate-800 mono font-medium">-</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">ಗೋಚಾರ ಸ್ಥಾನ</span>
+                        <span id="tbl-gochara-sthana" class="col-span-2 text-slate-800 mono font-medium">-</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">BAV ಬಿಂದುಗಳು</span>
+                        <span id="tbl-bav" class="col-span-2 text-amber-700 mono font-bold">5</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">ಗೋಚಾರ ಸ್ಥಿತಿ</span>
+                        <span id="tbl-status" class="col-span-2 font-bold text-emerald-700">ಶುಭಂ</span>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-emerald-100">
+                        <span class="text-slate-600 font-semibold">ವೇಧ (Vedha)</span>
+                        <span id="tbl-vedha" class="col-span-2 text-slate-700 font-medium">-</span>
+                    </div>
+                    <div class="p-3 bg-emerald-50/60 space-y-1">
+                        <div class="text-emerald-900 font-bold">ಶಾಸ್ತ್ರೀಯ ಗೋಚಾರ ಫಲಿತಾಂಶಗಳು (Kannada)</div>
+                        <p id="tbl-kannada-phala" class="text-slate-700 leading-relaxed text-xs"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200 space-y-1.5 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-amber-900">ಶನಿ ಗೋಚಾರ ನಿರ್ಣಯ (ಸಾಡೇಸಾತ್ / ಕಂಟಕ / ಪಂಚಮ)</span>
+                            <span id="shani-tag" class="px-2 py-0.5 rounded text-[10px] font-bold"></span>
+                        </div>
+                        <p id="shani-summary" class="text-xs text-slate-700 leading-relaxed"></p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-1.5 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-emerald-900">ಗುರುಬಲ ವಿಶ್ಲೇಷಣೆ</span>
+                            <span id="guru-tag" class="px-2 py-0.5 rounded text-[10px] font-bold"></span>
+                        </div>
+                        <p id="guru-summary" class="text-xs text-slate-700 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Consultation Card -->
+    <footer class="border-t border-emerald-200 bg-white py-5 px-4 text-center space-y-1 shadow-sm">
+        <div class="cinzel text-sm font-extrabold brand-royal-blue">Satyabodha Nagendra • Veda Astrolight</div>
+        <p class="cinzel text-xs font-bold title-saffron">Listen • Study • Understand • Guide | 📞 7349577177</p>
+    </footer>
+
+    <!-- ==================== POPUP MODAL: CHANGE PROFILE DETAILS ==================== -->
+    <div id="profile-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-3">
+        <div class="bg-white border border-emerald-200 rounded-3xl w-full max-w-sm sm:max-w-md shadow-2xl overflow-y-auto max-h-[90vh] my-auto">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">✏️</span>
+                    <h3 class="font-bold text-base text-purple-900">Change Profile Details</h3>
+                </div>
+                <button onclick="closeProfileModal()" class="text-rose-500 hover:text-rose-700 font-bold text-lg leading-none">
+                    &times;
+                </button>
+            </div>
+
+            <div class="flex border-b border-slate-200 text-xs sm:text-sm font-semibold">
+                <button onclick="switchProfileTab('manual')" id="ptab-btn-manual" class="flex-1 py-3 text-center border-b-2 border-purple-800 text-purple-900 font-bold">
+                    Manual Entry
+                </button>
+                <button onclick="switchProfileTab('saved')" id="ptab-btn-saved" class="flex-1 py-3 text-center text-slate-400 hover:text-purple-800">
+                    ಉಳಿಸಿದ ಪ್ರೊಫೈಲ್‌ಗಳು
+                </button>
+                <button onclick="switchProfileTab('sync')" id="ptab-btn-sync" class="flex-1 py-3 text-center text-slate-400 hover:text-purple-800 flex items-center justify-center gap-1">
+                    <span>☁️</span> ಬ್ಯಾಕಪ್/ಸಿಂಕ್
+                </button>
+            </div>
+
+            <div class="p-5">
+                <!-- 1. MANUAL ENTRY FORM -->
+                <div id="psec-manual" class="space-y-4">
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="col-span-2">
+                            <label class="block text-xs text-slate-500 font-semibold mb-1">ಹೆಸರು:</label>
+                            <input type="text" id="pm-name" placeholder="ನಿಮ್ಮ ಹೆಸರು" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 font-semibold mb-1">ಲಿಂಗ:</label>
+                            <select id="pm-gender" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                                <option value="ಪುರುಷ">ಪುರುಷ</option>
+                                <option value="ಸ್ತ್ರೀ">ಸ್ತ್ರೀ</option>
+                                <option value="ಇತರ">ಇತರ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-500 font-semibold mb-1">ಹುಟ್ಟಿದ ದಿನಾಂಕ:</label>
+                            <input type="date" id="pm-date" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 font-semibold mb-1">ಹುಟ್ಟಿದ ಸಮಯ:</label>
+                            <input type="time" id="pm-time" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <label class="block text-xs text-slate-500 font-semibold mb-1">Place (Pan-India Search):</label>
+                        <input type="text" id="pm-place" oninput="handleModalLocationInput(this.value)" placeholder="Type city, taluk, village name..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                        <div id="modal-loc-dropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-xl max-h-48 overflow-y-auto z-50 text-xs shadow-2xl"></div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 flex items-center justify-between text-[11px] mono text-purple-900">
+                        <span>ಅಕ್ಷಾಂಶ: <strong id="pm-lat-disp">13.6268</strong></span>
+                        <span>ರೇಖಾಂಶ: <strong id="pm-lng-disp">74.6917</strong></span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="saveProfileFromModal()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition shadow-sm">
+                            Save Profile
+                        </button>
+                        <button onclick="applyProfileFromModal()" class="w-full py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs transition shadow-sm">
+                            Apply
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. SAVED PROFILES LIST -->
+                <div id="psec-saved" class="hidden space-y-3">
+                    <div class="relative">
+                        <input type="text" id="ps-search" oninput="filterSavedProfiles(this.value)" placeholder="ಪ್ರೊಫೈಲ್ಸ್ ಹುಡುಕಿ..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:border-purple-600 focus:outline-none">
+                    </div>
+                    <div id="saved-profiles-list" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+                    <div class="flex items-center justify-between pt-1 text-xs">
+                        <button onclick="switchProfileTab('manual')" class="text-purple-800 font-bold hover:underline">
+                            + ಹೊಸ ಪ್ರೊಫೈಲ್ ಸೇರಿಸಿ (Add New)
+                        </button>
+                        <button onclick="switchProfileTab('sync')" class="text-emerald-700 font-bold hover:underline">
+                            ☁️ ಇಮೇಲ್/ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. CLOUD SYNC & EMAIL BACKUP TAB -->
+                <div id="psec-sync" class="hidden space-y-4">
+                    <div class="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-xs text-slate-700 space-y-1.5">
+                        <div class="font-bold text-emerald-950 flex items-center gap-1.5">
+                            <span>☁️</span> ಶಾಶ್ವತ ಇಮೇಲ್ & ಡಿವೈಸ್ ಬ್ಯಾಕಪ್ (Permanent Sync)
+                        </div>
+                        <p class="leading-relaxed">
+                            ನೀವು ಮೊಬೈಲ್ ಬದಲಾಯಿಸಿದಾಗಲೂ ಎಲ್ಲಾ ಕ್ಲೈಂಟ್ ಪ್ರೊಫೈಲ್‌ಗಳು ಹಾಗೆಯೇ ಇರಲು, ನಿಮ್ಮ ಇಮೇಲ್‌ಗೆ ಬ್ಯಾಕಪ್ ಮಾಡಿಕೊಳ್ಳಿ ಅಥವಾ ಫೈಲ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿಡಿ.
+                        </p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs text-slate-600 font-semibold">ನಿಮ್ಮ ಅಧಿಕೃತ ಇಮೇಲ್ (Sync Account):</label>
+                        <input type="email" id="sync-email-input" placeholder="example@gmail.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:border-purple-600 focus:outline-none">
+                    </div>
+
+                    <div class="space-y-2">
+                        <button onclick="exportProfilesToEmail()" class="w-full py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-2">
+                            <span>✉️</span> ಇಮೇಲ್‌ಗೆ ಪ್ರೊಫೈಲ್ ಡೇಟಾ ಕಳುಹಿಸಿ (Send to Email)
+                        </button>
+                        <button onclick="exportProfilesToFile()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-2">
+                            <span>💾</span> ಬ್ಯಾಕಪ್ ಫೈಲ್ ಡೌನ್‌ಲೋಡ್ (Export File)
+                        </button>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100">
+                        <label class="block text-xs text-slate-600 font-semibold mb-1">ಹೊಸ ಮೊಬೈಲ್‌ನಲ್ಲಿ ಮರುಸ್ಥಾಪಿಸಿ (Import Backup):</label>
+                        <input type="file" id="import-profile-file" accept=".json" onchange="importProfilesFromFile(event)" class="text-xs text-slate-600 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-100 file:text-emerald-900 hover:file:bg-emerald-200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== GOOGLE SHEET LICENSE CONTROL ENGINE ====================
+        const LICENSE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1WnXKgb6vUtHZLBVa3Zrg5PinKRQrbRwkjvAkIhfCoN8/gviz/tq?tqx=out:csv";
+
+        function getOrCreateDeviceId() {
+            let devId = localStorage.getItem("veda_device_id");
+            if (!devId) {
+                const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+                let rand = "";
+                for (let i = 0; i < 5; i++) {
+                    rand += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                devId = "VA-" + rand;
+                localStorage.setItem("veda_device_id", devId);
+            }
+            return devId;
+        }
+
+        function parseCSVRow(rowStr) {
+            const result = [];
+            let cur = "";
+            let inQuotes = false;
+            for (let i = 0; i < rowStr.length; i++) {
+                const ch = rowStr[i];
+                if (ch === '"') {
+                    inQuotes = !inQuotes;
+                } else if (ch === ',' && !inQuotes) {
+                    result.push(cur.trim());
+                    cur = "";
+                } else {
+                    cur += ch;
+                }
+            }
+            result.push(cur.trim());
+            return result;
+        }
+
+        function copyDeviceId() {
+            const devId = getOrCreateDeviceId();
+            navigator.clipboard.writeText(devId).then(() => {
+                alert("ನಿಮ್ಮ Device ID (" + devId + ") ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!");
+            });
+        }
+
+        function requestActivationWhatsApp() {
+            const devId = getOrCreateDeviceId();
+            const uName = document.getElementById("lic-user-name").value.trim() || "ಹೆಸರು ನಮೂದಿಸಿಲ್ಲ";
+            const uEmail = document.getElementById("lic-user-email").value.trim() || "ಇಮೇಲ್ ನಮೂದಿಸಿಲ್ಲ";
+            localStorage.setItem("veda_lic_name", uName);
+            localStorage.setItem("veda_lic_email", uEmail);
+
+            const msg = `ನಮಸ್ಕಾರ ಸತ್ಯಬೋಧರೇ (Veda Astrolight),%0Aನನಗೆ Tarabala & Chandrabala ಆ್ಯಪ್‌ನ 1 ವರ್ಷದ ಲೈಸೆನ್ಸ್ ಆಕ್ಟಿವೇಶನ್ ಬೇಕಾಗಿದೆ.%0A%0A• Device ID: *${devId}*%0A• ಹೆಸರು: ${encodeURIComponent(uName)}%0A• ಇಮೇಲ್: ${encodeURIComponent(uEmail)}%0A%0Aದಯವಿಟ್ಟು ಆಕ್ಟಿವೇಟ್ ಮಾಡಿಕೊಡಿ.`;
+            window.open(`https://wa.me/917349577177?text=${msg}`, "_blank");
+        }
+
+        function activateFreeTrial() {
+            if (localStorage.getItem("veda_trial_used") === "true") {
+                alert("ನಿಮ್ಮ 3 ದಿನಗಳ ಉಚಿತ ಟ್ರಯಲ್ ಈಗಾಗಲೇ ಬಳಕೆಯಾಗಿದೆ. ಮುಂದುವರಿಯಲು WhatsApp ಮೂಲಕ ಆಕ್ಟಿವೇಶನ್ ಪಡೆಯಿರಿ.");
+                return;
+            }
+            const expiryTs = Date.now() + (3 * 24 * 60 * 60 * 1000);
+            localStorage.setItem("veda_trial_used", "true");
+            localStorage.setItem("veda_trial_expiry", String(expiryTs));
+            verifyLicenseNow(false);
+        }
+
+        function showLicenseInfoModal() {
+            const devId = getOrCreateDeviceId();
+            const cachedLic = JSON.parse(localStorage.getItem("veda_license_cache") || "null");
+            const trialExp = parseInt(localStorage.getItem("veda_trial_expiry") || "0");
+            let info = `ನಿಮ್ಮ Device ID: ${devId}\n`;
+            if (cachedLic && cachedLic.status === "ACTIVE") {
+                info += `ಸ್ಥಿತಿ: ಸಕ್ರಿಯ (ACTIVE)\nಕೊನೆಯ ದಿನಾಂಕ: ${cachedLic.expiry}`;
+            } else if (trialExp > Date.now()) {
+                const daysLeft = Math.ceil((trialExp - Date.now()) / 86400000);
+                info += `ಸ್ಥಿತಿ: 3-Day Free Trial (ಇನ್ನು ${daysLeft} ದಿನ ಬಾಕಿ ಇದೆ)`;
+            } else {
+                info += `ಸ್ಥಿತಿ: ಲೈಸೆನ್ಸ್ ಸಕ್ರಿಯವಾಗಿಲ್ಲ`;
+            }
+            if (confirm(info + "\n\nಲೈಸೆನ್ಸ್ ಪರಿಶೀಲಿಸಲು ಅಥವಾ ಆಕ್ಟಿವೇಶನ್ ಪರದೆ ತೆರೆಯಲು OK ಒತ್ತಿ.")) {
+                document.getElementById("lock-device-id").textContent = devId;
+                document.getElementById("lic-user-name").value = localStorage.getItem("veda_lic_name") || "";
+                document.getElementById("lic-user-email").value = localStorage.getItem("veda_lic_email") || "";
+                document.getElementById("license-lock-overlay").classList.remove("hidden");
+            }
+        }
+
+        async function verifyLicenseNow(isManualClick = false) {
+            const devId = getOrCreateDeviceId();
+            const lockOverlay = document.getElementById("license-lock-overlay");
+            const lockDeviceEl = document.getElementById("lock-device-id");
+            const lockMsgEl = document.getElementById("lock-status-msg");
+            const pillEl = document.getElementById("license-status-pill");
+            const pillTextEl = document.getElementById("license-pill-text");
+            const btnTrial = document.getElementById("btn-start-trial");
+
+            if (lockDeviceEl) lockDeviceEl.textContent = devId;
+            if (localStorage.getItem("veda_trial_used") === "true" && btnTrial) {
+                btnTrial.classList.add("hidden");
+            }
+
+            const todayStr = new Date().toISOString().slice(0, 10);
+
+            try {
+                const res = await fetch(LICENSE_SHEET_CSV_URL + "&t=" + Date.now());
+                if (res.ok) {
+                    const csvText = await res.text();
+                    const lines = csvText.split(/\r?\n/).filter(l => l.trim().length > 0);
+                    let matchedRecord = null;
+
+                    for (let i = 1; i < lines.length; i++) {
+                        const cols = parseCSVRow(lines[i]);
+                        if (cols.length >= 5) {
+                            const rowDevId = cols[0].toUpperCase().trim();
+                            const rowName = cols[1];
+                            const rowEmail = cols[2];
+                            const rowExpiry = cols[3].trim();
+                            const rowStatus = cols[4].toUpperCase().trim();
+
+                            if (rowDevId === devId.toUpperCase()) {
+                                matchedRecord = {
+                                    deviceId: rowDevId,
+                                    name: rowName,
+                                    email: rowEmail,
+                                    expiry: rowExpiry,
+                                    status: rowStatus
+                                };
+                                break;
+                            }
+                        }
+                    }
+
+                    if (matchedRecord) {
+                        localStorage.setItem("veda_license_cache", JSON.stringify(matchedRecord));
+                        if (matchedRecord.status === "ACTIVE" && matchedRecord.expiry >= todayStr) {
+                            lockOverlay.classList.add("hidden");
+                            pillEl.className = "px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 font-bold flex items-center gap-1 shadow-sm";
+                            pillTextEl.textContent = `Licensed (${matchedRecord.expiry})`;
+                            if (isManualClick) alert(`ಅಭಿನಂದನೆಗಳು ${matchedRecord.name || ''}! ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ${matchedRecord.expiry} ರವರೆಗೆ ಸಕ್ರಿಯವಾಗಿದೆ.`);
+                            return;
+                        } else {
+                            lockMsgEl.textContent = matchedRecord.expiry < todayStr
+                                ? `⚠️ ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಅವಧಿ (${matchedRecord.expiry}) ಮುಗಿದಿದೆ. ದಯವಿಟ್ಟು ನವೀಕರಿಸಿ.`
+                                : `⚠️ ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಸ್ಥಿತಿ: ${matchedRecord.status}. ಸತ್ಯಬೋಧರನ್ನು ಸಂಪರ್ಕಿಸಿ.`;
+                            lockOverlay.classList.remove("hidden");
+                            pillEl.className = "px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-900 border border-rose-300 font-bold flex items-center gap-1 shadow-sm";
+                            pillTextEl.textContent = "Expired / Locked";
+                            return;
+                        }
+                    }
+                }
+            } catch (err) {
+                // Offline fallback to cached license
+                const cached = JSON.parse(localStorage.getItem("veda_license_cache") || "null");
+                if (cached && cached.deviceId === devId && cached.status === "ACTIVE" && cached.expiry >= todayStr) {
+                    lockOverlay.classList.add("hidden");
+                    pillEl.className = "px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 font-bold flex items-center gap-1 shadow-sm";
+                    pillTextEl.textContent = `Licensed (${cached.expiry})`;
+                    return;
+                }
+            }
+
+            // Check 3-Day Free Trial if not yet in Google Sheet
+            const trialExp = parseInt(localStorage.getItem("veda_trial_expiry") || "0");
+            if (trialExp > Date.now()) {
+                const daysLeft = Math.ceil((trialExp - Date.now()) / 86400000);
+                lockOverlay.classList.add("hidden");
+                pillEl.className = "px-2.5 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-300 font-bold flex items-center gap-1 shadow-sm";
+                pillTextEl.textContent = `Trial (${daysLeft}d left)`;
+                return;
+            }
+
+            // Show Lock Overlay
+            document.getElementById("lic-user-name").value = localStorage.getItem("veda_lic_name") || "";
+            document.getElementById("lic-user-email").value = localStorage.getItem("veda_lic_email") || "";
+            lockOverlay.classList.remove("hidden");
+            pillEl.className = "px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-900 border border-rose-300 font-bold flex items-center gap-1 shadow-sm";
+            pillTextEl.textContent = "Activation Required";
+            if (isManualClick) {
+                alert("ಇನ್ನೂ ನಿಮ್ಮ Device ID (" + devId + ") ಆಕ್ಟಿವೇಟ್ ಆಗಿಲ್ಲ. ದಯವಿಟ್ಟು WhatsApp ಮೂಲಕ ಸತ್ಯಬೋಧರಿಗೆ ಕಳುಹಿಸಿ.");
+            }
+        }
+
+        const NAKSHATRAS = [
+            "ಅಶ್ವಿನಿ (Ashwini)", "ಭರಣಿ (Bharani)", "ಕೃತ್ತಿಕಾ (Krittika)", "ರೋಹಿಣಿ (Rohini)", "ಮೃಗಶಿರಾ (Mrigashira)",
+            "ಆರಿದ್ರಾ (Ardra)", "ಪುನರ್ವಸು (Punarvasu)", "ಪುಷ್ಯ (Pushya)", "ಆಶ್ಲೇಷಾ (Ashlesha)", "ಮಖಾ (Magha)",
+            "ಪುಬ್ಬಾ (Purva Phalguni)", "ಉತ್ತರಾ (Uttara Phalguni)", "ಹಸ್ತಾ (Hasta)", "ಚಿತ್ತಾ (Chitra)", "ಸ್ವಾತಿ (Swati)",
+            "ವಿಶಾಖಾ (Vishakha)", "ಅನುರಾಧಾ (Anuradha)", "ಜ್ಯೇಷ್ಠಾ (Jyeshtha)", "ಮೂಲಾ (Moola)", "ಪೂರ್ವಾಷಾಢ (Purva Ashadha)",
+            "ಉತ್ತರಾಷಾಢ (Uttara Ashadha)", "ಶ್ರವಣಾ (Shravana)", "ಧನಿಷ್ಠಾ (Dhanishta)", "ಶತಭಿಷಾ (Shatabhisha)",
+            "ಪೂರ್ವಾಭಾದ್ರಾ (Purva Bhadrapada)", "ಉತ್ತರಾಭಾದ್ರಾ (Uttara Bhadrapada)", "ರೇವತಿ (Revati)"
+        ];
+
+        const RASHIS = [
+            "ಮೇಷ (Aries)", "ವೃಷಭ (Taurus)", "ಮಿಥುನ (Gemini)", "ಕರ್ಕಾಟಕ (Cancer)",
+            "ಸಿಂಹ (Leo)", "ಕನ್ಯಾ (Virgo)", "ತುಲಾ (Libra)", "ವೃಶ್ಚಿಕ (Scorpio)",
+            "ಧನುಸ್ಸು (Sagittarius)", "ಮಕರ (Capricorn)", "ಕುಂಭ (Aquarius)", "ಮೀನ (Pisces)"
+        ];
+
+        const TITHIS = [
+            "ಶುಕ್ಲ ಪಾಡ್ಯ", "ಶುಕ್ಲ ಬಿದಿಗೆ", "ಶುಕ್ಲ ತದಿಗೆ", "ಶುಕ್ಲ ಚೌತಿ", "ಶುಕ್ಲ ಪಂಚಮಿ", "ಶುಕ್ಲ ಷಷ್ಠಿ",
+            "ಶುಕ್ಲ ಸಪ್ತಮಿ", "ಶುಕ್ಲ ಅಷ್ಟಮಿ", "ಶುಕ್ಲ ನವಮಿ", "ಶುಕ್ಲ ದಶಮಿ", "ಶುಕ್ಲ ಏಕಾದಶಿ", "ಶುಕ್ಲ ದ್ವಾದಶಿ",
+            "ಶುಕ್ಲ ತ್ರಯೋದಶಿ", "ಶುಕ್ಲ ಚತುರ್ದಶಿ", "ಹುಣ್ಣಿಮೆ (ಪೌರ್ಣಮಿ)",
+            "ಕೃಷ್ಣ ಪಾಡ್ಯ", "ಕೃಷ್ಣ ಬಿದಿಗೆ", "ಕೃಷ್ಣ ತದಿಗೆ", "ಕೃಷ್ಣ ಚೌತಿ", "ಕೃಷ್ಣ ಪಂಚಮಿ", "ಕೃಷ್ಣ ಷಷ್ಠಿ",
+            "ಕೃಷ್ಣ ಸಪ್ತಮಿ", "ಕೃಷ್ಣ ಅಷ್ಟಮಿ", "ಕೃಷ್ಣ ನವಮಿ", "ಕೃಷ್ಣ ದಶಮಿ", "ಕೃಷ್ಣ ಏಕಾದಶಿ", "ಕೃಷ್ಣ ದ್ವಾದಶಿ",
+            "ಕೃಷ್ಣ ತ್ರಯೋದಶಿ", "ಕೃಷ್ಣ ಚತುರ್ದಶಿ", "ಅಮಾವಾಸ್ಯೆ"
+        ];
+
+        const YOGAS = [
+            "ವಿಷ್ಕಂಭ", "ಪ್ರೀತಿ", "ಆಯುಷ್ಮಾನ್", "ಸೌಭಾಗ್ಯ", "ಶೋಭನ", "ಅತಿಗಂಡ", "ಸುಕರ್ಮ", "ಧೃತಿ",
+            "ಶೂಲ", "ಗಂಡ", "ವೃದ್ಧಿ", "ಧ್ರುವ", "ವ್ಯಾಘಾತ", "ಹರ್ಷಣ", "ವಜ್ರ", "ಸಿದ್ಧಿ",
+            "ವ್ಯತೀಪಾತ", "ವರೀಯಾನ್", "ಪರಿಘ", "ಶಿವ", "ಸಿದ್ಧ", "ಸಾಧ್ಯ", "ಶುಭ", "ಶುಕ್ಲ",
+            "ಬ್ರಹ್ಮ", "ಐಂದ್ರ", "ವೈಧೃತಿ"
+        ];
+
+        const KARANAS = [
+            "ಬವ", "ಬಾಲವ", "ಕೌಲವ", "ತೈತಿಲ", "ಗರಜ", "ವಣಿಜ", "ಭದ್ರಾ (ವಿಷ್ಟಿ)",
+            "ಶಕುನಿ", "ಚತುಷ್ಪಾದ", "ನಾಗವ", "ಕಿಂಸ್ತುಘ್ನ"
+        ];
+
+        const VARAS = ["ಭಾನುವಾರ", "ಸೋಮವಾರ", "ಮಂಗಳವಾರ", "ಬುಧವಾರ", "ಗುರುವಾರ", "ಶುಕ್ರವಾರ", "ಶನಿವಾರ"];
+
+        const TARA_NAMES = [
+            { name: "ಜನ್ಮ (Janma)", nature: "ವರ್ಜ್ಯ / ಎಚ್ಚರಿಕೆ", cls: "text-amber-800" },
+            { name: "ಸಂಪತ್ (Sampat)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" },
+            { name: "ವಿಪತ್ (Vipat)", nature: "ಅಶುಭ / ವಿಘ್ನ", cls: "text-rose-700" },
+            { name: "ಕ್ಷೇಮ (Kshema)", nature: "ಶುಭ / ರಕ್ಷಣೆ", cls: "text-emerald-700" },
+            { name: "ಪ್ರತ್ಯಕ್ (Pratyak)", nature: "ಅಶುಭ / ವಿರೋಧ", cls: "text-rose-700" },
+            { name: "ಸಾಧಕ (Sadhaka)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" },
+            { name: "ನೈಧನ (Naidhana)", nature: "ಮಹಾ ವರ್ಜ್ಯ", cls: "text-rose-800 font-extrabold" },
+            { name: "ಮಿತ್ರ (Mitra)", nature: "ಶುಭ / ಅನುಕೂಲ", cls: "text-emerald-700" },
+            { name: "ಪರಮ ಮಿತ್ರ (Parama Mitra)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" }
+        ];
+
+        const GHATA_CHAKRA = {
+            0:  { vara: 0, tithi: [1, 6, 11], nak: 8 },
+            1:  { vara: 6, tithi: [5, 10, 15], nak: 12 },
+            2:  { vara: 1, tithi: [2, 7, 12], nak: 14 },
+            3:  { vara: 3, tithi: [2, 7, 12], nak: 16 },
+            4:  { vara: 6, tithi: [3, 8, 13], nak: 18 },
+            5:  { vara: 6, tithi: [5, 10, 15], nak: 21 },
+            6:  { vara: 4, tithi: [4, 9, 14], nak: 23 },
+            7:  { vara: 5, tithi: [1, 6, 11], nak: 26 },
+            8:  { vara: 5, tithi: [3, 8, 13], nak: 2 },
+            9:  { vara: 2, tithi: [4, 9, 14], nak: 3 },
+            10: { vara: 4, tithi: [3, 8, 13], nak: 5 },
+            11: { vara: 5, tithi: [5, 10, 15], nak: 8 }
+        };
+
+        const REGIONAL_LOCATIONS_DB = [
+            { name: "Kundapura, Udupi, Karnataka", lat: 13.6268, lng: 74.6917 },
+            { name: "Thekkatte, Kundapura, Karnataka", lat: 13.5620, lng: 74.7210 },
+            { name: "Puttur, Dakshina Kannada, Karnataka", lat: 12.7665, lng: 75.2030 },
+            { name: "Puttur, Andhra Pradesh (Chittoor / Tirupati)", lat: 13.4398, lng: 79.5539 },
+            { name: "Udupi, Karnataka", lat: 13.3409, lng: 74.7421 },
+            { name: "Mangaluru, Karnataka", lat: 12.9141, lng: 74.8560 },
+            { name: "Bantwal, Dakshina Kannada, Karnataka", lat: 12.8944, lng: 75.0345 },
+            { name: "Sullia, Dakshina Kannada, Karnataka", lat: 12.5630, lng: 75.3910 },
+            { name: "Belthangady, Dakshina Kannada, Karnataka", lat: 13.0031, lng: 75.2608 },
+            { name: "Dharmasthala, Karnataka", lat: 12.9467, lng: 75.3789 },
+            { name: "Subrahmanya (Kukke), Karnataka", lat: 12.6631, lng: 75.6144 },
+            { name: "Karkala, Udupi, Karnataka", lat: 13.2140, lng: 74.9970 },
+            { name: "Moodbidri, Karnataka", lat: 13.0694, lng: 74.9961 },
+            { name: "Kolluru, Karnataka", lat: 13.8667, lng: 74.8142 },
+            { name: "Bhatkal, Uttara Kannada, Karnataka", lat: 13.9770, lng: 74.5580 },
+            { name: "Sirsi, Uttara Kannada, Karnataka", lat: 14.6190, lng: 74.8430 },
+            { name: "Shivamogga, Karnataka", lat: 13.9299, lng: 75.5681 },
+            { name: "Bengaluru, Karnataka", lat: 12.9716, lng: 77.5946 },
+            { name: "Mysuru, Karnataka", lat: 12.2958, lng: 76.6394 },
+            { name: "Andhra Pradesh (General State Center)", lat: 15.9129, lng: 79.7400 },
+            { name: "Tirupati, Andhra Pradesh", lat: 13.6288, lng: 79.4192 },
+            { name: "Vijayawada, Andhra Pradesh", lat: 16.5062, lng: 80.6480 },
+            { name: "Visakhapatnam, Andhra Pradesh", lat: 17.6868, lng: 83.2185 },
+            { name: "Hyderabad, Telangana", lat: 17.3850, lng: 78.4867 },
+            { name: "Chennai, Tamil Nadu", lat: 13.0827, lng: 80.2707 },
+            { name: "Kasaragod, Kerala", lat: 12.4996, lng: 74.9869 },
+            { name: "Mumbai, Maharashtra", lat: 19.0760, lng: 72.8777 },
+            { name: "Delhi / New Delhi", lat: 28.6139, lng: 77.2090 }
+        ];
+
+        let selectedLocation = REGIONAL_LOCATIONS_DB[0];
+        let modalSelectedLocation = REGIONAL_LOCATIONS_DB[0];
+        let lastAnalysisResult = {};
+        let computedJanmaData = null;
+        let computedTransitData = null;
+        let activePlanetKey = "sun";
+        let searchDebounceTimer = null;
+
+        function formatDegMin(degFloat) {
+            let norm = ((degFloat % 30) + 30) % 30;
+            let d = Math.floor(norm);
+            let m = Math.floor((norm - d) * 60);
+            return `${String(d).padStart(2, '0')}°${String(m).padStart(2, '0')}'`;
+        }
+
+        function calculatePanchanga(dt, lat, lng) {
+            const eph = computeRigorousEphemeris(dt);
+            const sunLong = eph.sun.long;
+            const moonLong = eph.moon.long;
+
+            let diff = normalize360(moonLong - sunLong);
+            let tithiIndex = Math.floor(diff / 12);
+            let tithiRemainderDeg = 12 - (diff % 12);
+            let tithiHoursLeft = tithiRemainderDeg / 0.508;
+            let tithiEndTime = new Date(dt.getTime() + tithiHoursLeft * 3600000);
+
+            let nakIndex = eph.moon.nak;
+            let nakRemainderDeg = (360 / 27) - (moonLong % (360 / 27));
+            let nakHoursLeft = nakRemainderDeg / 0.549;
+            let nakEndTime = new Date(dt.getTime() + nakHoursLeft * 3600000);
+            let nextNakName = NAKSHATRAS[(nakIndex + 1) % 27].split(" ")[0];
+
+            let sumYoga = normalize360(sunLong + moonLong);
+            let yogaIndex = Math.floor(sumYoga / (360 / 27));
+
+            let halfTithi = Math.floor(diff / 6);
+            let karanaIndex;
+            if (halfTithi === 0) karanaIndex = 10;
+            else if (halfTithi >= 57) karanaIndex = halfTithi - 50;
+            else karanaIndex = ((halfTithi - 1) % 7);
+
+            const d = eph.JD - 2451545.0;
+            const g = normalize360(357.529 + 0.98560028 * d);
+            const q = normalize360(280.459 + 0.98564736 * d);
+            const L = normalize360(q + 1.915 * Math.sin(g * D2R) + 0.020 * Math.sin(2 * g * D2R));
+            const e = 23.439 - 0.00000036 * d;
+
+            const sunRA = normalize360(Math.atan2(Math.cos(e * D2R) * Math.sin(L * D2R), Math.cos(L * D2R)) * R2D);
+            let RA_diff = (q - sunRA);
+            if (RA_diff > 180) RA_diff -= 360;
+            if (RA_diff < -180) RA_diff += 360;
+            const EoT_min = RA_diff * 4.0;
+
+            const declination = Math.asin(Math.sin(e * D2R) * Math.sin(L * D2R));
+            const latRad = lat * D2R;
+
+            const cosH0 = (Math.cos(90.8333 * D2R) - Math.sin(latRad) * Math.sin(declination)) / (Math.cos(latRad) * Math.cos(declination));
+            let H0 = 6.0;
+            if (cosH0 >= -1 && cosH0 <= 1) {
+                H0 = Math.acos(cosH0) * R2D / 15.0;
+            }
+
+            const solarNoonIST = 12.0 + (82.5 - lng) / 15.0 - (EoT_min / 60.0);
+            const sunriseHour = solarNoonIST - H0;
+            const sunsetHour = solarNoonIST + H0;
+            const dayLengthHrs = sunsetHour - sunriseHour;
+
+            const dinamanaH = Math.floor(dayLengthHrs);
+            const dinamanaM = Math.floor((dayLengthHrs - dinamanaH) * 60);
+            const rathrimanaHrs = 24.0 - dayLengthHrs;
+            const rathriH = Math.floor(rathrimanaHrs);
+            const rathriM = Math.floor((rathrimanaHrs - rathriH) * 60);
+
+            const varaIdx = dt.getDay();
+            const rahuParts = [7, 1, 6, 4, 5, 3, 1];
+            const yamaParts = [4, 3, 2, 1, 0, 6, 5];
+            const gulikaParts = [6, 5, 4, 3, 2, 1, 0];
+            const partDuration = dayLengthHrs / 8.0;
+
+            function formatTimeDecimal(hDec) {
+                let norm = (hDec + 24) % 24;
+                let hrs = Math.floor(norm);
+                let mins = Math.floor((norm - hrs) * 60);
+                let ampm = hrs >= 12 ? "PM" : "AM";
+                let displayHrs = hrs % 12 || 12;
+                return `${String(displayHrs).padStart(2, '0')}:${String(mins).padStart(2, '0')} ${ampm}`;
+            }
+
+            const rahuStart = sunriseHour + rahuParts[varaIdx] * partDuration;
+            const yamaStart = sunriseHour + yamaParts[varaIdx] * partDuration;
+            const gulikaStart = sunriseHour + gulikaParts[varaIdx] * partDuration;
+
+            const abhijitLen = dayLengthHrs / 15.0;
+            const abhijitStart = solarNoonIST - (abhijitLen / 2.0);
+            const abhijitEnd = solarNoonIST + (abhijitLen / 2.0);
+
+            return {
+                dateFormatted: dt.toLocaleDateString("en-GB"),
+                vara: VARAS[varaIdx],
+                varaIdx: varaIdx,
+                tithiIndex: tithiIndex,
+                tithi: TITHIS[tithiIndex],
+                tithiEndStr: formatTimeDecimal(tithiEndTime.getHours() + tithiEndTime.getMinutes() / 60.0),
+                nakIndex: nakIndex,
+                nakshatra: NAKSHATRAS[nakIndex].split(" ")[0],
+                nakEndStr: formatTimeDecimal(nakEndTime.getHours() + nakEndTime.getMinutes() / 60.0),
+                nextNak: nextNakName,
+                yoga: YOGAS[yogaIndex],
+                karana: KARANAS[karanaIndex],
+                sunrise: formatTimeDecimal(sunriseHour),
+                sunset: formatTimeDecimal(sunsetHour),
+                dinamana: `${dinamanaH} ಗಂ ${dinamanaM} ನಿ`,
+                rathrimana: `${rathriH} ಗಂ ${rathriM} ನಿ`,
+                rahu: `${formatTimeDecimal(rahuStart)} - ${formatTimeDecimal(rahuStart + partDuration)}`,
+                yamaganda: `${formatTimeDecimal(yamaStart)} - ${formatTimeDecimal(yamaStart + partDuration)}`,
+                gulika: `${formatTimeDecimal(gulikaStart)} - ${formatTimeDecimal(gulikaStart + partDuration)}`,
+                abhijit: `${formatTimeDecimal(abhijitStart)} - ${formatTimeDecimal(abhijitEnd)}`,
+                godhuli: `${formatTimeDecimal(sunsetHour - 0.2)} - ${formatTimeDecimal(sunsetHour + 0.2)}`
+            };
+        }
+
+        function updatePanchangaDisplay(targetDt = null) {
+            if (!targetDt) {
+                const overrideVal = document.getElementById("live-dt-override").value;
+                targetDt = overrideVal ? new Date(overrideVal) : new Date();
+            }
+            const p = calculatePanchanga(targetDt, selectedLocation.lat, selectedLocation.lng);
+
+            document.getElementById("p-cur-date-disp").textContent = p.dateFormatted;
+            document.getElementById("p-cur-vara-disp").textContent = p.vara;
+            document.getElementById("p-sunrise-disp").textContent = p.sunrise;
+            document.getElementById("p-sunset-disp").textContent = p.sunset;
+            document.getElementById("p-dinamana-disp").textContent = p.dinamana;
+            document.getElementById("p-rathrimana-disp").textContent = p.rathrimana;
+
+            document.getElementById("p-tithi-disp").textContent = `${p.tithi} (ಅಂತ್ಯ: ${p.tithiEndStr})`;
+            document.getElementById("p-nak-disp").textContent = `${p.nakshatra} (ಮುಕ್ತಾಯ: ${p.nakEndStr}) • ನಂತರ ${p.nextNak}`;
+            document.getElementById("p-yoga-disp").textContent = p.yoga;
+            document.getElementById("p-karana-disp").textContent = p.karana;
+
+            document.getElementById("p-rahu-disp").textContent = p.rahu;
+            document.getElementById("p-yamaganda-disp").textContent = p.yamaganda;
+            document.getElementById("p-gulika-disp").textContent = p.gulika;
+            document.getElementById("p-abhijit-disp").textContent = p.abhijit;
+            document.getElementById("p-godhuli-disp").textContent = p.godhuli;
+        }
+
+        function handleLocationInput(val) {
+            clearTimeout(searchDebounceTimer);
+            const dropdown = document.getElementById("loc-dropdown");
+            if (!val || val.trim().length < 2) {
+                dropdown.classList.add("hidden");
+                return;
+            }
+
+            const q = val.toLowerCase().trim();
+            const localMatches = REGIONAL_LOCATIONS_DB.filter(l => l.name.toLowerCase().includes(q));
+            renderLocationDropdown(localMatches, dropdown, (loc) => {
+                selectedLocation = loc;
+                document.getElementById("k-loc-search").value = loc.name.split(",")[0];
+                document.getElementById("k-loc-disp").textContent = loc.name.split(",").slice(0, 2).join(", ");
+                document.getElementById("k-lat-disp").textContent = loc.lat.toFixed(4);
+                document.getElementById("k-lng-disp").textContent = loc.lng.toFixed(4);
+                dropdown.classList.add("hidden");
+                calculateKundaliTab();
+                updatePanchangaDisplay();
+            });
+
+            searchDebounceTimer = setTimeout(() => {
+                const apiUrl = `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(val + ', India')}&countrycodes=in&limit=8&addressdetails=1`;
+                fetch(apiUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            const apiMatches = data.map(item => ({
+                                name: item.display_name,
+                                lat: parseFloat(item.lat),
+                                lng: parseFloat(item.lon)
+                            }));
+                            const combined = [...localMatches];
+                            apiMatches.forEach(am => {
+                                if (!combined.some(c => Math.abs(c.lat - am.lat) < 0.05 && Math.abs(c.lng - am.lng) < 0.05)) {
+                                    combined.push(am);
+                                }
+                            });
+                            renderLocationDropdown(combined.slice(0, 12), dropdown, (loc) => {
+                                selectedLocation = loc;
+                                document.getElementById("k-loc-search").value = loc.name.split(",")[0];
+                                document.getElementById("k-loc-disp").textContent = loc.name.split(",").slice(0, 2).join(", ");
+                                document.getElementById("k-lat-disp").textContent = loc.lat.toFixed(4);
+                                document.getElementById("k-lng-disp").textContent = loc.lng.toFixed(4);
+                                dropdown.classList.add("hidden");
+                                calculateKundaliTab();
+                                updatePanchangaDisplay();
+                            });
+                        }
+                    })
+                    .catch(() => {});
+            }, 300);
+        }
+
+        function handleModalLocationInput(val) {
+            clearTimeout(searchDebounceTimer);
+            const dropdown = document.getElementById("modal-loc-dropdown");
+            if (!val || val.trim().length < 2) {
+                dropdown.classList.add("hidden");
+                return;
+            }
+
+            const q = val.toLowerCase().trim();
+            const localMatches = REGIONAL_LOCATIONS_DB.filter(l => l.name.toLowerCase().includes(q));
+            renderLocationDropdown(localMatches, dropdown, (loc) => {
+                modalSelectedLocation = loc;
+                document.getElementById("pm-place").value = loc.name.split(",")[0];
+                document.getElementById("pm-lat-disp").textContent = loc.lat.toFixed(4);
+                document.getElementById("pm-lng-disp").textContent = loc.lng.toFixed(4);
+                dropdown.classList.add("hidden");
+            });
+
+            searchDebounceTimer = setTimeout(() => {
+                const apiUrl = `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(val + ', India')}&countrycodes=in&limit=8&addressdetails=1`;
+                fetch(apiUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            const apiMatches = data.map(item => ({
+                                name: item.display_name,
+                                lat: parseFloat(item.lat),
+                                lng: parseFloat(item.lon)
+                            }));
+                            const combined = [...localMatches];
+                            apiMatches.forEach(am => {
+                                if (!combined.some(c => Math.abs(c.lat - am.lat) < 0.05 && Math.abs(c.lng - am.lng) < 0.05)) {
+                                    combined.push(am);
+                                }
+                            });
+                            renderLocationDropdown(combined.slice(0, 12), dropdown, (loc) => {
+                                modalSelectedLocation = loc;
+                                document.getElementById("pm-place").value = loc.name.split(",")[0];
+                                document.getElementById("pm-lat-disp").textContent = loc.lat.toFixed(4);
+                                document.getElementById("pm-lng-disp").textContent = loc.lng.toFixed(4);
+                                dropdown.classList.add("hidden");
+                            });
+                        }
+                    })
+                    .catch(() => {});
+            }, 300);
+        }
+
+        function renderLocationDropdown(items, dropdownElem, onSelect) {
+            if (!items || items.length === 0) {
+                dropdownElem.innerHTML = `<div class="p-2 text-slate-500 text-center">ಸ್ಥಳ ಕಂಡುಬಂದಿಲ್ಲ... ನೇರವಾಗಿ ಟೈಪ್ ಮಾಡಿ</div>`;
+                dropdownElem.classList.remove("hidden");
+                return;
+            }
+
+            dropdownElem.innerHTML = "";
+            items.forEach(loc => {
+                const item = document.createElement("div");
+                item.className = "px-3 py-2 hover:bg-emerald-50 cursor-pointer border-b border-slate-100 text-slate-800 transition text-[11px] flex justify-between items-center";
+                item.innerHTML = `
+                    <span class="truncate pr-2 font-medium">${loc.name}</span>
+                    <span class="text-[9px] mono text-blue-700 whitespace-nowrap">${loc.lat.toFixed(2)}°, ${loc.lng.toFixed(2)}°</span>
+                `;
+                item.onclick = function() {
+                    onSelect(loc);
+                };
+                dropdownElem.appendChild(item);
+            });
+            dropdownElem.classList.remove("hidden");
+        }
+
+        function getSavedProfiles() {
+            try {
+                const stored = localStorage.getItem("veda_tarabala_profiles");
+                if (stored) return JSON.parse(stored);
+            } catch (e) {}
+            return [];
+        }
+
+        function saveProfilesToStorage(profiles) {
+            localStorage.setItem("veda_tarabala_profiles", JSON.stringify(profiles));
+        }
+
+        function openProfileModal(preferredTab = 'manual') {
+            const modal = document.getElementById("profile-modal");
+            modal.classList.remove("hidden");
+            const storedEmail = localStorage.getItem("veda_sync_email") || "";
+            const emailInput = document.getElementById("sync-email-input");
+            if (emailInput) emailInput.value = storedEmail;
+            switchProfileTab(preferredTab);
+        }
+
+        function closeProfileModal() {
+            document.getElementById("profile-modal").classList.add("hidden");
+        }
+
+        function switchProfileTab(tab) {
+            const btnManual = document.getElementById("ptab-btn-manual");
+            const btnSaved = document.getElementById("ptab-btn-saved");
+            const btnSync = document.getElementById("ptab-btn-sync");
+            const secManual = document.getElementById("psec-manual");
+            const secSaved = document.getElementById("psec-saved");
+            const secSync = document.getElementById("psec-sync");
+
+            [btnManual, btnSaved, btnSync].forEach(b => {
+                if (b) b.className = "flex-1 py-3 text-center text-slate-400 hover:text-purple-800 transition font-semibold";
+            });
+            [secManual, secSaved, secSync].forEach(s => {
+                if (s) s.classList.add("hidden");
+            });
+
+            if (tab === "manual") {
+                if (btnManual) btnManual.className = "flex-1 py-3 text-center border-b-2 border-purple-800 text-purple-900 font-bold";
+                if (secManual) secManual.classList.remove("hidden");
+            } else if (tab === "saved") {
+                if (btnSaved) btnSaved.className = "flex-1 py-3 text-center border-b-2 border-purple-800 text-purple-900 font-bold";
+                if (secSaved) secSaved.classList.remove("hidden");
+                renderSavedProfilesList();
+            } else if (tab === "sync") {
+                if (btnSync) btnSync.className = "flex-1 py-3 text-center border-b-2 border-purple-800 text-purple-900 font-bold";
+                if (secSync) secSync.classList.remove("hidden");
+            }
+        }
+
+        function renderSavedProfilesList(filterText = "") {
+            const container = document.getElementById("saved-profiles-list");
+            container.innerHTML = "";
+            let profiles = getSavedProfiles();
+
+            if (filterText) {
+                profiles = profiles.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()) || p.place.toLowerCase().includes(filterText.toLowerCase()));
+            }
+
+            if (!profiles.length) {
+                container.innerHTML = `
+                    <div class="p-6 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-2">
+                        <div class="text-2xl">📋</div>
+                        <div class="text-xs text-slate-600 font-semibold">ಇನ್ನೂ ಯಾವುದೇ ಪ್ರೊಫೈಲ್ ಉಳಿಸಿಲ್ಲ</div>
+                        <p class="text-[11px] text-slate-400">Manual Entry ಮೂಲಕ ಅಥವಾ ಜಾತಕ ಲೆಕ್ಕಾಚಾರದ ನಂತರ 'ಪ್ರೊಫೈಲ್ ಆಗಿ ಉಳಿಸಿ' ಕ್ಲಿಕ್ ಮಾಡಿ ಸೇವ್ ಮಾಡಬಹುದು.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            profiles.forEach(p => {
+                const card = document.createElement("div");
+                card.className = "p-3 rounded-2xl border border-slate-200 bg-white hover:border-purple-300 transition shadow-sm flex items-center justify-between";
+                card.innerHTML = `
+                    <div class="cursor-pointer flex-1" onclick="loadProfileToApp('${p.id}')">
+                        <div class="font-bold text-sm text-slate-800 flex items-center gap-1.5">
+                            <span>${p.name}</span>
+                            <span class="text-[10px] px-1.5 py-0.2 rounded bg-purple-50 text-purple-700 border border-purple-200 font-normal">${p.gender || 'ಪುರುಷ'}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 flex flex-wrap gap-x-3 gap-y-0.5 mt-1">
+                            <span>📅 ${p.date}</span>
+                            <span>⏰ ${p.time}</span>
+                            <span>📍 ${p.place}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 pl-2 border-l border-slate-100">
+                        <button onclick="editProfileInModal('${p.id}')" title="ಎಡಿಟ್ ಮಾಡಿ" class="w-7 h-7 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 flex items-center justify-center text-xs border border-sky-200">
+                            ✏️
+                        </button>
+                        <button onclick="deleteProfile('${p.id}')" title="ಡಿಲೀಟ್ ಮಾಡಿ" class="w-7 h-7 rounded-full bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center justify-center text-xs border border-rose-200">
+                            🗑️
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterSavedProfiles(val) {
+            renderSavedProfilesList(val);
+        }
+
+        function loadProfileToApp(id) {
+            const profiles = getSavedProfiles();
+            const p = profiles.find(item => item.id === id);
+            if (!p) return;
+            applyProfileObject(p, true);
+            closeProfileModal();
+        }
+
+        function applyProfileObject(p, notify = false) {
+            document.getElementById("k-name").value = p.name || "";
+            document.getElementById("k-date").value = p.date || "";
+            document.getElementById("k-time").value = p.time || "";
+            document.getElementById("k-loc-search").value = p.place || "";
+            document.getElementById("k-loc-disp").textContent = p.place || "Kundapura, Udupi";
+            if (p.lat && p.lng) {
+                document.getElementById("k-lat-disp").textContent = parseFloat(p.lat).toFixed(4);
+                document.getElementById("k-lng-disp").textContent = parseFloat(p.lng).toFixed(4);
+                selectedLocation = { name: p.place, lat: parseFloat(p.lat), lng: parseFloat(p.lng) };
+            }
+
+            document.getElementById("active-profile-nav-label").textContent = p.name ? `👤 ${p.name}` : "👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ";
+            setActiveProfile(p);
+
+            if (p.date && p.time) {
+                calculateKundaliTab();
+                syncToTarabalaFromKundali();
+                updatePanchangaDisplay();
+            }
+        }
+
+        function editProfileInModal(id) {
+            const profiles = getSavedProfiles();
+            const p = profiles.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById("pm-name").value = p.name;
+            document.getElementById("pm-gender").value = p.gender || "ಪುರುಷ";
+            document.getElementById("pm-date").value = p.date;
+            document.getElementById("pm-time").value = p.time;
+            document.getElementById("pm-place").value = p.place;
+            document.getElementById("pm-lat-disp").textContent = p.lat.toFixed(4);
+            document.getElementById("pm-lng-disp").textContent = p.lng.toFixed(4);
+
+            modalSelectedLocation = { name: p.place, lat: p.lat, lng: p.lng };
+            switchProfileTab("manual");
+        }
+
+        function deleteProfile(id) {
+            if (!confirm("ಈ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಡಿಲೀಟ್ ಮಾಡಲು ಖಚಿತವೇ?")) return;
+            let profiles = getSavedProfiles();
+            profiles = profiles.filter(p => p.id !== id);
+            saveProfilesToStorage(profiles);
+            renderSavedProfilesList();
+        }
+
+        function saveProfileFromModal() {
+            const name = document.getElementById("pm-name").value.trim() || "ಕ್ಲೈಂಟ್";
+            const gender = document.getElementById("pm-gender").value;
+            const date = document.getElementById("pm-date").value;
+            const time = document.getElementById("pm-time").value;
+            const place = document.getElementById("pm-place").value.trim() || modalSelectedLocation.name;
+
+            if (!date || !time) {
+                alert("ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯವನ್ನು ನಮೂದಿಸಿ!");
+                return;
+            }
+
+            const newProf = {
+                id: "p_" + Date.now(),
+                name: name,
+                gender: gender,
+                date: date,
+                time: time,
+                place: place,
+                lat: modalSelectedLocation.lat,
+                lng: modalSelectedLocation.lng
+            };
+
+            const profiles = getSavedProfiles();
+            profiles.unshift(newProf);
+            saveProfilesToStorage(profiles);
+
+            alert(`'${name}' ಅವರ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಉಳಿಸಲಾಗಿದೆ!`);
+            applyProfileObject(newProf, true);
+            closeProfileModal();
+        }
+
+        function applyProfileFromModal() {
+            const name = document.getElementById("pm-name").value.trim() || "ಕ್ಲೈಂಟ್";
+            const gender = document.getElementById("pm-gender").value || "ಪುರುಷ";
+            const date = document.getElementById("pm-date").value;
+            const time = document.getElementById("pm-time").value;
+            const place = document.getElementById("pm-place").value.trim() || modalSelectedLocation.name;
+
+            if (!date || !time) {
+                alert("ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯವನ್ನು ನಮೂದಿಸಿ!");
+                return;
+            }
+
+            const prof = {
+                id: "p_" + Date.now(),
+                name: name,
+                gender: gender,
+                date: date,
+                time: time,
+                place: place,
+                lat: modalSelectedLocation.lat,
+                lng: modalSelectedLocation.lng
+            };
+
+            applyProfileObject(prof, true);
+            closeProfileModal();
+        }
+
+        function saveCurrentInputToProfile() {
+            const name = document.getElementById("k-name").value.trim() || "ಕ್ಲೈಂಟ್";
+            const date = document.getElementById("k-date").value;
+            const time = document.getElementById("k-time").value;
+            const place = document.getElementById("k-loc-search").value.trim() || selectedLocation.name;
+
+            if (!date || !time) {
+                alert("ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ನಮೂದಿಸಿ ನಂತರ ಉಳಿಸಿ!");
+                return;
+            }
+
+            const newProf = {
+                id: "p_" + Date.now(),
+                name: name,
+                gender: "ಪುರುಷ",
+                date: date,
+                time: time,
+                place: place,
+                lat: selectedLocation.lat,
+                lng: selectedLocation.lng
+            };
+
+            const profiles = getSavedProfiles();
+            profiles.unshift(newProf);
+            saveProfilesToStorage(profiles);
+            setActiveProfile(newProf);
+            document.getElementById("active-profile-nav-label").textContent = `👤 ${name}`;
+            alert(`'${name}' ಅವರ ಪ್ರೊಫೈಲ್ ಅನ್ನು 'ಉಳಿಸಿದ ಪ್ರೊಫೈಲ್‌ಗಳು' ಪಟ್ಟಿಗೆ ಸೇರಿಸಲಾಗಿದೆ!`);
+        }
+
+        function exportProfilesToEmail() {
+            const email = document.getElementById("sync-email-input").value.trim();
+            if (!email) {
+                alert("ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ!");
+                return;
+            }
+            localStorage.setItem("veda_sync_email", email);
+
+            const profiles = getSavedProfiles();
+            if (!profiles.length) {
+                alert("ಉಳಿಸಲು ಪ್ರೊಫೈಲ್‌ಗಳು ಖಾಲಿಯಾಗಿವೆ. ಮೊದಲು ಪ್ರೊಫೈಲ್ ಸೇವ್ ಮಾಡಿ!");
+                return;
+            }
+
+            const subject = encodeURIComponent("Veda Astrolight - Client Profiles Backup");
+            const body = encodeURIComponent(`ನಮಸ್ಕಾರ Satyabodha Nagendra (Veda Astrolight),\n\nಇಲ್ಲಿ ನಿಮ್ಮ ತಾರಾಬಲ & ಚಂದ್ರಬಲ ಆ್ಯಪ್‌ನ ಕ್ಲೈಂಟ್ ಪ್ರೊಫೈಲ್‌ಗಳ ಬ್ಯಾಕಪ್ ಕಡತವಿದೆ:\n\n` + JSON.stringify(profiles, null, 2) + `\n\n- Veda Astrolight Kundapura`);
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        }
+
+        function exportProfilesToFile() {
+            const profiles = getSavedProfiles();
+            if (!profiles.length) {
+                alert("ಉಳಿಸಲು ಪ್ರೊಫೈಲ್‌ಗಳು ಖಾಲಿಯಾಗಿವೆ!");
+                return;
+            }
+            const blob = new Blob([JSON.stringify(profiles, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `veda-astrolight-profiles-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importProfilesFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        saveProfilesToStorage(imported);
+                        alert(`${imported.length} ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ!`);
+                        renderSavedProfilesList();
+                        switchProfileTab("saved");
+                    } else {
+                        alert("ಅಮಾನ್ಯ ಬ್ಯಾಕಪ್ ಫೈಲ್!");
+                    }
+                } catch (err) {
+                    alert("ಫೈಲ್ ಓದಲು ವಿಫಲವಾಗಿದೆ: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ==================== RIGOROUS KEPLERIAN EPHEMERIS ====================
+        const D2R = Math.PI / 180.0;
+        const R2D = 180.0 / Math.PI;
+
+        function normalize360(d) {
+            d = d % 360;
+            return d < 0 ? d + 360 : d;
+        }
+
+        function solveKepler(M, e) {
+            let E = M;
+            for (let i = 0; i < 15; i++) {
+                let dE = (M - E + e * Math.sin(E)) / (1 - e * Math.cos(E));
+                E += dE;
+                if (Math.abs(dE) < 1e-7) break;
+            }
+            return E;
+        }
+
+        const PLANET_PARAMS = {
+            earth: { a: 1.00000011, e: 0.01671022, I: 0.0, L: 100.46435, w: 102.94719, n: 0.9856091 },
+            mercury: { a: 0.38709893, e: 0.20563069, I: 7.00487, L: 252.25084, w: 77.45645, n: 4.0923344 },
+            venus: { a: 0.72333199, e: 0.00677323, I: 3.39471, L: 181.97973, w: 131.57294, n: 1.6021302 },
+            mars: { a: 1.52366231, e: 0.09341233, I: 1.85061, L: 355.45332, w: 336.04084, n: 0.5240330 },
+            jupiter: { a: 5.20336301, e: 0.04839266, I: 1.30530, L: 34.40438, w: 14.75385, n: 0.0830853 },
+            saturn: { a: 9.53707032, e: 0.05415060, I: 2.48446, L: 49.94424, w: 92.43194, n: 0.0334442 }
+        };
+
+        function getHeliocentricPos(pKey, d) {
+            const p = PLANET_PARAMS[pKey];
+            const M = normalize360(p.L + p.n * d - p.w) * D2R;
+            const E = solveKepler(M, p.e);
+            const x = p.a * (Math.cos(E) - p.e);
+            const y = p.a * Math.sqrt(1 - p.e * p.e) * Math.sin(E);
+            const r = Math.sqrt(x * x + y * y);
+            const v = Math.atan2(y, x);
+            const l = normalize360((v + p.w * D2R) * R2D);
+            return { x: r * Math.cos(l * D2R), y: r * Math.sin(l * D2R), z: 0, l: l, r: r };
+        }
+
+        function computeRigorousEphemeris(targetDate) {
+            const year = targetDate.getUTCFullYear();
+            const month = targetDate.getUTCMonth() + 1;
+            const day = targetDate.getUTCDate();
+            const hours = targetDate.getUTCHours() + targetDate.getUTCMinutes() / 60.0 + targetDate.getUTCSeconds() / 3600.0;
+
+            let Y = year;
+            let M = month;
+            if (M <= 2) { Y -= 1; M += 12; }
+            const A = Math.floor(Y / 100);
+            const B = 2 - A + Math.floor(A / 4);
+            const JD = Math.floor(365.25 * (Y + 4716)) + Math.floor(30.6001 * (M + 1)) + day + (hours / 24.0) + B - 1524.5;
+            const T = (JD - 2451545.0) / 36525.0;
+            const d = JD - 2451545.0;
+
+            const ayanamsha = 23.858072 + 1.396042 * T + 0.000308 * T * T;
+            const earthPos = getHeliocentricPos('earth', d);
+
+            function getGeocentricLong(pKey) {
+                const hPos = getHeliocentricPos(pKey, d);
+                const xGeo = hPos.x - earthPos.x;
+                const yGeo = hPos.y - earthPos.y;
+                let lam = Math.atan2(yGeo, xGeo) * R2D;
+                return normalize360(lam);
+            }
+
+            let sunSayana = normalize360(earthPos.l + 180.0);
+            let sunNirayana = normalize360(sunSayana - ayanamsha);
+
+            let mercSayana = getGeocentricLong('mercury');
+            let venSayana = getGeocentricLong('venus');
+            let marsSayana = getGeocentricLong('mars');
+            let jupSayana = getGeocentricLong('jupiter');
+            let satSayana = getGeocentricLong('saturn');
+
+            let mercNirayana = normalize360(mercSayana - ayanamsha);
+            let venNirayana = normalize360(venSayana - ayanamsha);
+            let marsNirayana = normalize360(marsSayana - ayanamsha);
+            let jupNirayana = normalize360(jupSayana - ayanamsha);
+            let satNirayana = normalize360(satSayana - ayanamsha);
+
+            let rahuSayana = normalize360(125.04452 - 1934.136261 * T);
+            let rahuNirayana = normalize360(rahuSayana - ayanamsha);
+            let ketuNirayana = normalize360(rahuNirayana + 180.0);
+
+            const L0 = normalize360(218.3164477 + 481267.88123421 * T);
+            const D = normalize360(297.8501921 + 445267.1114034 * T);
+            const M_sun = normalize360(357.5291092 + 35999.0502909 * T);
+            const M_moon = normalize360(134.9633964 + 477198.8675055 * T);
+            const F = normalize360(93.2720950 + 483202.0175233 * T);
+
+            let dLambda = 6.288774 * Math.sin(M_moon * D2R)
+                        + 1.274027 * Math.sin((2 * D - M_moon) * D2R)
+                        + 0.658314 * Math.sin(2 * D * D2R)
+                        - 0.185116 * Math.sin(M_sun * D2R)
+                        - 0.114332 * Math.sin(2 * F * D2R);
+
+            let moonSayana = normalize360(L0 + dLambda);
+            let moonNirayana = normalize360(moonSayana - ayanamsha);
+
+            const nakshatraIndex = Math.floor(moonNirayana / (360 / 27));
+            const pada = Math.floor((moonNirayana % (360 / 27)) / (360 / 108)) + 1;
+            const rashiIndex = Math.floor(moonNirayana / 30);
+            const degInRashi = moonNirayana % 30;
+
+            const dNext = d + 0.5;
+            const earthPosNext = getHeliocentricPos('earth', dNext);
+            function isRetrograde(pKey, currSayana) {
+                const hNext = getHeliocentricPos(pKey, dNext);
+                const xG = hNext.x - earthPosNext.x;
+                const yG = hNext.y - earthPosNext.y;
+                let nextSayana = normalize360(Math.atan2(yG, xG) * R2D);
+                let diff = nextSayana - currSayana;
+                if (diff > 180) diff -= 360;
+                if (diff < -180) diff += 360;
+                return diff < 0;
+            }
+
+            return {
+                JD: JD,
+                T: T,
+                ayanamsha: ayanamsha,
+                moon: { long: moonNirayana, rashi: rashiIndex, nak: nakshatraIndex, pada: pada, deg: degInRashi },
+                sun: { long: sunNirayana, rashi: Math.floor(sunNirayana / 30), retro: false },
+                mars: { long: marsNirayana, rashi: Math.floor(marsNirayana / 30), retro: isRetrograde('mars', marsSayana) },
+                mercury: { long: mercNirayana, rashi: Math.floor(mercNirayana / 30), retro: isRetrograde('mercury', mercSayana) },
+                jupiter: { long: jupNirayana, rashi: Math.floor(jupNirayana / 30), retro: isRetrograde('jupiter', jupSayana) },
+                venus: { long: venNirayana, rashi: Math.floor(venNirayana / 30), retro: isRetrograde('venus', venSayana) },
+                saturn: { long: satNirayana, rashi: Math.floor(satNirayana / 30), retro: isRetrograde('saturn', satSayana) },
+                rahu: { long: rahuNirayana, rashi: Math.floor(rahuNirayana / 30), retro: true },
+                ketu: { long: ketuNirayana, rashi: Math.floor(ketuNirayana / 30), retro: true }
+            };
+        }
+
+        function computeLagnaFull(JD, T, ayanamsha, lat, lng) {
+            const GMST = (280.46061837 + 360.98564736629 * (JD - 2451545.0)) % 360;
+            const RAMC = normalize360(GMST + lng);
+            const eps = (23.439291 - 0.0130042 * T) * D2R;
+            const phi = lat * D2R;
+            const th = RAMC * D2R;
+
+            const yL = Math.cos(th);
+            const xL = -Math.sin(th) * Math.cos(eps) - Math.tan(phi) * Math.sin(eps);
+            let sayanaLagna = normalize360(Math.atan2(yL, xL) * R2D);
+            let nirayanaLagna = normalize360(sayanaLagna - ayanamsha);
+            return { long: nirayanaLagna, rashi: Math.floor(nirayanaLagna / 30) };
+        }
+
+        function initApp() {
+            verifyLicenseNow(false);
+
+            populateDropdown("janma-nakshatra", NAKSHATRAS, 0);
+            populateDropdown("gochara-nakshatra", NAKSHATRAS, 0);
+            populateDropdown("janma-rashi", RASHIS, 0);
+            populateDropdown("gochara-rashi", RASHIS, 0);
+
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const hh = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById("transit-date-input").value = `${yyyy}-${mm}-${dd}`;
+            document.getElementById("transit-time-input").value = `${hh}:${min}`;
+
+            resetToNow();
+            renderMatrix();
+
+            const activeProf = getActiveProfile();
+            if (activeProf && activeProf.date && activeProf.time) {
+                applyProfileObject(activeProf, false);
+            } else {
+                document.getElementById("active-profile-nav-label").textContent = "👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ";
+                calculateKundaliTab();
+            }
+        }
+
+        function getActiveProfile() {
+            try {
+                const stored = localStorage.getItem("veda_active_profile");
+                if (stored) return JSON.parse(stored);
+            } catch (e) {}
+            return null;
+        }
+
+        function setActiveProfile(prof) {
+            localStorage.setItem("veda_active_profile", JSON.stringify(prof));
+        }
+
+        function populateDropdown(id, items, defaultIdx = 0) {
+            const select = document.getElementById(id);
+            if (!select) return;
+            select.innerHTML = "";
+            items.forEach((item, idx) => {
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.textContent = item;
+                if (idx === defaultIdx) opt.selected = true;
+                select.appendChild(opt);
+            });
+        }
+
+        function resetToNow() {
+            const now = new Date();
+            const eph = computeRigorousEphemeris(now);
+
+            document.getElementById("gochara-nakshatra").value = eph.moon.nak;
+            document.getElementById("gochara-pada").value = eph.moon.pada;
+            document.getElementById("gochara-rashi").value = eph.moon.rashi;
+
+            const deg = Math.floor(eph.moon.deg);
+            const min = Math.floor((eph.moon.deg - deg) * 60);
+            const rashiName = RASHIS[eph.moon.rashi].split(" ")[0];
+            const nakName = NAKSHATRAS[eph.moon.nak].split(" ")[0];
+            document.getElementById("live-moon-display").textContent = 
+                `${nakName} (${eph.moon.pada}ನೇ ಪಾದ) • ${rashiName} ${deg}°${min}' • ಅಯನಾಂಶ: ${eph.ayanamsha.toFixed(2)}°`;
+
+            const tzOffset = now.getTimezoneOffset() * 60000;
+            const localISOTime = (new Date(now - tzOffset)).toISOString().slice(0, 16);
+            document.getElementById("live-dt-override").value = localISOTime;
+
+            runAnalysis();
+            updatePanchangaDisplay(now);
+        }
+
+        document.getElementById("live-dt-override").addEventListener("change", function(e) {
+            if (this.value) {
+                const dt = new Date(this.value);
+                const eph = computeRigorousEphemeris(dt);
+                document.getElementById("gochara-nakshatra").value = eph.moon.nak;
+                document.getElementById("gochara-pada").value = eph.moon.pada;
+                document.getElementById("gochara-rashi").value = eph.moon.rashi;
+                const deg = Math.floor(eph.moon.deg);
+                const min = Math.floor((eph.moon.deg - deg) * 60);
+                document.getElementById("live-moon-display").textContent = 
+                    `${NAKSHATRAS[eph.moon.nak].split(" ")[0]} (${eph.moon.pada}ನೇ ಪಾದ) • ${RASHIS[eph.moon.rashi].split(" ")[0]} ${deg}°${min}'`;
+                runAnalysis();
+                updatePanchangaDisplay(dt);
+            }
+        });
+
+        function syncJanmaRashiFromPada() {
+            const nak = parseInt(document.getElementById("janma-nakshatra").value);
+            const pada = parseInt(document.getElementById("janma-pada").value);
+            const totalPadas = nak * 4 + (pada - 1);
+            const rashi = Math.floor(totalPadas / 9);
+            document.getElementById("janma-rashi").value = rashi;
+        }
+
+        function syncGocharaRashiFromPada() {
+            const nak = parseInt(document.getElementById("gochara-nakshatra").value);
+            const pada = parseInt(document.getElementById("gochara-pada").value);
+            const totalPadas = nak * 4 + (pada - 1);
+            const rashi = Math.floor(totalPadas / 9);
+            document.getElementById("gochara-rashi").value = rashi;
+        }
+
+        function switchTab(tabId) {
+            const tabs = ["main-tab", "panchanga-tab", "matrix-tab", "sutra-tab", "kundali-tab"];
+            tabs.forEach(id => {
+                const el = document.getElementById(id);
+                const btn = document.getElementById(`btn-${id}`);
+                if (id === tabId) {
+                    if (el) el.classList.remove("hidden");
+                    if (btn) {
+                        btn.classList.add("active-tab");
+                        btn.classList.remove("bg-white");
+                    }
+                } else {
+                    if (el) el.classList.add("hidden");
+                    if (btn) {
+                        btn.classList.remove("active-tab");
+                        btn.classList.add("bg-white");
+                    }
+                }
+            });
+            if (tabId === "panchanga-tab") updatePanchangaDisplay();
+            if (tabId === "matrix-tab") renderMatrix();
+            if (tabId === "kundali-tab") calculateKundaliTab();
+        }
+
+        function runAnalysis() {
+            const jNak = parseInt(document.getElementById("janma-nakshatra").value);
+            const gNak = parseInt(document.getElementById("gochara-nakshatra").value);
+            const jRashi = parseInt(document.getElementById("janma-rashi").value);
+            const gRashi = parseInt(document.getElementById("gochara-rashi").value);
+
+            let distance = (gNak - jNak + 27) % 27 + 1;
+            let taraNum = ((distance - 1) % 9) + 1;
+            let paryaya = Math.ceil(distance / 9);
+
+            const shubhaTaras = [2, 4, 6, 8, 9];
+            const isTaraShubha = shubhaTaras.includes(taraNum);
+
+            let chandraHouse = (gRashi - jRashi + 12) % 12 + 1;
+            const shubhaChandraHouses = [1, 3, 6, 7, 10, 11];
+            const isChandraShubha = shubhaChandraHouses.includes(chandraHouse);
+            const isAshtama = (chandraHouse === 8);
+
+            let score = 50;
+            if (isTaraShubha) score += 25; else score -= 20;
+            if (isChandraShubha) score += 20; else score -= 15;
+            if (isAshtama) score -= 30;
+
+            let paryayaWarning = "";
+            let remedy = "ದೋಷವಿಲ್ಲ. ಇಷ್ಟದೇವತಾ ಪ್ರಾರ್ಥನೆ ಸಾಕು.";
+
+            if (taraNum === 3) {
+                remedy = "ಬೆಲ್ಲ ದಾನ (Jaggery) ಹಾಗೂ ಗಣಪತಿ ಅಥರ್ವಶೀರ್ಷ ಪಠಣೆ.";
+                paryayaWarning = (paryaya === 1) ? "⚠️ 1ನೇ ಪರ್ಯಾಯದ ವಿಪತ್ ತಾರೆ: ಅತಿ ತೀವ್ರ ವಿಘ್ನಕಾರಕ. ಹೊಸ ಯೋಜನೆ ಆರಂಭಿಸಬೇಡಿ." : "2/3ನೇ ಪರ್ಯಾಯದ ವಿಪತ್: ಪರಿಣಾಮ ಮಧ್ಯಮ.";
+            } else if (taraNum === 5) {
+                remedy = "ಉಪ್ಪು ದಾನ (Salt donation) ಹಾಗೂ ಸುಬ್ರಹ್ಮಣ್ಯ ಪ್ರಾರ್ಥನೆ.";
+                paryayaWarning = (paryaya === 2) ? "⚠️ 2ನೇ ಪರ್ಯಾಯದ ಪ್ರತ್ಯಕ್ ತಾರೆ (14ನೇ ನಕ್ಷತ್ರ): ಅತ್ಯಂತ ಶತ್ರು-ವಿರೋಧ ಕಾರಕ." : "1/3ನೇ ಪರ್ಯಾಯದ ಪ್ರತ್ಯಕ್: ಮಧ್ಯಮ ಫಲ.";
+            } else if (taraNum === 7) {
+                remedy = "ಎಳ್ಳು ಅಥವಾ ಚಿನ್ನ ದಾನ. ಮಹಾಮೃತ್ಯುಂಜಯ ಜಪ ಕಡ್ಡಾಯ.";
+                paryayaWarning = (paryaya === 3) ? "🛑 3ನೇ ಪರ್ಯಾಯದ ನೈಧನ (25ನೇ ನಕ್ಷತ್ರ - ವೈನಾಶಿಕ): ಮಹಾ ವರ್ಜ್ಯ. ಯಾವುದೇ ಶುಭಕಾರ್ಯ ಮಾಡಲೇಬಾರದು!" : "1/2ನೇ ಪರ್ಯಾಯದ ನೈಧನ: ಅತ್ಯಂತ ಎಚ್ಚರಿಕೆ ಅಗತ್ಯ.";
+            } else if (taraNum === 1) {
+                if (paryaya === 1) paryayaWarning = "ಪ್ರಥಮ ಜನ್ಮ ತಾರೆ: ಶರೀರ ಆಯಾಸ, ಕಾರ್ಯಭಾರ. ಪ್ರಯಾಣ ಹಾಗೂ ಶುಭಕಾರ್ಯ ವರ್ಜ್ಯ.";
+                else paryayaWarning = "ಅನುಜನ್ಮ/ತ್ರಿಜನ್ಮ ತಾರೆ: ಸಾಧಾರಣ ಶುಭ.";
+            }
+
+            const overrideVal = document.getElementById("live-dt-override").value;
+            const targetDt = overrideVal ? new Date(overrideVal) : new Date();
+            const pInfo = calculatePanchanga(targetDt, selectedLocation.lat, selectedLocation.lng);
+            const gRule = GHATA_CHAKRA[jRashi];
+            const tithiMod = (pInfo.tithiIndex % 15) + 1;
+            let ghataHits = [];
+            if (gRule) {
+                if (pInfo.varaIdx === gRule.vara) ghataHits.push(`ಘಾತ ವಾರ (${VARAS[pInfo.varaIdx]})`);
+                if (gRule.tithi.includes(tithiMod)) ghataHits.push(`ಘಾತ ತಿಥಿ (${pInfo.tithi})`);
+                if (gNak === gRule.nak) ghataHits.push(`ಘಾತ ನಕ್ಷತ್ರ (${NAKSHATRAS[gNak].split(" ")[0]})`);
+            }
+
+            const ghataBox = document.getElementById("ghata-chakra-box");
+            const ghataDetail = document.getElementById("ghata-chakra-detail");
+            const ghataBadge = document.getElementById("ghata-chakra-badge");
+            if (ghataHits.length > 0) {
+                ghataBox.className = "clean-card rounded-2xl p-3.5 border-rose-200 bg-rose-50/60 flex items-center justify-between gap-3 text-xs";
+                ghataDetail.textContent = `ಜನ್ಮ ರಾಶಿಗೆ ${ghataHits.join(", ")} ಬಂದಿದೆ. ದೂರ ಪ್ರಯಾಣ & ಹೊಸ ಒಪ್ಪಂದ ತಪ್ಪಿಸಿ.`;
+                ghataBadge.className = "px-2.5 py-1 rounded-lg font-bold bg-rose-600 text-white whitespace-nowrap";
+                ghataBadge.textContent = "⚠️ ಘಾತ ದೋಷ";
+                score -= 12;
+            } else {
+                ghataBox.className = "clean-card rounded-2xl p-3.5 border-emerald-200 flex items-center justify-between gap-3 text-xs";
+                ghataDetail.textContent = `ಇಂದಿನ ವಾರ, ತಿಥಿ ಮತ್ತು ನಕ್ಷತ್ರವು ಜನ್ಮ ರಾಶಿಗೆ ಘಾತ ದೋಷದಿಂದ ಮುಕ್ತವಾಗಿದೆ.`;
+                ghataBadge.className = "px-2.5 py-1 rounded-lg font-bold bg-emerald-100 text-emerald-900 whitespace-nowrap";
+                ghataBadge.textContent = "✓ ಘಾತ ಶುದ್ಧಿ";
+            }
+
+            const taraInfo = TARA_NAMES[taraNum - 1];
+            document.getElementById("tara-name-badge").textContent = `${taraNum}. ${taraInfo.name}`;
+            document.getElementById("tara-name-badge").className = `text-base font-bold ${taraInfo.cls}`;
+            document.getElementById("paryaya-badge").textContent = `ಪರ್ಯಾಯ: ${paryaya === 1 ? 'ಪ್ರಥಮ (ಜನ್ಮ)' : paryaya === 2 ? 'ದ್ವಿತೀಯ (ಅನುಜನ್ಮ)' : 'ತೃತೀಯ (ತ್ರಿಜನ್ಮ)'} (ಅಂತರ: ${distance})`;
+            document.getElementById("tara-detail-text").textContent = `ಈ ತಾರೆಯು ${taraInfo.nature} ಫಲವನ್ನು ನೀಡುತ್ತದೆ.`;
+
+            document.getElementById("chandra-name-badge").textContent = `${chandraHouse}ನೇ ಮನೆ ಚಂದ್ರ (${RASHIS[gRashi].split(" ")[0]})`;
+            document.getElementById("chandra-name-badge").className = `text-base font-bold ${isChandraShubha ? 'text-emerald-800' : 'text-rose-700'}`;
+            document.getElementById("ashtama-badge").textContent = isAshtama ? "🛑 ಅಷ್ಟಮ ಚಂದ್ರ (ಅತ್ಯಂತ ವರ್ಜ್ಯ)" : (isChandraShubha ? "✓ ಶುಭ ಚಂದ್ರಬಲ" : "⚠ ಅಶುಭ ಚಂದ್ರಬಲ");
+            document.getElementById("chandra-detail-text").textContent = isAshtama ? 
+                "ಮನೋಕ್ಲೇಶ, ಕಾರ್ಯಹಾನಿ ಮತ್ತು ಅಡೆತಡೆಗಳು ಉಂಟಾಗಬಹುದು. ಮಹತ್ವದ ನಿರ್ಧಾರಗಳನ್ನು ಮುಂದೂಡಿ." : 
+                (isChandraShubha ? "ಮನೋಬಲ ಮತ್ತು ಕಾರ್ಯಾನುಕೂಲತೆ ಒದಗಲಿದೆ." : "ಖರ್ಚು ಹಾಗೂ ಮಾನಸಿಕ ಉದ್ವೇಗ ಸಂಭವಿಸಬಹುದು.");
+
+            const vBanner = document.getElementById("verdict-banner");
+            const vBadge = document.getElementById("verdict-badge");
+            const vTitle = document.getElementById("verdict-title");
+            const vDesc = document.getElementById("verdict-desc");
+
+            score = Math.max(10, Math.min(98, score));
+            document.getElementById("score-display").textContent = `ಮುಹೂರ್ತ ಸ್ಕೋರ್: ${score}/100`;
+
+            if (isAshtama || taraNum === 7 || (taraNum === 3 && paryaya === 1)) {
+                vBanner.className = "clean-card rounded-2xl p-5 border-l-4 border-rose-500 bg-rose-50/50";
+                vBadge.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-600 text-white";
+                vBadge.textContent = "ಅಶುಭ / ವರ್ಜ್ಯ";
+                vTitle.textContent = "ಈ ಮುಹೂರ್ತವು ಶುಭಕಾರ್ಯಗಳಿಗೆ ಪ್ರಶಸ್ತವಲ್ಲ";
+                vDesc.textContent = "ತಾರಾಬಲ ಅಥವಾ ಚಂದ್ರಬಲದಲ್ಲಿ ತೀವ್ರ ದೋಷವಿದೆ. ಕಾರ್ಯಸಿದ್ಧಿಗಾಗಿ ಶಾಂತಿ ಅಥವಾ ಪರಿಹಾರ ಅಗತ್ಯ.";
+            } else if (isTaraShubha && isChandraShubha) {
+                vBanner.className = "clean-card rounded-2xl p-5 border-l-4 border-emerald-600 bg-emerald-50/50";
+                vBadge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-700 text-white";
+                vBadge.textContent = "ಉತ್ತಮ ಶುಭ ಮುಹೂರ್ತ";
+                vTitle.textContent = "ತಾರಾಬಲ ಮತ್ತು ಚಂದ್ರಬಲ ಎರಡೂ ಅತ್ಯುತ್ತಮವಾಗಿವೆ";
+                vDesc.textContent = "ಆಯ್ಕೆ ಮಾಡಿದ ಕಾರ್ಯಕ್ಕೆ ಕಾಲವು ಅತ್ಯಂತ ಅನುಕೂಲಕರವಾಗಿದೆ. ಯಶಸ್ಸು ಲಭಿಸುತ್ತದೆ.";
+            } else {
+                vBanner.className = "clean-card rounded-2xl p-5 border-l-4 border-amber-500 bg-amber-50/50";
+                vBadge.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-600 text-white";
+                vBadge.textContent = "ಮಧ್ಯಮ ಫಲ";
+                vTitle.textContent = "ಸಾಮಾನ್ಯ ಕಾರ್ಯಗಳಿಗೆ ಅನುಕೂಲ";
+                vDesc.textContent = "ದೈನಂದಿನ ವ್ಯವಹಾರಗಳಿಗೆ ತೊಂದರೆಯಿಲ್ಲ. ಆದರೆ ಬಹುಮುಖ್ಯ ಮಂಗಳಕಾರ್ಯಗಳಿಗೆ ಪರಿಹಾರ ಅನುಸರಿಸಿ.";
+            }
+
+            document.getElementById("paryaya-warning-box").textContent = paryayaWarning || "ಯಾವುದೇ ತೀವ್ರ ಪರ್ಯಾಯ ದೋಷಗಳಿಲ್ಲ.";
+            document.getElementById("remedy-short-text").textContent = `ದಾನ / ಪರಿಹಾರ: ${remedy}`;
+
+            lastAnalysisResult = {
+                clientNak: NAKSHATRAS[jNak].split(" ")[0],
+                clientRashi: RASHIS[jRashi].split(" ")[0],
+                gocharaNak: NAKSHATRAS[gNak].split(" ")[0],
+                gocharaRashi: RASHIS[gRashi].split(" ")[0],
+                tara: taraInfo.name,
+                chandraHouse: chandraHouse,
+                score: score,
+                remedy: remedy
+            };
+
+            renderSevenDayOutlook(jNak, jRashi);
+        }
+
+        function renderSevenDayOutlook(jNak, jRashi) {
+            const container = document.getElementById("seven-day-grid");
+            if (!container) return;
+            container.innerHTML = "";
+            const baseDate = new Date();
+            const shubhaTaras = [2, 4, 6, 8, 9];
+            const shubhaChandra = [1, 3, 6, 7, 10, 11];
+
+            for (let i = 0; i < 7; i++) {
+                const dt = new Date(baseDate.getTime() + i * 86400000);
+                const eph = computeRigorousEphemeris(dt);
+                const dNak = eph.moon.nak;
+                const dRashi = eph.moon.rashi;
+                const dist = (dNak - jNak + 27) % 27 + 1;
+                const tNum = ((dist - 1) % 9) + 1;
+                const cHouse = (dRashi - jRashi + 12) % 12 + 1;
+
+                const isGood = shubhaTaras.includes(tNum) && shubhaChandra.includes(cHouse) && cHouse !== 8;
+                const isBad = (tNum === 7 || cHouse === 8 || tNum === 3 || tNum === 5);
+
+                const dateLabel = i === 0 ? "ಇಂದು" : i === 1 ? "ನಾಳೆ" : dt.toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
+                const varaShort = VARAS[dt.getDay()].slice(0, 4);
+                const nakShort = NAKSHATRAS[dNak].split(" ")[0];
+                const taraShort = TARA_NAMES[tNum - 1].name.split(" ")[0];
+
+                const card = document.createElement("button");
+                card.className = `p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
+                    isGood ? 'bg-emerald-50 border-emerald-300 hover:bg-emerald-100' :
+                    isBad ? 'bg-rose-50/70 border-rose-200 hover:bg-rose-100/70' :
+                    'bg-amber-50/60 border-amber-200 hover:bg-amber-100/60'
+                }`;
+                card.onclick = () => {
+                    const tzOffset = dt.getTimezoneOffset() * 60000;
+                    document.getElementById("live-dt-override").value = (new Date(dt - tzOffset)).toISOString().slice(0, 16);
+                    document.getElementById("gochara-nakshatra").value = dNak;
+                    document.getElementById("gochara-pada").value = eph.moon.pada;
+                    document.getElementById("gochara-rashi").value = dRashi;
+                    runAnalysis();
+                    updatePanchangaDisplay(dt);
+                };
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-[10px] font-bold text-slate-600 mb-1">
+                        <span>${dateLabel}</span>
+                        <span>${varaShort}</span>
+                    </div>
+                    <div class="text-xs font-bold text-emerald-950 truncate">${nakShort}</div>
+                    <div class="text-[11px] font-semibold mt-0.5 ${isGood ? 'text-emerald-700' : isBad ? 'text-rose-700' : 'text-amber-800'}">
+                        ${taraShort} • ${cHouse}ನೇ ಚಂ
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function renderMatrix(filter = "all") {
+            const container = document.getElementById("matrix-grid-container");
+            if (!container) return;
+            container.innerHTML = "";
+            const jNak = parseInt(document.getElementById("janma-nakshatra").value);
+
+            for (let t = 1; t <= 9; t++) {
+                const tara = TARA_NAMES[t - 1];
+                const isShubha = [2, 4, 6, 8, 9].includes(t);
+                if (filter === "shubha" && !isShubha) continue;
+                if (filter === "ashubha" && isShubha) continue;
+
+                const card = document.createElement("div");
+                card.className = "p-4 rounded-xl bg-white border border-emerald-200 space-y-2 shadow-sm";
+                
+                let starsHTML = "";
+                for (let p = 0; p < 3; p++) {
+                    const nakIdx = (jNak + (t - 1) + p * 9) % 27;
+                    const nakName = NAKSHATRAS[nakIdx].split(" ")[0];
+                    const paryayaLabel = p === 0 ? "ಪ್ರಥಮ" : p === 1 ? "ಅನುಜನ್ಮ" : "ತ್ರಿಜನ್ಮ";
+                    starsHTML += `
+                        <button onclick="selectGocharaFromMatrix(${nakIdx})" class="w-full text-left px-2.5 py-1.5 rounded-lg bg-emerald-50/60 hover:bg-emerald-100 border border-emerald-100 text-xs flex justify-between items-center transition">
+                            <span class="text-emerald-950 font-medium">${nakName}</span>
+                            <span class="text-[10px] text-slate-500">${paryayaLabel}</span>
+                        </button>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-emerald-100 pb-1.5">
+                        <strong class="${tara.cls} text-sm">${t}. ${tara.name}</strong>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full ${isShubha ? 'bg-emerald-100 text-emerald-800 font-bold' : 'bg-rose-100 text-rose-800 font-bold'}">${tara.nature}</span>
+                    </div>
+                    <div class="space-y-1.5 pt-1">${starsHTML}</div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function filterMatrix(type, btnEl) {
+            document.querySelectorAll(".matrix-filter-btn").forEach(b => {
+                b.className = "matrix-filter-btn px-3 py-1 rounded-lg text-xs bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50";
+            });
+            if (btnEl) btnEl.className = "matrix-filter-btn px-3 py-1 rounded-lg text-xs bg-emerald-700 text-white font-medium";
+            renderMatrix(type);
+        }
+
+        function selectGocharaFromMatrix(nakIdx) {
+            document.getElementById("gochara-nakshatra").value = nakIdx;
+            syncGocharaRashiFromPada();
+            switchTab("main-tab");
+            runAnalysis();
+        }
+
+        function copyReport() {
+            if (!lastAnalysisResult.clientNak) return;
+            const text = `✨ Veda Astrolight | Tarabala & Chandrabala Report
+-----------------------------------------
+ಜನ್ಮ ವಿವರ: ${lastAnalysisResult.clientNak} ನಕ್ಷತ್ರ (${lastAnalysisResult.clientRashi} ರಾಶಿ)
+ಗೋಚಾರ ಸ್ಥಿತಿ: ${lastAnalysisResult.gocharaNak} ನಕ್ಷತ್ರ (${lastAnalysisResult.gocharaRashi} ರಾಶಿ)
+ತಾರಾಬಲ: ${lastAnalysisResult.tara}
+ಚಂದ್ರಬಲ: ${lastAnalysisResult.chandraHouse}ನೇ ಮನೆ ಚಂದ್ರ
+ಮುಹೂರ್ತ ಸ್ಕೋರ್: ${lastAnalysisResult.score}/100
+ಪರಿಹಾರ/ದಾನ: ${lastAnalysisResult.remedy}
+-----------------------------------------
+Analyzed by: Satyabodha Nagendra
+Veda Astrolight | 📞 7349577177
+Listen • Study • Understand • Guide`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert("ವರದಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!");
+            });
+        }
+
+        // ==================== TAB 5: KUNDALI & GOCHARA ====================
+        function calculateKundaliTab() {
+            const dateStr = document.getElementById("k-date").value;
+            const timeStr = document.getElementById("k-time").value;
+
+            if (dateStr && timeStr) {
+                const [y, m, d] = dateStr.split("-").map(Number);
+                const [hr, min] = timeStr.split(":").map(Number);
+                
+                const birthUTC = new Date(Date.UTC(y, m - 1, d, hr, min) - (5.5 * 3600000));
+                const birthEph = computeRigorousEphemeris(birthUTC);
+                const birthLagnaObj = computeLagnaFull(birthEph.JD, birthEph.T, birthEph.ayanamsha, selectedLocation.lat, selectedLocation.lng);
+
+                computedJanmaData = {
+                    eph: birthEph,
+                    lagna: birthLagnaObj.rashi,
+                    planets: { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[] }
+                };
+
+                computedJanmaData.planets[birthLagnaObj.rashi].push({ name: "ಲ", deg: formatDegMin(birthLagnaObj.long), isLagna: true });
+                computedJanmaData.planets[birthEph.sun.rashi].push({ name: "ಸೂ", deg: formatDegMin(birthEph.sun.long) });
+                computedJanmaData.planets[birthEph.moon.rashi].push({ name: "ಚಂ", deg: formatDegMin(birthEph.moon.long), isMoon: true });
+                computedJanmaData.planets[birthEph.mars.rashi].push({ name: birthEph.mars.retro ? "ಕುR" : "ಕು", deg: formatDegMin(birthEph.mars.long) });
+                computedJanmaData.planets[birthEph.mercury.rashi].push({ name: birthEph.mercury.retro ? "ಬುR" : "ಬು", deg: formatDegMin(birthEph.mercury.long) });
+                computedJanmaData.planets[birthEph.jupiter.rashi].push({ name: birthEph.jupiter.retro ? "ಗುR" : "ಗು", deg: formatDegMin(birthEph.jupiter.long) });
+                computedJanmaData.planets[birthEph.venus.rashi].push({ name: birthEph.venus.retro ? "ಶುR" : "ಶು", deg: formatDegMin(birthEph.venus.long) });
+                computedJanmaData.planets[birthEph.saturn.rashi].push({ name: birthEph.saturn.retro ? "ಶR" : "ಶ", deg: formatDegMin(birthEph.saturn.long) });
+                computedJanmaData.planets[birthEph.rahu.rashi].push({ name: "ರಾR", deg: formatDegMin(birthEph.rahu.long) });
+                computedJanmaData.planets[birthEph.ketu.rashi].push({ name: "ಕೇR", deg: formatDegMin(birthEph.ketu.long) });
+
+                document.getElementById("janma-d1-sub").textContent = 
+                    `${dateStr} ${timeStr} • ${selectedLocation.name.split(",")[0]}`;
+
+                renderChartGrid("janma-grid", computedJanmaData.planets, "purple", "ಜನ್ಮ ಕುಂಡಲಿ<br>(D1)");
+            } else {
+                const jRashi = parseInt(document.getElementById("janma-rashi").value) || 0;
+                const jNak = parseInt(document.getElementById("janma-nakshatra").value) || 0;
+                const approxDeg = (jNak * (360 / 27)) % 30;
+                const nowEph = computeRigorousEphemeris(new Date());
+
+                computedJanmaData = {
+                    eph: {
+                        ...nowEph,
+                        moon: { ...nowEph.moon, rashi: jRashi, nak: jNak, long: jRashi * 30 + approxDeg }
+                    },
+                    lagna: jRashi,
+                    planets: { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[] }
+                };
+                computedJanmaData.planets[jRashi].push({ name: "ಚಂ (ಜನ್ಮ)", deg: formatDegMin(approxDeg), isMoon: true });
+                document.getElementById("janma-d1-sub").textContent = `ಜನ್ಮ ರಾಶಿ: ${RASHIS[jRashi].split(" ")[0]} (ಪೂರ್ಣ ಜಾತಕಕ್ಕೆ ದಿನಾಂಕ ನಮೂದಿಸಿ)`;
+                renderChartGrid("janma-grid", computedJanmaData.planets, "purple", "ಜನ್ಮ ರಾಶಿ<br>(ಚಂದ್ರ ಲಗ್ನ)");
+            }
+
+            updateTransitChartOnly();
+        }
+
+        function updateTransitChartOnly() {
+            if (!computedJanmaData) {
+                const jRashi = parseInt(document.getElementById("janma-rashi").value) || 0;
+                const nowEph = computeRigorousEphemeris(new Date());
+                computedJanmaData = {
+                    eph: { ...nowEph, moon: { ...nowEph.moon, rashi: jRashi } },
+                    lagna: jRashi,
+                    planets: { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[] }
+                };
+            }
+
+            const tDateEl = document.getElementById("transit-date-input");
+            const tTimeEl = document.getElementById("transit-time-input");
+            let tDateStr = tDateEl ? tDateEl.value : "";
+            let tTimeStr = tTimeEl ? tTimeEl.value : "";
+
+            let transitUTC;
+            if (tDateStr && tTimeStr) {
+                const [y, m, d] = tDateStr.split("-").map(Number);
+                const [hr, min] = tTimeStr.split(":").map(Number);
+                transitUTC = new Date(Date.UTC(y, m - 1, d, hr, min) - (5.5 * 3600000));
+            } else {
+                const now = new Date();
+                const yyyy = now.getFullYear();
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const dd = String(now.getDate()).padStart(2, '0');
+                const hh = String(now.getHours()).padStart(2, '0');
+                const min = String(now.getMinutes()).padStart(2, '0');
+                tDateStr = `${yyyy}-${mm}-${dd}`;
+                tTimeStr = `${hh}:${min}`;
+                if (tDateEl) tDateEl.value = tDateStr;
+                if (tTimeEl) tTimeEl.value = tTimeStr;
+                transitUTC = now;
+            }
+
+            const transEph = computeRigorousEphemeris(transitUTC);
+            const transLagnaObj = computeLagnaFull(transEph.JD, transEph.T, transEph.ayanamsha, selectedLocation.lat, selectedLocation.lng);
+
+            computedTransitData = {
+                eph: transEph,
+                lagna: transLagnaObj.rashi,
+                planets: { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[] }
+            };
+
+            computedTransitData.planets[transLagnaObj.rashi].push({ name: "ಲ", deg: formatDegMin(transLagnaObj.long), isLagna: true });
+            computedTransitData.planets[transEph.sun.rashi].push({ name: "ಸೂ", deg: formatDegMin(transEph.sun.long) });
+            computedTransitData.planets[transEph.moon.rashi].push({ name: "ಚಂ", deg: formatDegMin(transEph.moon.long), isMoon: true });
+            computedTransitData.planets[transEph.mars.rashi].push({ name: transEph.mars.retro ? "ಕುR" : "ಕು", deg: formatDegMin(transEph.mars.long) });
+            computedTransitData.planets[transEph.mercury.rashi].push({ name: transEph.mercury.retro ? "ಬುR" : "ಬು", deg: formatDegMin(transEph.mercury.long) });
+            computedTransitData.planets[transEph.jupiter.rashi].push({ name: transEph.jupiter.retro ? "ಗುR" : "ಗು", deg: formatDegMin(transEph.jupiter.long) });
+            computedTransitData.planets[transEph.venus.rashi].push({ name: transEph.venus.retro ? "ಶುR" : "ಶು", deg: formatDegMin(transEph.venus.long) });
+            computedTransitData.planets[transEph.saturn.rashi].push({ name: transEph.saturn.retro ? "ಶR" : "ಶ", deg: formatDegMin(transEph.saturn.long) });
+            computedTransitData.planets[transEph.rahu.rashi].push({ name: "ರಾR", deg: formatDegMin(transEph.rahu.long) });
+            computedTransitData.planets[transEph.ketu.rashi].push({ name: "ಕೇR", deg: formatDegMin(transEph.ketu.long) });
+
+            const gocharaSubEl = document.getElementById("gochara-d1-sub");
+            if (gocharaSubEl) {
+                gocharaSubEl.textContent = `${tDateStr} ${tTimeStr} • ಅಯನಾಂಶ: ${transEph.ayanamsha.toFixed(2)}°`;
+            }
+
+            renderChartGrid("gochara-grid", computedTransitData.planets, "emerald", `ಗೋಚಾರ<br>ಕುಂಡಲಿ<br><span class="text-[9px] text-slate-500">(${tDateStr})</span>`);
+            renderPlanetaryTransitResults();
+        }
+
+        function renderChartGrid(elementId, planetsMap, themeColor, centerLabel) {
+            const grid = document.getElementById(elementId);
+            if (!grid) return;
+            grid.innerHTML = "";
+
+            const rashiOrder = [
+                11, 0, 1, 2,
+                10, null, null, 3,
+                9, null, null, 4,
+                8, 7, 6, 5
+            ];
+
+            const shortNames = ["ಮೇಷ", "ವೃಷಭ", "ಮಿಥುನ", "ಕರ್ಕಾ", "ಸಿಂಹ", "ಕನ್ಯಾ", "ತುಲಾ", "ವೃಶ್ಚಿಕ", "ಧನು", "ಮಕರ", "ಕುಂಭ", "ಮೀನ"];
+
+            rashiOrder.forEach((rIdx, i) => {
+                if (rIdx === null) {
+                    if (i === 5) {
+                        const center = document.createElement("div");
+                        center.className = `col-span-2 row-span-2 rounded-lg flex flex-col items-center justify-center p-2 text-center bg-amber-50 border border-amber-200 text-amber-950`;
+                        center.innerHTML = `
+                            <div class="text-orange-600 text-base mb-0.5">☀️</div>
+                            <div class="text-xs font-bold leading-tight">${centerLabel}</div>
+                        `;
+                        grid.appendChild(center);
+                    }
+                    return;
+                }
+
+                const cell = document.createElement("div");
+                cell.className = "kundali-cell rounded-lg";
+
+                const pItems = (planetsMap[rIdx] || []).map(p => {
+                    const degBadge = p.deg ? `<span class="mono text-[9px] text-slate-500 font-normal ml-0.5">${p.deg}</span>` : "";
+                    if (p.isLagna) {
+                        return `<div class="leading-tight"><span class="text-rose-700 font-extrabold px-1 rounded bg-rose-50 border border-rose-300 text-[10px]">ಲ</span>${degBadge}</div>`;
+                    }
+                    if (p.name.includes("R")) {
+                        return `<div class="leading-tight"><span class="text-orange-700 font-bold text-[10.5px]">${p.name}</span>${degBadge}</div>`;
+                    }
+                    if (p.isMoon) {
+                        return `<div class="leading-tight"><span class="text-emerald-800 font-bold text-[10.5px]">${p.name}</span>${degBadge}</div>`;
+                    }
+                    return `<div class="leading-tight"><span class="text-slate-800 font-semibold text-[10.5px]">${p.name}</span>${degBadge}</div>`;
+                }).join("");
+
+                cell.innerHTML = `
+                    <div class="text-[9px] text-emerald-800/80 font-bold border-b border-emerald-50 pb-0.5">${shortNames[rIdx]}</div>
+                    <div class="flex flex-col gap-0.5 py-0.5 overflow-y-auto">${pItems}</div>
+                    <div class="h-0.5"></div>
+                `;
+                grid.appendChild(cell);
+            });
+        }
+
+        function evaluateGocharaVedha(planetKey, gocharaHouse, allPlanetHouses) {
+            const VEDHA_RULES = {
+                sun:     { 3: 9, 6: 12, 10: 4, 11: 5 },
+                moon:    { 1: 5, 3: 9, 6: 12, 7: 2, 10: 4, 11: 8 },
+                mars:    { 3: 12, 6: 9, 11: 5 },
+                mercury: { 2: 5, 4: 2, 6: 9, 8: 1, 10: 8, 11: 12 },
+                jupiter: { 2: 12, 5: 4, 7: 3, 9: 10, 11: 8 },
+                venus:   { 1: 8, 2: 7, 3: 1, 4: 10, 5: 9, 8: 5, 9: 11, 11: 6, 12: 3 },
+                saturn:  { 3: 12, 6: 9, 11: 5 },
+                rahu:    { 3: 12, 6: 9, 11: 5 },
+                ketu:    { 3: 12, 6: 9, 11: 5 }
+            };
+
+            const PLANET_LABELS = {
+                sun: "ಸೂರ್ಯ", moon: "ಚಂದ್ರ", mars: "ಕುಜ", mercury: "ಬುಧ",
+                jupiter: "ಗುರು", venus: "ಶುಕ್ರ", saturn: "ಶನಿ", rahu: "ರಾಹು", ketu: "ಕೇತು"
+            };
+
+            const rules = VEDHA_RULES[planetKey] || {};
+            const targetVedhaHouse = rules[gocharaHouse];
+
+            if (!targetVedhaHouse) {
+                let reverseGoodHouse = null;
+                for (const [gH, vH] of Object.entries(rules)) {
+                    if (vH === gocharaHouse) {
+                        reverseGoodHouse = parseInt(gH);
+                        break;
+                    }
+                }
+                if (reverseGoodHouse) {
+                    const blockers = [];
+                    for (const [otherKey, otherHouse] of Object.entries(allPlanetHouses)) {
+                        if (otherKey !== planetKey && otherHouse === reverseGoodHouse) {
+                            blockers.push(PLANET_LABELS[otherKey]);
+                        }
+                    }
+                    if (blockers.length > 0) {
+                        return {
+                            hasVedha: false,
+                            vipareeta: true,
+                            text: `✨ ವಿಪರೀತ ವೇಧ (${reverseGoodHouse}ನೇ ಮನೆಯಲ್ಲಿ ${blockers.join(", ")} ಇರುವುದರಿಂದ ಅಶುಭ ದೋಷ ತಗ್ಗಿದೆ)`
+                        };
+                    }
+                }
+                return { hasVedha: false, vipareeta: false, text: "ಅಶುಭ ಸ್ಥಾನ - ವೇಧ ಅನ್ವಯವಿಲ್ಲ" };
+            }
+
+            const obstructingPlanets = [];
+            for (const [otherKey, otherHouse] of Object.entries(allPlanetHouses)) {
+                if (otherKey === planetKey) continue;
+                if ((planetKey === "sun" && otherKey === "saturn") || (planetKey === "saturn" && otherKey === "sun")) continue;
+                if ((planetKey === "moon" && otherKey === "mercury") || (planetKey === "mercury" && otherKey === "moon")) continue;
+
+                if (otherHouse === targetVedhaHouse) {
+                    obstructingPlanets.push(PLANET_LABELS[otherKey]);
+                }
+            }
+
+            if (obstructingPlanets.length > 0) {
+                return {
+                    hasVedha: true,
+                    vipareeta: false,
+                    text: `⚠️ ವೇಧವಿದೆ (${targetVedhaHouse}ನೇ ಮನೆಯಲ್ಲಿ ${obstructingPlanets.join(", ")} ಇರುವುದರಿಂದ ಶುಭ ಫಲಕ್ಕೆ ಅಡಚಣೆ)`
+                };
+            }
+
+            return {
+                hasVedha: false,
+                vipareeta: false,
+                text: `✓ ವೇಧವಿಲ್ಲ (${targetVedhaHouse}ನೇ ಮನೆ ಖಾಲಿಯಿದೆ - ಸಂಪೂರ್ಣ ಶುಭ ಫಲ ಲಭ್ಯ)`
+            };
+        }
+
+        function renderPlanetaryTransitResults() {
+            if (!computedJanmaData || !computedTransitData) return;
+
+            const jMoonRashi = computedJanmaData.eph.moon.rashi;
+            const allPlanetHouses = {
+                sun:     (computedTransitData.eph.sun.rashi - jMoonRashi + 12) % 12 + 1,
+                moon:    (computedTransitData.eph.moon.rashi - jMoonRashi + 12) % 12 + 1,
+                mars:    (computedTransitData.eph.mars.rashi - jMoonRashi + 12) % 12 + 1,
+                mercury: (computedTransitData.eph.mercury.rashi - jMoonRashi + 12) % 12 + 1,
+                jupiter: (computedTransitData.eph.jupiter.rashi - jMoonRashi + 12) % 12 + 1,
+                venus:   (computedTransitData.eph.venus.rashi - jMoonRashi + 12) % 12 + 1,
+                saturn:  (computedTransitData.eph.saturn.rashi - jMoonRashi + 12) % 12 + 1,
+                rahu:    (computedTransitData.eph.rahu.rashi - jMoonRashi + 12) % 12 + 1,
+                ketu:    (computedTransitData.eph.ketu.rashi - jMoonRashi + 12) % 12 + 1
+            };
+
+            const planetsConfig = {
+                sun: {
+                    name: "ಸೂರ್ಯ",
+                    rashi: computedTransitData.eph.sun.rashi,
+                    natalRashi: computedJanmaData.eph.sun.rashi,
+                    lordOf: [4],
+                    bav: 5,
+                    goodHouses: [3, 6, 10, 11],
+                    phala: "ಸೂರ್ಯನು 3, 6, 10, 11 ರಲ್ಲಿ ಶುಭಫಲ ನೀಡುತ್ತಾನೆ. 3ರಲ್ಲಿ ಆರೋಗ್ಯ, ಧೈರ್ಯ, ಶತ್ರುನಾಶ; ಉಳಿದ ಸ್ಥಾನಗಳಲ್ಲಿ ತಾಪ, ಅಹಂಕಾರ ಮತ್ತು ಅಧಿಕಾರ ವರ್ಗದಿಂದ ಅಡಚಣೆ."
+                },
+                moon: {
+                    name: "ಚಂದ್ರ",
+                    rashi: computedTransitData.eph.moon.rashi,
+                    natalRashi: computedJanmaData.eph.moon.rashi,
+                    lordOf: [3],
+                    bav: 6,
+                    goodHouses: [1, 3, 6, 7, 10, 11],
+                    phala: "ಚಂದ್ರನು 1, 3, 6, 7, 10, 11 ರಲ್ಲಿ ಶುಭಪ್ರದ. 8ರಲ್ಲಿ ಅಷ್ಟಮ ಚಂದ್ರ (ತೀವ್ರ ಮಾನಸಿಕ ಕ್ಲೇಶ, ಕಾರ್ಯಹಾನಿ); 12ರಲ್ಲಿ ವ್ಯಯ, ನಿದ್ರಾಭಂಗ."
+                },
+                mars: {
+                    name: "ಕುಜ",
+                    rashi: computedTransitData.eph.mars.rashi,
+                    natalRashi: computedJanmaData.eph.mars.rashi,
+                    lordOf: [0, 7],
+                    bav: 4,
+                    goodHouses: [3, 6, 11],
+                    phala: "ಕುಜನು 3, 6, 11 ರಲ್ಲಿ ಮಾತ್ರ ಶ್ರೇಷ್ಠ ಜಯ ನೀಡುತ್ತಾನೆ. ಉಳಿದಂತೆ ರಕ್ತದೊತ್ತಡ, ಆಸ್ತಿ ವಿವಾದ, ಅಪಘಾತ ಭಯ ಮತ್ತು ಉದ್ವೇಗಕ್ಕೆ ಕಾರಣ."
+                },
+                mercury: {
+                    name: "ಬುಧ",
+                    rashi: computedTransitData.eph.mercury.rashi,
+                    natalRashi: computedJanmaData.eph.mercury.rashi,
+                    lordOf: [2, 5],
+                    bav: 5,
+                    goodHouses: [2, 4, 6, 8, 10, 11],
+                    phala: "ಬುಧನು ವಾಕ್, ವ್ಯಾಪಾರ, ಜ್ಞಾನ ಮತ್ತು ಬೌದ್ಧಿಕ ಚಟುವಟಿಕೆಗಳಲ್ಲಿ ಶುಭಸ್ಥಾನಗಳಲ್ಲಿದ್ದಾಗ ವಿಶೇಷ ಧನಾಗಮನ ಮತ್ತು ಗೌರವ ತರುತ್ತಾನೆ."
+                },
+                jupiter: {
+                    name: "ಗುರು",
+                    rashi: computedTransitData.eph.jupiter.rashi,
+                    natalRashi: computedJanmaData.eph.jupiter.rashi,
+                    lordOf: [8, 11],
+                    bav: 5,
+                    goodHouses: [2, 5, 7, 9, 11],
+                    phala: "ಗುರುವು 2, 5, 7, 9, 11 ರಲ್ಲಿ ಪ್ರಬಲ ಗುರುಬಲ ನೀಡುತ್ತಾನೆ (ವಿವಾಹ, ಸಂತಾನ, ಕಾರ್ಯಸಿದ್ಧಿ). ಉಳಿದ ಸ್ಥಾನಗಳಲ್ಲಿ ಗೌರವಕ್ಕೆ ಹಾನಿ, ಧನವ್ಯಯ."
+                },
+                venus: {
+                    name: "ಶುಕ್ರ",
+                    rashi: computedTransitData.eph.venus.rashi,
+                    natalRashi: computedJanmaData.eph.venus.rashi,
+                    lordOf: [1, 6],
+                    bav: 6,
+                    goodHouses: [1, 2, 3, 4, 5, 8, 9, 11, 12],
+                    phala: "ಶುಕ್ರನು ಬಹುತೇಕ ಸ್ಥಾನಗಳಲ್ಲಿ ಶುಭ ಫಲ ನೀಡುತ್ತಾನೆ. 6, 7, 10 ನೇ ಮನೆಗಳಲ್ಲಿ ಅಪವಾದ ಹಾಗೂ ಸ್ತ್ರೀ ಕಲಹ ತರಬಹುದು."
+                },
+                saturn: {
+                    name: "ಶನಿ",
+                    rashi: computedTransitData.eph.saturn.rashi,
+                    natalRashi: computedJanmaData.eph.saturn.rashi,
+                    lordOf: [9, 10],
+                    bav: 3,
+                    goodHouses: [3, 6, 11],
+                    phala: "ಶಾಸ್ತ್ರೋಕ್ತವಾಗಿ ಶನಿಯು 3, 6, 11 ನೇ ಮನೆಗಳಲ್ಲಿ ಮಾತ್ರ ಶುಭ. 12, 1, 2 ಸಾಡೇಸಾತಿ; 4 ಕಂಟಕ ಶನಿ; 5 ಪಂಚಮ ಶನಿ (ಬುದ್ಧಿಭ್ರಮೆ, ಸಂತಾನ-ಹಣಕಾಸು ಕಷ್ಟ); 8 ಅಷ್ಟಮ ಶನಿ; 7, 10 ಕಂಟಕ ಶನಿ."
+                },
+                rahu: {
+                    name: "ರಾಹು",
+                    rashi: computedTransitData.eph.rahu.rashi,
+                    natalRashi: computedJanmaData.eph.rahu.rashi,
+                    lordOf: [],
+                    bav: 4,
+                    goodHouses: [3, 6, 10, 11],
+                    phala: "ರಾಹುವು ಉಪಚಯ ಸ್ಥಾನಗಳಾದ 3, 6, 10, 11 ರಲ್ಲಿ ಧೈರ್ಯ ಮತ್ತು ಅನಿರೀಕ್ಷಿತ ಯಶಸ್ಸು ಕೊಡುತ್ತಾನೆ. ಉಳಿದಂತೆ ಭ್ರಮೆ, ವಂಚನೆ, ವಿಷಮ ಪರಿಸ್ಥಿತಿ."
+                },
+                ketu: {
+                    name: "ಕೇತು",
+                    rashi: computedTransitData.eph.ketu.rashi,
+                    natalRashi: computedJanmaData.eph.ketu.rashi,
+                    lordOf: [],
+                    bav: 4,
+                    goodHouses: [3, 6, 9, 11, 12],
+                    phala: "ಕೇತುವು 3, 6, 9, 11, 12 ರಲ್ಲಿ ಆಧ್ಯಾತ್ಮಿಕ ಸಾಧನೆ, ರಹಸ್ಯ ಜ್ಞಾನ ಮತ್ತು ವಿಮೋಚನೆ ನೀಡುತ್ತಾನೆ."
+                }
+            };
+
+            window.currentPlanetsConfig = planetsConfig;
+            window.currentAllPlanetHouses = allPlanetHouses;
+            updatePlanetTable(activePlanetKey);
+
+            const satDist = allPlanetHouses.saturn;
+            const jupDist = allPlanetHouses.jupiter;
+            const satRashiName = RASHIS[planetsConfig.saturn.rashi].split(" ")[0];
+
+            const shaniTag = document.getElementById("shani-tag");
+            const shaniSummary = document.getElementById("shani-summary");
+
+            if (satDist === 12) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-950";
+                shaniTag.textContent = "ಸಾಡೇಸಾತ್ (ಆದ್ಯ ಚರಣ / 12ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 12ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ಸಾಡೇಸಾತಿಯ ಪ್ರಥಮ ಹಂತ. <strong>ತೀವ್ರ ಧನವ್ಯಯ, ನಿದ್ರಾಭಂಗ, ದೂರ ಪ್ರಯಾಣ ಹಾಗೂ ಕಣ್ಣಿನ ತೊಂದರೆ</strong> ಸಂಭವ. ಆರ್ಥಿಕ ಸಾಹಸ ವರ್ಜ್ಯ.`;
+            } else if (satDist === 1) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-200 text-rose-950";
+                shaniTag.textContent = "ಜನ್ಮ ಶನಿ (ದ್ವಿತೀಯ ಚರಣ / ಶಿಖರ ಹಂತ)";
+                shaniSummary.innerHTML = `ಶನಿಯು ಜನ್ಮ ರಾಶಿಯಲ್ಲೇ ಇದ್ದು (${satRashiName}), ಸಾಡೇಸಾತಿಯ ಶಿಖರ ಹಂತ. <strong>ಶಾರೀರಿಕ ತೀವ್ರ ಪೀಡೆ, ಮಾನಸಿಕ ದುಗುಡ, ಕಾರ್ಯಭಂಗ, ಸ್ವಜನ ವಿರೋಧ</strong>. ಪರಮ ಸಂಯಮ ಮತ್ತು ಶನಿ ಶಾಂತಿ ಕಡ್ಡಾಯ.`;
+            } else if (satDist === 2) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-950";
+                shaniTag.textContent = "ಸಾಡೇಸಾತ್ (ಅಂತ್ಯ ಚರಣ / 2ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 2ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ಸಾಡೇಸಾತಿಯ ಇಳಿಕೆ ಹಂತ. <strong>ಕುಟುಂಬದಲ್ಲಿ ಕಲಹ, ಮಾತಿನಿಂದ ವಿರಸ, ನಷ್ಟ ಹಾಗೂ ಆರ್ಥಿಕ ಬಿಕ್ಕಟ್ಟು</strong>. ಮೌನ ಮತ್ತು ತಾಳ್ಮೆ ಅತ್ಯಗತ್ಯ.`;
+            } else if (satDist === 4) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-200 text-rose-950";
+                shaniTag.textContent = "ಕಂಟಕ ಶನಿ (ಅರ್ಧಾಷ್ಟಮ / 4ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 4ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ಅರ್ಧಾಷ್ಟಮ ಶನಿ ದೋಷ. <strong>ಮಾತೃ ಪೀಡೆ, ಗೃಹ-ವಾಹನ ಸಂಬಂಧಿ ಕ್ಲೇಶ, ನಿರಂತರ ಮಾನಸಿಕ ಅಶಾಂತಿ ಹಾಗೂ ಬಂಧು ವೈರತ್ವ</strong>. ಸುಖಭಂಗ.`;
+            } else if (satDist === 5) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-200 text-rose-950";
+                shaniTag.textContent = "ಪಂಚಮ ಶನಿ ಬಾಧೆ (5ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 5ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ತೀವ್ರ ಪಂಚಮ ಶನಿ ದೋಷ. <strong>ಸಂತಾನಕ್ಕೆ ಕಷ್ಟ, ಬುದ್ಧಿಭ್ರಮೆ (ತಪ್ಪು ನಿರ್ಧಾರಗಳು), ಷೇರು/ಹೂಡಿಕೆಯಲ್ಲಿ ಭಾರಿ ನಷ್ಟ, ಮಾನಹಾನಿ ಹಾಗೂ ನೆಮ್ಮದಿ ಭಂಗ</strong>. ಶನಿ ಪ್ರಾರ್ಥನೆ ಅನಿವಾರ್ಯ.`;
+            } else if (satDist === 7) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-200 text-rose-950";
+                shaniTag.textContent = "ಕಂಟಕ ಶನಿ (7ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 7ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ಸಪ್ತಮ ಕಂಟಕ ಶನಿ. <strong>ಕಳತ್ರ ಪೀಡೆ, ದಾಂಪತ್ಯ ಕಲಹ, ಪಾಲುದಾರಿಕೆಯಲ್ಲಿ ನಷ್ಟ, ದೂರ ದೇಶ ಸಂಚಾರ ಹಾಗೂ ಆಪತ್ತು</strong>.`;
+            } else if (satDist === 8) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-300 text-rose-950 animate-pulse";
+                shaniTag.textContent = "🛑 ಅಷ್ಟಮ ಶನಿ (ಮಹಾ ಬಾಧೆ / 8ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 8ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ಮಹಾ ಬಾಧಕಾರಕ ಅಷ್ಟಮ ಶನಿ. <strong>ಆರೋಗ್ಯ ಹಾನಿ, ಅಪಘಾತ ಭಯ, ಸಾಲ, ಕೋರ್ಟ್-ಕಚೇರಿ, ಅಪಕೀರ್ತಿ ಹಾಗೂ ಅನಿರೀಕ್ಷಿತ ದುಃಖ</strong>. ಯಾವುದೇ ಸಾಹಸ ಮಾಡಬೇಡಿ; ತಿಲ ದಾನ ಕಡ್ಡಾಯ.`;
+            } else if (satDist === 10) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-950";
+                shaniTag.textContent = "ಕರ್ಮ ಕಂಟಕ ಶನಿ (10ನೇ ಮನೆ)";
+                shaniSummary.innerHTML = `ಶನಿಯು 10ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), ದಶಮ ಕಂಟಕ ಶನಿ. <strong>ಉದ್ಯೋಗ ನಷ್ಟ, ವ್ಯಾಪಾರದಲ್ಲಿ ಅಡಚಣೆ, ಸ್ಥಾನಭ್ರಷ್ಟತೆ, ತಂದೆಗೆ ಕಷ್ಟ ಹಾಗೂ ಶ್ರಮಕ್ಕೆ ತಕ್ಕ ಫಲ ಸಿಗದಿರುವುದು</strong>.`;
+            } else if ([3, 6, 11].includes(satDist)) {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-200 text-emerald-950";
+                shaniTag.textContent = `✓ ಶುಭ ಶನಿ ಗೋಚಾರ (${satDist}ನೇ ಮನೆ)`;
+                shaniSummary.innerHTML = `ಶನಿಯು ಉಪಚಯ ಸ್ಥಾನವಾದ ${satDist}ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${satRashiName}), <strong>ಶತ್ರುಜಯ, ಧನಲಾಭ, ಅಧಿಕಾರ ಪ್ರಾಪ್ತಿ, ಕಾರ್ಯಸಿದ್ಧಿ ಹಾಗೂ ರೋಗಮುಕ್ತಿ</strong>ಯನ್ನು ನೀಡುತ್ತಿದ್ದಾನೆ. ಸಂಪೂರ್ಣ ಶುಭ ಗೋಚಾರ.`;
+            } else {
+                shaniTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-800";
+                shaniTag.textContent = `ಸಾಧಾರಣ ಶನಿ (${satDist}ನೇ ಮನೆ)`;
+                shaniSummary.innerHTML = `ಶನಿಯು ${satDist}ನೇ ಮನೆಯಲ್ಲಿದ್ದು ಸಾಧಾರಣ ಪ್ರಭಾವ ಬೀರುತ್ತಿದ್ದಾನೆ. ಎಚ್ಚರಿಕೆಯಿಂದ ಕರ್ತವ್ಯ ನಿರ್ವಹಿಸಿ.`;
+            }
+
+            const guruTag = document.getElementById("guru-tag");
+            const guruSummary = document.getElementById("guru-summary");
+            const jupRashiName = RASHIS[planetsConfig.jupiter.rashi].split(" ")[0];
+
+            if ([2, 5, 7, 9, 11].includes(jupDist)) {
+                guruTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-200 text-emerald-950";
+                guruTag.textContent = `✓ ಪ್ರಬಲ ಗುರುಬಲವಿದೆ (${jupDist}ನೇ ಮನೆ)`;
+                guruSummary.innerHTML = `ಗುರುವು ಶುಭಸ್ಥಾನವಾದ ${jupDist}ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${jupRashiName}), <strong>ವಿವಾಹ, ಸಂತಾನ, ನೂತನ ಉದ್ಯೋಗ, ಸಮಾಜದಲ್ಲಿ ಸನ್ಮಾನ ಹಾಗೂ ಭಾಗ್ಯೋದಯ</strong> ತರುತ್ತಾನೆ. ಮಂಗಳಕಾರ್ಯಗಳಿಗೆ ಅತ್ತ್ಯುತ್ತಮ.`;
+            } else {
+                guruTag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-950";
+                guruTag.textContent = `ಗುರುಬಲವಿಲ್ಲ (${jupDist}ನೇ ಮನೆ)`;
+                guruSummary.innerHTML = `ಗುರುವು ಅಶುಭ ಸ್ಥಾನವಾದ ${jupDist}ನೇ ಮನೆಯಲ್ಲಿದ್ದು (${jupRashiName}), <strong>ಪ್ರತ್ಯಕ್ಷ ಗುರುಬಲವಿಲ್ಲ</strong>. ಕಾರ್ಯಗಳಲ್ಲಿ ವಿಳಂಬ ಹಾಗೂ ಖರ್ಚು. ಕುಲದೇವತಾ ಪ್ರಾರ್ಥನೆ ಹಾಗೂ ಗುರು ಸೇವೆ ಅಗತ್ಯ.`;
+            }
+        }
+
+        function selectPlanetResult(planetKey) {
+            activePlanetKey = planetKey;
+            document.querySelectorAll(".planet-btn").forEach(b => b.classList.remove("active-planet"));
+            const btn = document.getElementById(`pbtn-${planetKey}`);
+            if (btn) btn.classList.add("active-planet");
+            updatePlanetTable(planetKey);
+        }
+
+        function updatePlanetTable(planetKey) {
+            if (!window.currentPlanetsConfig || !computedJanmaData || !window.currentAllPlanetHouses) return;
+            const cfg = window.currentPlanetsConfig[planetKey];
+            const jLagna = computedJanmaData.lagna;
+            const gocharaHouse = window.currentAllPlanetHouses[planetKey];
+            const janmaHouse = (cfg.natalRashi - jLagna + 12) % 12 + 1;
+            const isShubha = cfg.goodHouses.includes(gocharaHouse);
+
+            const vedhaInfo = evaluateGocharaVedha(planetKey, gocharaHouse, window.currentAllPlanetHouses);
+
+            document.getElementById("tbl-planet-name").textContent = cfg.name;
+            document.getElementById("tbl-adhipatya").textContent = cfg.lordOf.length ? cfg.lordOf.map(l => (l - jLagna + 12) % 12 + 1).join(", ") : "-";
+            document.getElementById("tbl-janma-sthana").textContent = `${janmaHouse}ನೇ ಮನೆ`;
+            document.getElementById("tbl-gochara-sthana").textContent = `${gocharaHouse}ನೇ ಮನೆ (${RASHIS[cfg.rashi].split(" ")[0]})`;
+            document.getElementById("tbl-bav").textContent = cfg.bav;
+
+            const statusEl = document.getElementById("tbl-status");
+            if (isShubha && vedhaInfo.hasVedha) {
+                statusEl.textContent = "ಶುಭ ಫಲ ಭಂಗ (ವೇಧ ದೋಷ)";
+                statusEl.className = "col-span-2 font-bold text-amber-700";
+            } else if (isShubha) {
+                statusEl.textContent = "ಶುಭಂ";
+                statusEl.className = "col-span-2 font-bold text-emerald-700";
+            } else if (vedhaInfo.vipareeta) {
+                statusEl.textContent = "ವಿಪರೀತ ವೇಧ (ಅಶುಭ ಶಮನ)";
+                statusEl.className = "col-span-2 font-bold text-blue-700";
+            } else {
+                statusEl.textContent = "ಅಶುಭಂ / ದೋಷ";
+                statusEl.className = "col-span-2 font-bold text-rose-700";
+            }
+
+            const vedhaEl = document.getElementById("tbl-vedha");
+            vedhaEl.textContent = vedhaInfo.text;
+            vedhaEl.className = `col-span-2 font-semibold ${vedhaInfo.hasVedha ? 'text-rose-700' : vedhaInfo.vipareeta ? 'text-blue-700' : 'text-emerald-800'}`;
+
+            document.getElementById("tbl-kannada-phala").textContent = cfg.phala;
+        }
+
+        function syncToTarabalaFromKundali() {
+            if (!computedJanmaData) return;
+            document.getElementById("janma-nakshatra").value = computedJanmaData.eph.moon.nak;
+            document.getElementById("janma-pada").value = computedJanmaData.eph.moon.pada;
+            document.getElementById("janma-rashi").value = computedJanmaData.eph.moon.rashi;
+            switchTab("main-tab");
+            runAnalysis();
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => {
+                        reg.update();
+                        console.log('PWA Service Worker registered & updated:', reg.scope);
+                    })
+                    .catch(err => console.log('PWA registration failed:', err));
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>
