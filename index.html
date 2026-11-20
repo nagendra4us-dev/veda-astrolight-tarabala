@@ -154,6 +154,9 @@
             <button onclick="switchTab('main-tab')" id="btn-main-tab" class="tab-btn active-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-emerald-50 text-emerald-900 border border-emerald-200">
                 ⚡ ಮುಖ್ಯ ವಿಶ್ಲೇಷಣೆ
             </button>
+            <button onclick="switchTab('daily-guide-tab')" id="btn-daily-guide-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
+                ✨ ದೈನಂದಿನ ಮಾರ್ಗದರ್ಶಿ
+            </button>
             <button onclick="switchTab('panchanga-tab')" id="btn-panchanga-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
                 📅 ದಿನದ ಪಂಚಾಂಗ
             </button>
@@ -313,6 +316,78 @@
                     <span class="text-[11px] text-slate-500">ಯಾವುದೇ ದಿನವನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ ವಿವರ ನೋಡಿ</span>
                 </div>
                 <div id="seven-day-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5"></div>
+            </div>
+        </section>
+
+        <!-- ==================== NEW TAB: ದೈನಂದಿನ ಮಾರ್ಗದರ್ಶಿ ==================== -->
+        <section id="daily-guide-tab" class="hidden space-y-6">
+            <div class="clean-card rounded-2xl p-5 border-emerald-200 bg-gradient-to-r from-emerald-50/90 to-amber-50/70">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-emerald-200/70 pb-3">
+                    <div>
+                        <h2 class="text-lg font-bold text-emerald-950 flex items-center gap-2">
+                            <span>✨</span> ಸರಳ ದೈನಂದಿನ ಮಾರ್ಗದರ್ಶಿ (Daily Lifestyle & Action Guide)
+                        </h2>
+                        <p class="text-xs text-slate-600 mt-0.5">
+                            ಜ್ಯೋತಿಷ್ಯದ ತಾಂತ್ರಿಕ ಪದಗಳಿಲ್ಲದೆ, ನಿಮ್ಮ ಜನ್ಮ ನಕ್ಷತ್ರಕ್ಕೆ ತಕ್ಕಂತೆ ಇಂದಿನ ದಿನಚರಿ, ಬಣ್ಣ, ಆಹಾರ ಮತ್ತು ಸರಳ ಪರಿಹಾರ
+                        </p>
+                    </div>
+                    <button onclick="copyDailyGuideReport()" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-sm transition">
+                        📋 ಇಂದಿನ ಸಲಹೆ ಕಾಪಿ ಮಾಡಿ
+                    </button>
+                </div>
+
+                <div id="dg-hero-card" class="mt-4 p-4 rounded-2xl bg-white border-l-4 border-emerald-600 shadow-xs space-y-1.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span id="dg-context-label" class="text-xs font-bold text-emerald-800">ಜನ್ಮ ನಕ್ಷತ್ರ: -</span>
+                        <span id="dg-energy-badge" class="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900">ಇಂದಿನ ಶಕ್ತಿ: 80%</span>
+                    </div>
+                    <h3 id="dg-headline" class="text-base sm:text-lg font-bold text-emerald-950">ಇಂದಿನ ದಿನದ ಸಾರಾಂಶ</h3>
+                    <p id="dg-summary-text" class="text-xs sm:text-sm text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="clean-card rounded-2xl p-5 border-emerald-300 bg-emerald-50/40 space-y-3">
+                    <div class="flex items-center gap-2 border-b border-emerald-200 pb-2">
+                        <span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold">✓</span>
+                        <h3 class="text-base font-bold text-emerald-950">ಇಂದು ಮಾಡಬಹುದಾದ ಕೆಲಸಗಳು (Green Signal)</h3>
+                    </div>
+                    <ul id="dg-dos-list" class="space-y-2 text-xs sm:text-sm text-slate-800 list-disc list-inside leading-relaxed"></ul>
+                </div>
+
+                <div class="clean-card rounded-2xl p-5 border-rose-200 bg-rose-50/40 space-y-3">
+                    <div class="flex items-center gap-2 border-b border-rose-200 pb-2">
+                        <span class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-sm font-bold">!</span>
+                        <h3 class="text-base font-bold text-rose-950">ಇಂದು ತಪ್ಪಿಸಬೇಕಾದ ಕೆಲಸಗಳು (Careful Alert)</h3>
+                    </div>
+                    <ul id="dg-donts-list" class="space-y-2 text-xs sm:text-sm text-slate-800 list-disc list-inside leading-relaxed"></ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="clean-card rounded-2xl p-4 border-amber-200 space-y-1.5">
+                    <span class="text-xs font-bold text-amber-900 uppercase flex items-center gap-1">🎨 ಇಂದಿನ ಶುಭ ಬಣ್ಣ</span>
+                    <div id="dg-color-title" class="text-base font-bold text-emerald-950">-</div>
+                    <p id="dg-color-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                </div>
+
+                <div class="clean-card rounded-2xl p-4 border-emerald-200 space-y-1.5">
+                    <span class="text-xs font-bold text-emerald-900 uppercase flex items-center gap-1">🥗 ಸಾತ್ವಿಕ ಆಹಾರ ಸಲಹೆ</span>
+                    <div id="dg-food-title" class="text-base font-bold text-emerald-950">-</div>
+                    <p id="dg-food-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                </div>
+
+                <div class="clean-card rounded-2xl p-4 border-blue-200 space-y-1.5">
+                    <span class="text-xs font-bold text-blue-900 uppercase flex items-center gap-1">🪔 2 ನಿಮಿಷದ ಸರಳ ಪರಿಹಾರ</span>
+                    <div id="dg-remedy-title" class="text-base font-bold text-blue-950">-</div>
+                    <p id="dg-remedy-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                </div>
+
+                <div class="clean-card rounded-2xl p-4 border-purple-200 space-y-1.5">
+                    <span class="text-xs font-bold text-purple-900 uppercase flex items-center gap-1">🧘 ಉಪವಾಸ & ಧ್ಯಾನ ಸೂಚನೆ</span>
+                    <div id="dg-fasting-title" class="text-base font-bold text-purple-950">-</div>
+                    <p id="dg-fasting-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                </div>
             </div>
         </section>
 
@@ -1871,7 +1946,7 @@
         }
 
         function switchTab(tabId) {
-            const tabs = ["main-tab", "panchanga-tab", "matrix-tab", "sutra-tab", "kundali-tab"];
+            const tabs = ["main-tab", "daily-guide-tab", "panchanga-tab", "matrix-tab", "sutra-tab", "kundali-tab"];
             tabs.forEach(id => {
                 const el = document.getElementById(id);
                 const btn = document.getElementById(`btn-${id}`);
@@ -1889,6 +1964,7 @@
                     }
                 }
             });
+            if (tabId === "daily-guide-tab") renderDailyGuideTab();
             if (tabId === "panchanga-tab") updatePanchangaDisplay();
             if (tabId === "matrix-tab") renderMatrix();
             if (tabId === "kundali-tab") calculateKundaliTab();
@@ -2018,6 +2094,7 @@
             };
 
             renderSevenDayOutlook(jNak, jRashi);
+            renderDailyGuideTab();
         }
 
         function renderSevenDayOutlook(jNak, jRashi) {
@@ -2627,6 +2704,167 @@ Listen • Study • Understand • Guide`;
                         console.log('PWA Service Worker registered & updated:', reg.scope);
                     })
                     .catch(err => console.log('PWA registration failed:', err));
+            });
+        }
+
+        let lastDailyGuideText = "";
+
+        function renderDailyGuideTab() {
+            const jNak = parseInt(document.getElementById("janma-nakshatra").value) || 0;
+            const gNak = parseInt(document.getElementById("gochara-nakshatra").value) || 0;
+            const jRashi = parseInt(document.getElementById("janma-rashi").value) || 0;
+            const gRashi = parseInt(document.getElementById("gochara-rashi").value) || 0;
+
+            const distance = (gNak - jNak + 27) % 27 + 1;
+            const taraNum = ((distance - 1) % 9) + 1;
+            const chandraHouse = (gRashi - jRashi + 12) % 12 + 1;
+            const isAshtama = (chandraHouse === 8);
+
+            const overrideVal = document.getElementById("live-dt-override").value;
+            const targetDt = overrideVal ? new Date(overrideVal) : new Date();
+            const varaIdx = targetDt.getDay();
+
+            const jNakName = NAKSHATRAS[jNak].split(" ")[0];
+            const gNakName = NAKSHATRAS[gNak].split(" ")[0];
+
+            const VARA_LIFESTYLE = [
+                { color: "ಕೇಸರಿ / ತಿಳಿ ಕೆಂಪು", colorDesc: "ಆತ್ಮವಿಶ್ವಾಸ ಮತ್ತು ಉತ್ಸಾಹ ಹೆಚ್ಚಿಸಲು ಬೆಳಗ್ಗೆ ತಿಳಿ ಕೇಸರಿ ಅಥವಾ ಬಿಳಿ ವಸ್ತ್ರ ಧರಿಸಿ.", food: "ಗೋಧಿ, ಬೆಲ್ಲ & ದಾಳಿಂಬೆ", foodDesc: "ಸೂರ್ಯನ ಶಕ್ತಿಗೆ ಪೂರಕವಾಗಿ ಬೆಲ್ಲದ ಪಾನಕ ಅಥವಾ ಗೋಧಿಯ ಲಘು ಆಹಾರ ಹಿತಕರ." },
+                { color: "ಬಿಳಿ / ತಿಳಿ ಹಸಿರು", colorDesc: "ಮನಸ್ಸಿನ ಶಾಂತಿ ಮತ್ತು ಏಕಾಗ್ರತೆಗೆ ಬಿಳಿ ಅಥವಾ ತಿಳಿ ಹಸಿರು ಬಣ್ಣ ಉತ್ತಮ.", food: "ಅಕ್ಕಿ, ಹಾಲು & ಬಾಳೆಹಣ್ಣು", foodDesc: "ದೇಹಕ್ಕೆ ತಂಪು ನೀಡುವ ಸಾತ್ವಿಕ ಹಾಲು, ಅನ್ನ ಅಥವಾ ಹಣ್ಣುಗಳನ್ನು ಸೇವಿಸಿ." },
+                { color: "ತಿಳಿ ಹಳದಿ / ಕೇಸರಿ", colorDesc: "ತಾಳ್ಮೆ ಮತ್ತು ಸಮತೋಲನಕ್ಕಾಗಿ ತಿಳಿ ಹಳದಿ ಅಥವಾ ಬಿಳಿ ಬಣ್ಣದ ವಸ್ತ್ರ ಬಳಸಿ.", food: "ಬೆಲ್ಲ, ದಾಳಿಂಬೆ & ತರಕಾರಿ", foodDesc: "ಅತಿ ಖಾರ ಮತ್ತು ಎಣ್ಣೆಯುಕ್ತ ಆಹಾರವನ್ನು ಇಂದು ಮಿತವಾಗಿರಿಸಿ." },
+                { color: "ಹಸಿರು (Green)", colorDesc: "ಬುದ್ಧಿಶಕ್ತಿ, ಮಾತುಕತೆ ಮತ್ತು ವ್ಯಾಪಾರದ ಯಶಸ್ಸಿಗೆ ಹಸಿರು ಬಣ್ಣ ಶುಭಪ್ರದ.", food: "ಹಸಿರು ತರಕಾರಿ & ಹಣ್ಣುಗಳು", foodDesc: "ಮೊಳಕೆ ಕಾಳು, ಸೊಪ್ಪು ಮತ್ತು ತಾಜಾ ಹಣ್ಣುಗಳು ಇಂದು ದೇಹಕ್ಕೆ ಅತ್ಯಂತ ಹಿತಕರ." },
+                { color: "ಹಳದಿ / ಚಿನ್ನದ ಬಣ್ಣ", colorDesc: "ಸಕಾರಾತ್ಮಕ ಆಲೋಚನೆ ಮತ್ತು ಶುಭ ಕಾರ್ಯಗಳಿಗೆ ಹಳದಿ ಬಣ್ಣ ಧರಿಸಿ.", food: "ಕಡಲೆ, ಬಾಳೆಹಣ್ಣು & ತುಪ್ಪ", foodDesc: "ಶುದ್ಧ ಹಸುವಿನ ತುಪ್ಪ, ಬಾಳೆಹಣ್ಣು ಮತ್ತು ಸಾತ್ವಿಕ ಭೋಜನ ಸೇವಿಸಿ." },
+                { color: "ಬಿಳಿ / ಗುಲಾಬಿ (Pink)", colorDesc: "ಸೌಹಾರ್ದತೆ ಮತ್ತು ಸಂತೋಷಕ್ಕಾಗಿ ತಿಳಿ ಗುಲಾಬಿ ಅಥವಾ ಬಿಳಿ ವಸ್ತ್ರ ಧರಿಸಿ.", food: "ಮೊಸರು, ಅಕ್ಕಿ & ಸಿಹಿ ಹಣ್ಣು", foodDesc: "ತಾಜಾ ಹಣ್ಣುಗಳು, ಸಕ್ಕರೆ ಬದಲು ಬೆಲ್ಲ ಮತ್ತು ಲಘು ಆಹಾರ ಉತ್ತಮ." },
+                { color: "ನೀಲಿ / ತಿಳಿ ಬೂದು", colorDesc: "ಶಿಸ್ತು ಮತ್ತು ಶಾಂತತೆಗಾಗಿ ತಿಳಿ ನೀಲಿ ಅಥವಾ ಬಿಳಿ ಬಣ್ಣ ಬಳಸಿ.", food: "ಎಳ್ಳು, ಗೋಧಿ & ತರಕಾರಿ", foodDesc: "ರಾತ್ರಿ ಲಘು ಆಹಾರ ಸೇವಿಸಿ; ಎಳ್ಳು ಅಥವಾ ಬೆಲ್ಲದ ಪದಾರ್ಥ ಹಿತಕರ." }
+            ];
+
+            const TARA_GUIDANCE = {
+                1: {
+                    energy: "55% (ಸಾಧಾರಣ - ವಿಶ್ರಾಂತಿ ಅಗತ್ಯ)",
+                    border: "border-amber-500",
+                    headline: "ಇಂದು ನಿಧಾನಗತಿಯಲ್ಲಿ ಮತ್ತು ಎಚ್ಚರಿಕೆಯಿಂದ ಕೆಲಸ ಮಾಡಿ",
+                    summary: "ಇಂದು ನಿಮ್ಮ ಜನ್ಮ ನಕ್ಷತ್ರವೇ ನಡೆದಿರುವುದರಿಂದ ಶರೀರಕ್ಕೆ ಸ್ವಲ್ಪ ಆಯಾಸ ಅಥವಾ ಕೆಲಸದ ಒತ್ತಡ ಅನಿಸಬಹುದು. ಅವಸರದ ನಿರ್ಧಾರ ಬೇಡ.",
+                    dos: ["ದೈನಂದಿನ ನಿಯಮಿತ ಕೆಲಸಗಳನ್ನು ಶಾಂತವಾಗಿ ಪೂರ್ಣಗೊಳಿಸಿ", "ಆರೋಗ್ಯ, ಧ್ಯಾನ ಮತ್ತು ಸ್ವಯಂ ವಿಶ್ರಾಂತಿಗೆ ಸಮಯ ನೀಡಿ", "ಹಳೆಯ ಬಾಕಿ ಕೆಲಸಗಳನ್ನು ಪರಿಶೀಲಿಸಿ"],
+                    donts: ["ದೂರದ ಪ್ರಯಾಣ ಅಥವಾ ಹೊಸ ಸಾಹಸಮಯ ಹೂಡಿಕೆ ಬೇಡ", "ಅನಾವಶ್ಯಕ ವಾದ-ವಿವಾದಗಳಿಂದ ದೂರವಿರಿ"],
+                    remedyTitle: "ಇಷ್ಟದೇವರ ಸ್ಮರಣೆ & ತುಳಸಿ ಸೇವನೆ",
+                    remedyDesc: "ಮನೆಯಿಂದ ಹೊರಡುವ ಮೊದಲು 2 ತುಳಸಿ ದಳ ಸೇವಿಸಿ, ಇಷ್ಟದೇವರ ನಾಮವನ್ನು 11 ಬಾರಿ ಸ್ಮರಿಸಿ."
+                },
+                2: {
+                    energy: "92% (ಅತ್ಯುತ್ತಮ ಧನ & ಕಾರ್ಯ ಸಿದ್ಧಿ)",
+                    border: "border-emerald-600",
+                    headline: "ಹಣಕಾಸು, ವ್ಯಾಪಾರ ಮತ್ತು ಹೊಸ ಆರಂಭಕ್ಕೆ ಅತ್ಯಂತ ಶುಭ ದಿನ",
+                    summary: "ಇಂದು ನಿಮಗೆ ಸಂಪತ್ ತಾರೆ ಇರುವುದರಿಂದ ಆರ್ಥಿಕ ಮಾತುಕತೆ, ಹೂಡಿಕೆ ಮತ್ತು ಮಹತ್ವದ ಕೆಲಸಗಳಲ್ಲಿ ಯಶಸ್ಸು ಸಿಗುವ ಬಲವಿದೆ.",
+                    dos: ["ಹೊಸ ಒಪ್ಪಂದ, ವ್ಯಾಪಾರ ಮತ್ತು ಹಣಕಾಸಿನ ಯೋಜನೆಗಳನ್ನು ಆರಂಭಿಸಿ", "ಹಿರಿಯರು ಅಥವಾ ಗ್ರಾಹಕರೊಂದಿಗೆ ಮಹತ್ವದ ಮಾತುಕತೆ ನಡೆಸಿ", "ಹೊಸ ವಸ್ತುಗಳ ಖರೀದಿ ಮತ್ತು ಶುಭ ಕಾರ್ಯಗಳಿಗೆ ಮುಂದಾಗಿ"],
+                    donts: ["ಸೋಮಾರಿತನದಿಂದ ಒಳ್ಳೆಯ ಅವಕಾಶವನ್ನು ಮುಂದೂಡಬೇಡಿ"],
+                    remedyTitle: "ಕೃತಜ್ಞತಾ ಪ್ರಾರ್ಥನೆ",
+                    remedyDesc: "ಬೆಳಗ್ಗೆ ಸೂರ್ಯನಿಗೆ ನಮಸ್ಕರಿಸಿ ನಿಮ್ಮ ದಿನದ ಮುಖ್ಯ ಕೆಲಸವನ್ನು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಆರಂಭಿಸಿ."
+                },
+                3: {
+                    energy: "40% (ಎಚ್ಚರಿಕೆ ಅಗತ್ಯ)",
+                    border: "border-rose-500",
+                    headline: "ಇಂದು ಹೊಸ ಸಾಹಸ ಬೇಡ — ತಾಳ್ಮೆ ಮತ್ತು ಎಚ್ಚರಿಕೆ ಇರಲಿ",
+                    summary: "ಇಂದು ಸಣ್ಣಪುಟ್ಟ ಅಡೆತಡೆಗಳು ಅಥವಾ ವಿಳಂಬ ಎದುರಾಗಬಹುದು. ವಾಹನ ಚಾಲನೆ ಮತ್ತು ಹಣಕಾಸಿನ ವ್ಯವಹಾರದಲ್ಲಿ ಜಾಗ್ರತೆ ಇರಲಿ.",
+                    dos: ["ಈಗಾಗಲೇ ನಡೆಯುತ್ತಿರುವ ಸಾಮಾನ್ಯ ಕೆಲಸಗಳನ್ನು ಮಾತ್ರ ಮಾಡಿ", "ವಾಹನ ಚಾಲನೆಯಲ್ಲಿ ನಿಧಾನ ಮತ್ತು ಎಚ್ಚರಿಕೆ ವಹಿಸಿ", "ಮೌನ ಮತ್ತು ತಾಳ್ಮೆಯಿಂದ ದಿನ ಕಳೆಯಿರಿ"],
+                    donts: ["ಹೊಸ ಸಾಲ ನೀಡುವುದು ಅಥವಾ ದೊಡ್ಡ ಹಣ ಹೂಡುವುದು ಬೇಡ", "ಮುಖ್ಯ ಒಪ್ಪಂದಗಳಿಗೆ ಇಂದು ಸಹಿ ಹಾಕುವುದನ್ನು ಮುಂದೂಡಿ"],
+                    remedyTitle: "ಬೆಲ್ಲ ದಾನ / ಗಣಪತಿ ಪ್ರಾರ್ಥನೆ",
+                    remedyDesc: "ಹೊರಡುವ ಮೊದಲು ಸ್ವಲ್ಪ ಬೆಲ್ಲ ಸೇವಿಸಿ ಅಥವಾ ಗಣಪತಿಗೆ ನಮಸ್ಕರಿಸಿ ಕೆಲಸ ಆರಂಭಿಸಿ."
+                },
+                4: {
+                    energy: "85% (ಕ್ಷೇಮ & ನೆಮ್ಮದಿಯ ದಿನ)",
+                    border: "border-emerald-600",
+                    headline: "ಮನಸ್ಸಿಗೆ ನೆಮ್ಮದಿ ಮತ್ತು ಕುಟುಂಬದಲ್ಲಿ ಸೌಹಾರ್ದತೆ ಇರುವ ದಿನ",
+                    summary: "ಇಂದು ಕ್ಷೇಮ ತಾರೆ ಇರುವುದರಿಂದ ಆರೋಗ್ಯ ಸುಧಾರಣೆ, ಮನೆಯ ಕೆಲಸಗಳು ಮತ್ತು ಸಂಬಂಧಗಳ ಬಲವರ್ಧನೆಗೆ ಉತ್ತಮ ದಿನ.",
+                    dos: ["ಮನೆ, ಕುಟುಂಬ ಮತ್ತು ಆರೋಗ್ಯದ ಕಾಳಜಿಗೆ ಆದ್ಯತೆ ನೀಡಿ", "ಬಾಕಿ ಇರುವ ಕೆಲಸಗಳನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಮುಗಿಸಿ", "ವೈದ್ಯಕೀಯ ಚಿಕಿತ್ಸೆ ಅಥವಾ ಔಷಧ ಆರಂಭಕ್ಕೆ ಉತ್ತಮ"],
+                    donts: ["ಅನಗತ್ಯ ಆತಂಕ ಅಥವಾ ನಕಾರಾತ್ಮಕ ಆಲೋಚನೆ ಬೇಡ"],
+                    remedyTitle: "ತುಳಸಿ / ಹೂವಿನ ಅರ್ಪಣೆ",
+                    remedyDesc: "ದೇವರಿಗೆ ಪರಿಮಳಯುಕ್ತ ಹೂವು ಅರ್ಪಿಸಿ ಶಾಂತ ಮನಸ್ಸಿನಿಂದ ದಿನ ಆರಂಭಿಸಿ."
+                },
+                5: {
+                    energy: "45% (ಸಂಯಮ ಅಗತ್ಯ)",
+                    border: "border-rose-500",
+                    headline: "ಮಾತುಕತೆ ಮತ್ತು ವ್ಯವಹಾರದಲ್ಲಿ ತಾಳ್ಮೆ ಕಾಪಾಡಿಕೊಳ್ಳಿ",
+                    summary: "ಇಂದು ಇತರರಿಂದ ಭಿನ್ನಾಭಿಪ್ರಾಯ ಅಥವಾ ಕೆಲಸದಲ್ಲಿ ನಿರೀಕ್ಷಿತ ವೇಗ ಸಿಗದಿರಬಹುದು. ಕೋಪಗೊಳ್ಳದೆ ಶಾಂತವಾಗಿರಿ.",
+                    dos: ["ನಿಮ್ಮ ಕೆಲಸದ ಮೇಲೆ ಮಾತ್ರ ಏಕಾಗ್ರತೆ ಇರಿಸಿ", "ದಾಖಲೆಗಳನ್ನು ಎರಡು ಬಾರಿ ಪರಿಶೀಲಿಸಿ"],
+                    donts: ["ಇತರರೊಂದಿಗೆ ವಾದ-ವಿವಾದ ಅಥವಾ ಸ್ಪರ್ಧೆಗೆ ಇಳಿಯಬೇಡಿ", "ದೂರ ಪ್ರಯಾಣ ಅಥವಾ ಹೊಸ ಒಪ್ಪಂದ ತಪ್ಪಿಸಿ"],
+                    remedyTitle: "ಸುಬ್ರಹ್ಮಣ್ಯ / ಇಷ್ಟದೇವರ ಸ್ಮರಣೆ",
+                    remedyDesc: "ಹೊರಡುವ ಮೊದಲು 3 ಬಾರಿ ದೀರ್ಘ ಉಸಿರು ತೆಗೆದುಕೊಂಡು ಇಷ್ಟದೇವರನ್ನು ಪ್ರಾರ್ಥಿಸಿ."
+                },
+                6: {
+                    energy: "90% (ಕಾರ್ಯಸಿದ್ಧಿ & ಯಶಸ್ಸು)",
+                    border: "border-emerald-600",
+                    headline: "ಕಠಿಣ ಕೆಲಸಗಳನ್ನೂ ಸಾಧಿಸುವ ಶಕ್ತಿ ಇರುವ ಉತ್ತಮ ದಿನ",
+                    summary: "ಇಂದು ಸಾಧಕ ತಾರೆ ಇರುವುದರಿಂದ ನಿಮ್ಮ ಪ್ರಯತ್ನಗಳಿಗೆ ಉತ್ತಮ ಫಲ ಸಿಗುತ್ತದೆ. ಸಂದರ್ಶನ, ಪರೀಕ್ಷೆ ಮತ್ತು ಯೋಜನೆಗಳಿಗೆ ಶುಭ.",
+                    dos: ["ಮಹತ್ವದ ಕೆಲಸ, ಸಂದರ್ಶನ ಮತ್ತು ಹೊಸ ಪ್ರಯತ್ನಗಳನ್ನು ಕೈಗೊಳ್ಳಿ", "ಹಳೆಯ ಸಮಸ್ಯೆಗಳಿಗೆ ಪರಿಹಾರ ಕಂಡುಕೊಳ್ಳಲು ಪ್ರಯತ್ನಿಸಿ", "ಆಧ್ಯಾತ್ಮಿಕ ಜಪ-ಧ್ಯಾನಕ್ಕೆ ಅತ್ಯುತ್ತಮ ದಿನ"],
+                    donts: ["ಅವಕಾಶವನ್ನು ಕೈಚೆಲ್ಲಬೇಡಿ; ಸಕಾರಾತ್ಮಕವಾಗಿ ಮುನ್ನಡೆಯಿರಿ"],
+                    remedyTitle: "ದೀಪ ಬೆಳಗಿ ಪ್ರಾರ್ಥನೆ",
+                    remedyDesc: "ಬೆಳಗ್ಗೆ ದೇವರ ಮುಂದೆ ದೀಪ ಬೆಳಗಿ ನಿಮ್ಮ ಗುರಿಯತ್ತ ಹೆಜ್ಜೆ ಇಡಿ."
+                },
+                7: {
+                    energy: "30% (ಮಹಾ ಎಚ್ಚರಿಕೆ - ವಿಶ್ರಾಂತಿ ಕ್ಷೇಮ)",
+                    border: "border-rose-600",
+                    headline: "ಇಂದು ಯಾವುದೇ ಮಹತ್ವದ ನಿರ್ಧಾರ ಬೇಡ — ಸರಳವಾಗಿ ದಿನ ಕಳೆಯಿರಿ",
+                    summary: "ಇಂದು ನೈಧನ ತಾರೆ ಇರುವುದರಿಂದ ಹೊಸ ಕಾರ್ಯಾರಂಭ, ಪ್ರಯಾಣ ಮತ್ತು ಹಣಕಾಸಿನ ರಿಸ್ಕ್ ತೆಗೆದುಕೊಳ್ಳಬಾರದು.",
+                    dos: ["ಕೇವಲ ನಿತ್ಯದ ಸಾಮಾನ್ಯ ಕೆಲಸಗಳು ಮತ್ತು ವಿಶ್ರಾಂತಿಗೆ ಸೀಮಿತವಾಗಿರಿ", "ಧ್ಯಾನ, ಮೌನ ಮತ್ತು ಆರೋಗ್ಯದ ಕಡೆ ಗಮನ ಕೊಡಿ"],
+                    donts: ["ಹೊಸ ವ್ಯಾಪಾರ, ಒಪ್ಪಂದ, ಪ್ರಯಾಣ ಮತ್ತು ದೊಡ್ಡ ಖರ್ಚು ಸಂಪೂರ್ಣ ತಪ್ಪಿಸಿ", "ಅಪರಿಚಿತರೊಂದಿಗೆ ಹಣಕಾಸಿನ ವ್ಯವಹಾರ ಮಾಡಬೇಡಿ"],
+                    remedyTitle: "ಎಳ್ಳು ದಾನ / ಮಹಾಮೃತ್ಯುಂಜಯ ಮಂತ್ರ",
+                    remedyDesc: "ಪಕ್ಷಿಗಳಿಗೆ ಕಾಳು ಹಾಕಿ ಅಥವಾ 'ಓಂ ನಮಃ ಶಿವಾಯ' ಮಂತ್ರವನ್ನು 21 ಬಾರಿ ಪಠಿಸಿ ಹೊರಡಿ."
+                },
+                8: {
+                    energy: "85% (ಸ್ನೇಹ & ಸಹಕಾರದ ದಿನ)",
+                    border: "border-emerald-600",
+                    headline: "ಮಿತ್ರರು ಮತ್ತು ಸಹೋದ್ಯೋಗಿಗಳಿಂದ ಬೆಂಬಲ ಸಿಗುವ ಶುಭ ದಿನ",
+                    summary: "ಇಂದು ಮಿತ್ರ ತಾರೆ ಇರುವುದರಿಂದ ತಂಡದ ಕೆಲಸ, ಸಭೆ-ಸಮಾರಂಭ ಮತ್ತು ಹೊಸ ಸಂಪರ್ಕಗಳಿಗೆ ಅತ್ಯಂತ ಅನುಕೂಲಕರವಾಗಿದೆ.",
+                    dos: ["ಸ್ನೇಹಿತರು, ಹಿತೈಷಿಗಳು ಮತ್ತು ಗ್ರಾಹಕರನ್ನು ಭೇಟಿ ಮಾಡಿ", "ಸಾಮೂಹಿಕ ಕೆಲಸಗಳು ಮತ್ತು ಚರ್ಚೆಗಳಲ್ಲಿ ಭಾಗವಹಿಸಿ", "ಶುಭ ಕಾರ್ಯಗಳು ಮತ್ತು ಪ್ರಯಾಣಕ್ಕೆ ಮುಂದಾಗಿ"],
+                    donts: ["ಒಂಟಿಯಾಗಿ ನಿರ್ಧಾರ ತೆಗೆದುಕೊಳ್ಳುವ ಬದಲು ಹಿತೈಷಿಗಳ ಸಲಹೆ ಪಡೆಯಿರಿ"],
+                    remedyTitle: "ಹಿರಿಯರಿಗೆ ನಮಸ್ಕಾರ",
+                    remedyDesc: "ಮನೆಯ ಹಿರಿಯರ ಆಶೀರ್ವಾದ ಪಡೆದು ದಿನದ ಕೆಲಸ ಆರಂಭಿಸಿ."
+                },
+                9: {
+                    energy: "95% (ಪರಮ ಶುಭ & ಭಾಗ್ಯೋದಯ)",
+                    border: "border-emerald-600",
+                    headline: "ಎಲ್ಲಾ ಶುಭ ಕಾರ್ಯಗಳಿಗೂ ಅತ್ಯಂತ ಪ್ರಶಸ್ತವಾದ ದಿನ",
+                    summary: "ಇಂದು ಪರಮ ಮಿತ್ರ ತಾರೆ ಇರುವುದರಿಂದ ಮನಸ್ಸಿಗೆ ಸಂತೋಷ, ಕಾರ್ಯದಲ್ಲಿ ಸುಗಮತೆ ಮತ್ತು ಶುಭ ಫಲಗಳು ದೊರೆಯುತ್ತವೆ.",
+                    dos: ["ಯಾವುದೇ ಶುಭ ಕಾರ್ಯ, ಹೂಡಿಕೆ, ಪ್ರಯಾಣ ಮತ್ತು ಹೊಸ ಆರಂಭ ಮಾಡಿ", "ಮಹತ್ವದ ನಿರ್ಧಾರಗಳನ್ನು ಧೈರ್ಯವಾಗಿ ತೆಗೆದುಕೊಳ್ಳಿ", "ದಾನ-ಧರ್ಮ ಮತ್ತು ಸತ್ಕಾರ್ಯಗಳಲ್ಲಿ ತೊಡಗಿ"],
+                    donts: ["ಅನಾವಶ್ಯಕ ಸಂದೇಹ ಬಿಟ್ಟು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಮುನ್ನಡೆಯಿರಿ"],
+                    remedyTitle: "ಸೂರ್ಯ ನಮಸ್ಕಾರ / ಕೃತಜ್ಞತೆ",
+                    remedyDesc: "ಇಷ್ಟದೇವರಿಗೆ ಹಣ್ಣು ಅರ್ಪಿಸಿ ಸಂತೋಷದಿಂದ ದಿನವನ್ನು ಪ್ರಾರಂಭಿಸಿ."
+                }
+            };
+
+            const guide = TARA_GUIDANCE[taraNum] || TARA_GUIDANCE[1];
+            const styleInfo = VARA_LIFESTYLE[varaIdx] || VARA_LIFESTYLE[0];
+
+            const heroCard = document.getElementById("dg-hero-card");
+            if (heroCard) heroCard.className = `mt-4 p-4 rounded-2xl bg-white border-l-4 ${guide.border} shadow-xs space-y-1.5`;
+            document.getElementById("dg-context-label").textContent = `ಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} • ಇಂದಿನ ನಕ್ಷತ್ರ: ${gNakName}`;
+            document.getElementById("dg-energy-badge").textContent = isAshtama ? "ಇಂದಿನ ಶಕ್ತಿ: 35% (ಅಷ್ಟಮ ಚಂದ್ರ ಎಚ್ಚರಿಕೆ)" : `ಇಂದಿನ ಶಕ್ತಿ: ${guide.energy}`;
+            document.getElementById("dg-headline").textContent = isAshtama ? "ಇಂದು ಮನಸ್ಸಿಗೆ ವಿಶ್ರಾಂತಿ ನೀಡಿ — ದೊಡ್ಡ ನಿರ್ಧಾರ ಮುಂದೂಡಿ" : guide.headline;
+            document.getElementById("dg-summary-text").textContent = isAshtama
+                ? "ಇಂದು ಚಂದ್ರನು 8ನೇ ಮನೆಯಲ್ಲಿರುವುದರಿಂದ ಸಣ್ಣ ವಿಷಯಕ್ಕೂ ಮನಸ್ಸಿಗೆ ಆಯಾಸ ಅಥವಾ ಗೊಂದಲ ಅನಿಸಬಹುದು. ನಿತ್ಯದ ಕೆಲಸಗಳನ್ನು ಮಾತ್ರ ಶಾಂತವಾಗಿ ಮಾಡಿ."
+                : guide.summary;
+
+            document.getElementById("dg-dos-list").innerHTML = guide.dos.map(item => `<li>${item}</li>`).join("");
+            document.getElementById("dg-donts-list").innerHTML = guide.donts.map(item => `<li>${item}</li>`).join("");
+
+            document.getElementById("dg-color-title").textContent = styleInfo.color;
+            document.getElementById("dg-color-desc").textContent = styleInfo.colorDesc;
+            document.getElementById("dg-food-title").textContent = styleInfo.food;
+            document.getElementById("dg-food-desc").textContent = styleInfo.foodDesc;
+            document.getElementById("dg-remedy-title").textContent = guide.remedyTitle;
+            document.getElementById("dg-remedy-desc").textContent = guide.remedyDesc;
+
+            const isBirthStarToday = (jNak === gNak);
+            document.getElementById("dg-fasting-title").textContent = isBirthStarToday ? "ಇಂದು ನಿಮ್ಮ ಮಾಸಿಕ ಜನ್ಮ ನಕ್ಷತ್ರ!" : "10 ನಿಮಿಷ ಮೌನ ಧ್ಯಾನ";
+            document.getElementById("dg-fasting-desc").textContent = isBirthStarToday
+                ? `ಇಂದು ${jNakName} ನಕ್ಷತ್ರ ಬಂದಿರುವುದರಿಂದ ದೇಹ ಮತ್ತು ಮನಸ್ಸಿನ ಶುದ್ಧಿಗಾಗಿ ಲಘು ಸಾತ್ವಿಕ ಆಹಾರ ಅಥವಾ ಉಪವಾಸ (Fasting) ಮಾಡುವುದು ಅತ್ಯಂತ ಶ್ರೇಷ್ಠ.`
+                : `ಬೆಳಗ್ಗೆ ಅಥವಾ ಸಂಜೆ 10 ನಿಮಿಷ ಕಣ್ಣು ಮುಚ್ಚಿ ಶಾಂತವಾಗಿ ಉಸಿರಾಟ ಗಮನಿಸಿ; ನಿಮ್ಮ ಮುಂದಿನ ಮಾಸಿಕ ${jNakName} ನಕ್ಷತ್ರದ ದಿನ ಲಘು ಉಪವಾಸ ಆಚರಿಸಿ.`;
+
+            lastDailyGuideText = `✨ ವೇದ ಆಸ್ಟ್ರೋಲೈಟ್ - ಇಂದಿನ ಸರಳ ದಿನಚರಿ ಮಾರ್ಗದರ್ಶಿ\nಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} | ಇಂದು: ${gNakName}\n• ಸಲಹೆ: ${guide.headline}\n• ಶುಭ ಬಣ್ಣ: ${styleInfo.color}\n• ಆಹಾರ: ${styleInfo.food}\n• ಸರಳ ಪರಿಹಾರ: ${guide.remedyTitle} - ${guide.remedyDesc}`;
+        }
+
+        function copyDailyGuideReport() {
+            renderDailyGuideTab();
+            navigator.clipboard.writeText(lastDailyGuideText).then(() => {
+                alert("ಇಂದಿನ ಸರಳ ಮಾರ್ಗದರ್ಶಿ ವರದಿಯನ್ನು ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!");
             });
         }
 
