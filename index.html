@@ -140,9 +140,12 @@
                 <a href="tel:7349577177" class="mono px-3 py-1.5 rounded-lg border border-blue-300 bg-blue-50 text-blue-900 hover:bg-blue-100 transition font-bold">
                     📞 7349577177
                 </a>
-                <a href="https://wa.me/917349577177" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition font-medium shadow-sm">
-                    WhatsApp
-                </a>
+                <button onclick="openHeaderWhatsApp()" class="px-3 py-1.5 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition font-medium shadow-sm flex items-center gap-1" title="WhatsApp ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ / Subscription">
+                    <span>💬</span> <span>WhatsApp</span>
+                </button>
+                <button onclick="toggleAppLanguage()" id="lang-toggle-btn" class="px-3 py-1.5 rounded-lg bg-indigo-700 text-white hover:bg-indigo-800 transition font-bold shadow-sm flex items-center gap-1" title="Switch Language (ಕನ್ನಡ / English)">
+                    <span>🌐</span> <span id="lang-toggle-label">English</span>
+                </button>
             </div>
         </div>
     </header>
@@ -164,7 +167,7 @@
                 ☸ 27 ನಕ್ಷತ್ರ ಚಕ್ರ
             </button>
             <button onclick="switchTab('sutra-tab')" id="btn-sutra-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
-                📜 ಶಾಸ್ತ್ರ ಸೂತ್ರ & ದಾನ
+                🧠 ಮನಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶಿ
             </button>
             <button onclick="switchTab('kundali-tab')" id="btn-kundali-tab" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-emerald-900 border border-emerald-200 hover:bg-emerald-50">
                 🪐 ಜಾತಕ & ಶನಿ/ಗುರು ಗೋಚಾರ
@@ -508,23 +511,82 @@
             <div id="matrix-grid-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
         </section>
 
-        <!-- ==================== TAB 4: ಶಾಸ್ತ್ರ ಸೂತ್ರ & ದಾನ ==================== -->
-        <section id="sutra-tab" class="hidden space-y-4">
-            <div class="clean-card rounded-2xl p-5 space-y-4">
-                <h3 class="text-lg font-bold text-emerald-900 border-b border-emerald-100 pb-2">9 ತಾರೆಗಳ ಶಾಸ್ತ್ರ ಸೂತ್ರ ಹಾಗೂ ದೋಷ ಪರಿಹಾರ ಕ್ರಮಗಳು</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                        <span class="font-bold text-amber-900 text-sm">3. ವಿಪತ್ ತಾರಾ (ಅಶುಭ):</span>
-                        <p class="text-slate-700 mt-1">ಕಾರ್ಯ ವಿಘ್ನ, ಅಪಘಾತ ಭಯ. 1ನೇ ಪರ್ಯಾಯದಲ್ಲಿ ತೀವ್ರ.<br><strong class="text-emerald-900">ಪರಿಹಾರ:</strong> ಬೆಲ್ಲ ದಾನ (Jaggery donation).</p>
+        <!-- ==================== TAB 4: ಮನಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶಿ (ASTRO-PSYCHOLOGY) ==================== -->
+        <section id="sutra-tab" class="hidden space-y-6">
+            <div class="clean-card rounded-2xl p-5 border-indigo-200 bg-gradient-to-r from-indigo-50/70 via-emerald-50/60 to-amber-50/60">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-indigo-200/60 pb-3">
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-950 flex items-center gap-2">
+                            <span>🧠</span> ಮನಶಾಸ್ತ್ರೀಯ & ಭಾವನಾತ್ಮಕ ಮಾರ್ಗದರ್ಶಿ (Astro-Psychology)
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-0.5">
+                            ನಿಮ್ಮ ಜನ್ಮ ನಕ್ಷತ್ರ, ರಾಶಿ ಮತ್ತು ಇಂದಿನ ಚಂದ್ರನ ಸಂಚಾರದ ಆಧಾರದ ಮೇಲೆ ಮನಸ್ಸಿನ ಒಳನೋಟ, ಭಾವನಾತ್ಮಕ ಸಮತೋಲನ ಮತ್ತು ಸ್ವತಂತ್ರ ಇಚ್ಛೆಯ (Free Will) ಮಾರ್ಗದರ್ಶನ
+                        </p>
                     </div>
-                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                        <span class="font-bold text-amber-900 text-sm">5. ಪ್ರತ್ಯಕ್ ತಾರಾ (ಅಶುಭ):</span>
-                        <p class="text-slate-700 mt-1">ವಿರೋಧ, ನಿಷ್ಪ್ರಯೋಜಕ ಶ್ರಮ. 2ನೇ ಪರ್ಯಾಯದಲ್ಲಿ ಅತಿ ಕೆಟ್ಟದ್ದು.<br><strong class="text-emerald-900">ಪರಿಹಾರ:</strong> ಉಪ್ಪು ದಾನ (Salt donation).</p>
+                    <button onclick="copyPsychologyReport()" class="px-3.5 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold shadow-sm transition">
+                        📋 ಮನಶಾಸ್ತ್ರೀಯ ಸಲಹೆ ಕಾಪಿ ಮಾಡಿ
+                    </button>
+                </div>
+
+                <!-- Emotional Weather Banner -->
+                <div id="psy-weather-card" class="mt-4 p-4 rounded-2xl bg-white border-l-4 border-indigo-600 shadow-xs space-y-1.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span id="psy-context-tag" class="text-xs font-bold text-indigo-900">ಮನಸ್ಸಿನ ಸ್ಥಿತಿ ವಿಶ್ಲೇಷಣೆ</span>
+                        <span id="psy-clarity-badge" class="px-3 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-900">ಮಾನಸಿಕ ಸ್ಪಷ್ಟತೆ: 80%</span>
                     </div>
-                    <div class="p-4 rounded-xl bg-rose-50 border border-rose-200">
-                        <span class="font-bold text-rose-800 text-sm">7. ನೈಧನ / ವೈನಾಶಿಕ (ಅತ್ಯಂತ ವರ್ಜ್ಯ):</span>
-                        <p class="text-slate-700 mt-1">ನಾಶ, ಮೃತ್ಯು ಸಮಾನ ಕಷ್ಟ. 3ನೇ ಪರ್ಯಾಯದ 25ನೇ ನಕ್ಷತ್ರ ಮಹಾ ದೋಷ.<br><strong class="text-rose-900">ಪರಿಹಾರ:</strong> ಎಳ್ಳು ಅಥವಾ ಚಿನ್ನ ದಾನ, ಮಹಾಮೃತ್ಯುಂಜಯ ಜಪ.</p>
+                    <h4 id="psy-weather-title" class="text-base sm:text-lg font-bold text-slate-900">ಇಂದಿನ ಭಾವನಾತ್ಮಕ ಹವಾಮಾನ (Emotional Weather)</h4>
+                    <p id="psy-weather-desc" class="text-xs sm:text-sm text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- 2-Column Core Archetype & Communication Psychology -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="clean-card rounded-2xl p-5 border-emerald-200 space-y-3">
+                    <div class="flex items-center gap-2 border-b border-emerald-100 pb-2">
+                        <span class="text-lg">🪞</span>
+                        <h4 class="text-base font-bold text-emerald-950">ಜನ್ಮ ನಕ್ಷತ್ರದ ಮೂಲ ಮನೋಭಾವ (Core Archetype)</h4>
                     </div>
+                    <div class="space-y-2 text-xs sm:text-sm">
+                        <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100">
+                            <span class="font-bold text-emerald-900 block mb-0.5">✨ ನಿಮ್ಮ ಸಹಜ ಮಾನಸಿಕ ಶಕ್ತಿ (Core Strength):</span>
+                            <p id="psy-strength-text" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-100">
+                            <span class="font-bold text-amber-900 block mb-0.5">⚠️ ಒತ್ತಡದಲ್ಲಿ ಎದುರಾಗುವ ಸವಾಲು (Blind Spot):</span>
+                            <p id="psy-blindspot-text" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clean-card rounded-2xl p-5 border-blue-200 space-y-3">
+                    <div class="flex items-center gap-2 border-b border-blue-100 pb-2">
+                        <span class="text-lg">💬</span>
+                        <h4 class="text-base font-bold text-blue-950">ಸಂಬಂಧ & ಸಂವಹನ ಮನಶಾಸ್ತ್ರ (Communication)</h4>
+                    </div>
+                    <div class="space-y-2 text-xs sm:text-sm">
+                        <div class="p-3 rounded-xl bg-blue-50/60 border border-blue-100">
+                            <span class="font-bold text-blue-900 block mb-0.5">🤝 ಇತರರೊಂದಿಗೆ ವ್ಯವಹರಿಸುವಾಗ:</span>
+                            <p id="psy-comm-text" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-purple-50/60 border border-purple-100">
+                            <span class="font-bold text-purple-900 block mb-0.5">⚖️ ಕರ್ಮ & ಸ್ವತಂತ್ರ ಇಚ್ಛೆ (Free Will Guidance):</span>
+                            <p id="psy-freewill-text" class="text-slate-700 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cognitive Reset & Daily Affirmation -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="clean-card rounded-2xl p-4 border-teal-200 bg-teal-50/40 space-y-1.5">
+                    <span class="text-xs font-bold text-teal-900 uppercase flex items-center gap-1.5">🌿 3-ನಿಮಿಷದ ಮನಸ್ಸು ಶಾಂತಗೊಳಿಸುವ ತಂತ್ರ (Cognitive Reset)</span>
+                    <div id="psy-reset-title" class="text-sm sm:text-base font-bold text-teal-950">-</div>
+                    <p id="psy-reset-desc" class="text-xs text-slate-700 leading-relaxed"></p>
+                </div>
+
+                <div class="clean-card rounded-2xl p-4 border-amber-300 bg-amber-50/50 space-y-1.5">
+                    <span class="text-xs font-bold text-amber-900 uppercase flex items-center gap-1.5">💫 ಇಂದಿನ ಸಕಾರಾತ್ಮಕ ಸಂಕಲ್ಪ (Daily Affirmation)</span>
+                    <blockquote id="psy-affirmation-text" class="text-sm sm:text-base font-bold text-amber-950 italic pt-1"></blockquote>
                 </div>
             </div>
         </section>
@@ -882,8 +944,31 @@
             localStorage.setItem("veda_lic_name", uName);
             localStorage.setItem("veda_lic_email", uEmail);
 
-            const msg = `ನಮಸ್ಕಾರ ಸತ್ಯಬೋಧರೇ (Veda Astrolight),%0Aನನಗೆ Tarabala & Chandrabala ಆ್ಯಪ್‌ನ 1 ವರ್ಷದ ಲೈಸೆನ್ಸ್ ಆಕ್ಟಿವೇಶನ್ ಬೇಕಾಗಿದೆ.%0A%0A• Device ID: *${devId}*%0A• ಹೆಸರು: ${encodeURIComponent(uName)}%0A• ಇಮೇಲ್: ${encodeURIComponent(uEmail)}%0A%0Aದಯವಿಟ್ಟು ಆಕ್ಟಿವೇಟ್ ಮಾಡಿಕೊಡಿ.`;
-            window.open(`https://wa.me/917349577177?text=${msg}`, "_blank");
+            const rawMsg = `ನಮಸ್ಕಾರ ಸತ್ಯಬೋಧರೇ (Veda Astrolight),\nನನಗೆ Tarabala & Chandrabala ಆ್ಯಪ್‌ನ 1 ವರ್ಷದ ಲೈಸೆನ್ಸ್ ಆಕ್ಟಿವೇಶನ್ ಬೇಕಾಗಿದೆ.\n\n• Device ID: *${devId}*\n• ಹೆಸರು: ${uName}\n• ಇಮೇಲ್: ${uEmail}\n\nದಯವಿಟ್ಟು ಆಕ್ಟಿವೇಟ್ ಮಾಡಿಕೊಡಿ.`;
+            window.open(`https://wa.me/917349577177?text=${encodeURIComponent(rawMsg)}`, "_blank");
+        }
+
+        function openHeaderWhatsApp() {
+            const devId = getOrCreateDeviceId();
+            const cachedLic = JSON.parse(localStorage.getItem("veda_license_cache") || "null");
+            const trialExp = parseInt(localStorage.getItem("veda_trial_expiry") || "0");
+            const activeProf = getActiveProfile();
+            const savedName = (activeProf && activeProf.name) || localStorage.getItem("veda_lic_name") || "";
+
+            let statusText = "Activation Required";
+            if (cachedLic && cachedLic.status === "ACTIVE") {
+                statusText = `Licensed (Valid till ${cachedLic.expiry})`;
+            } else if (trialExp > Date.now()) {
+                const daysLeft = Math.ceil((trialExp - Date.now()) / 86400000);
+                statusText = `Free Trial (${daysLeft} days left)`;
+            }
+
+            const isEn = (typeof currentLang !== "undefined" && currentLang === "en");
+            const rawMsg = isEn
+                ? `Namaskara Satyabodha Nagendra (Veda Astrolight),\nI am using the Tarabala & Chandrabala web app and would like to know about the 1-Year Subscription / Activation.\n\n• My Device ID: *${devId}*${savedName ? `\n• Name: ${savedName}` : ""}\n• Current Status: ${statusText}\n\nPlease share the subscription details and activate my ID.`
+                : `ನಮಸ್ಕಾರ ಸತ್ಯಬೋಧರೇ (Veda Astrolight),\nನಾನು Tarabala & Chandrabala ಆ್ಯಪ್ ಬಳಸುತ್ತಿದ್ದೇನೆ. ನನಗೆ ಈ ಸಾಫ್ಟ್‌ವೇರ್‌ನ 1 ವರ್ಷದ ಪೂರ್ಣ ಸಬ್‌ಸ್ಕ್ರಿಪ್ಶನ್ (Subscription / Activation) ಪಡೆಯುವ ಬಗ್ಗೆ ಮಾಹಿತಿ ಬೇಕಾಗಿದೆ.\n\n• ನನ್ನ Device ID: *${devId}*${savedName ? `\n• ಹೆಸರು: ${savedName}` : ""}\n• ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ: ${statusText}\n\nದಯವಿಟ್ಟು ಸಬ್‌ಸ್ಕ್ರಿಪ್ಶನ್ ವಿವರ ತಿಳಿಸಿ ಮತ್ತು ಆಕ್ಟಿವೇಟ್ ಮಾಡಿಕೊಡಿ.`;
+
+            window.open(`https://wa.me/917349577177?text=${encodeURIComponent(rawMsg)}`, "_blank");
         }
 
         function activateFreeTrial() {
@@ -1837,6 +1922,7 @@
         }
 
         function initApp() {
+            applyLanguageArrays();
             verifyLicenseNow(false);
 
             populateDropdown("janma-nakshatra", NAKSHATRAS, 0);
@@ -1860,9 +1946,11 @@
             if (activeProf && activeProf.date && activeProf.time) {
                 applyProfileObject(activeProf, false);
             } else {
-                document.getElementById("active-profile-nav-label").textContent = "👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ";
+                document.getElementById("active-profile-nav-label").textContent = (currentLang === "en") ? "👤 Create Profile" : "👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ";
                 calculateKundaliTab();
             }
+            refreshDropdownLabelsPreserveSelection();
+            applyStaticUITranslations();
         }
 
         function getActiveProfile() {
@@ -1965,6 +2053,8 @@
                 }
             });
             if (tabId === "daily-guide-tab") renderDailyGuideTab();
+            renderPsychologyTab();
+            if (tabId === "sutra-tab") renderPsychologyTab();
             if (tabId === "panchanga-tab") updatePanchangaDisplay();
             if (tabId === "matrix-tab") renderMatrix();
             if (tabId === "kundali-tab") calculateKundaliTab();
@@ -2858,7 +2948,51 @@ Listen • Study • Understand • Guide`;
                 ? `ಇಂದು ${jNakName} ನಕ್ಷತ್ರ ಬಂದಿರುವುದರಿಂದ ದೇಹ ಮತ್ತು ಮನಸ್ಸಿನ ಶುದ್ಧಿಗಾಗಿ ಲಘು ಸಾತ್ವಿಕ ಆಹಾರ ಅಥವಾ ಉಪವಾಸ (Fasting) ಮಾಡುವುದು ಅತ್ಯಂತ ಶ್ರೇಷ್ಠ.`
                 : `ಬೆಳಗ್ಗೆ ಅಥವಾ ಸಂಜೆ 10 ನಿಮಿಷ ಕಣ್ಣು ಮುಚ್ಚಿ ಶಾಂತವಾಗಿ ಉಸಿರಾಟ ಗಮನಿಸಿ; ನಿಮ್ಮ ಮುಂದಿನ ಮಾಸಿಕ ${jNakName} ನಕ್ಷತ್ರದ ದಿನ ಲಘು ಉಪವಾಸ ಆಚರಿಸಿ.`;
 
-            lastDailyGuideText = `✨ ವೇದ ಆಸ್ಟ್ರೋಲೈಟ್ - ಇಂದಿನ ಸರಳ ದಿನಚರಿ ಮಾರ್ಗದರ್ಶಿ\nಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} | ಇಂದು: ${gNakName}\n• ಸಲಹೆ: ${guide.headline}\n• ಶುಭ ಬಣ್ಣ: ${styleInfo.color}\n• ಆಹಾರ: ${styleInfo.food}\n• ಸರಳ ಪರಿಹಾರ: ${guide.remedyTitle} - ${guide.remedyDesc}`;
+            if (currentLang === "en") {
+                const VARA_EN_STYLE = [
+                    { color: "Saffron / Light Red", colorDesc: "Wear saffron or white in the morning to boost vitality and confidence.", food: "Wheat, Jaggery & Pomegranate", foodDesc: "Light sattvic foods like jaggery drink or wheat dishes support solar energy." },
+                    { color: "White / Pastel Green", colorDesc: "White or soft green promotes emotional calm and mental clarity.", food: "Rice, Milk & Banana", foodDesc: "Cooling, soothing sattvic foods keep your mind balanced today." },
+                    { color: "Light Yellow / Saffron", colorDesc: "Soft yellow or white helps maintain patience and emotional balance.", food: "Jaggery, Pomegranate & Veggies", foodDesc: "Keep meals light; avoid overly spicy or oily food today." },
+                    { color: "Green", colorDesc: "Green enhances clarity of speech, focus, and business communication.", food: "Leafy Greens & Fresh Fruits", foodDesc: "Sprouts, green vegetables, and fresh fruits are ideal today." },
+                    { color: "Yellow / Golden", colorDesc: "Yellow attracts optimism, wisdom, and smooth progress.", food: "Chickpeas, Banana & Ghee", foodDesc: "Pure cow ghee, banana, and wholesome sattvic meals are beneficial." },
+                    { color: "White / Soft Pink", colorDesc: "White or soft pink encourages harmony and pleasant interactions.", food: "Curd, Rice & Sweet Fruits", foodDesc: "Fresh seasonal fruits and light meals keep energy high." },
+                    { color: "Light Blue / Grey", colorDesc: "Light blue or white supports discipline, focus, and inner stillness.", food: "Sesame, Wheat & Warm Veggies", foodDesc: "Have an early, light dinner; sesame or jaggery is favorable." }
+                ];
+                const TARA_EN_GUIDE = {
+                    1: { energy: "55% (Moderate - Pace Yourself)", headline: "Take things slow and avoid rushed decisions today", summary: "Since the Moon transits your birth star today, you may feel slight fatigue or extra workload. Stick to steady routines.", dos: ["Complete routine tasks calmly without rushing", "Prioritize rest, hydration, and quiet reflection", "Review pending work carefully"], donts: ["Avoid long travel or high-risk financial moves", "Stay away from unnecessary arguments"], remedyTitle: "Tulsi & Quiet Prayer", remedyDesc: "Take 2 Tulsi leaves before stepping out and remember your Ishta Devata 11 times." },
+                    2: { energy: "92% (Excellent for Finance & Growth)", headline: "Highly favorable day for finances, business & new starts", summary: "Sampat Tara brings strong support for financial discussions, investments, and productive initiatives.", dos: ["Initiate business deals, investments, and financial plans", "Hold important meetings with clients or mentors", "Purchase useful items or start constructive projects"], donts: ["Do not delay good opportunities due to hesitation"], remedyTitle: "Morning Gratitude", remedyDesc: "Offer morning gratitude to the Sun and begin your key task with confidence." },
+                    3: { energy: "40% (Caution Advised)", headline: "Avoid major risks today — stay patient and alert", summary: "Minor delays or friction can arise today. Drive carefully and double-check financial or legal details.", dos: ["Stick to familiar, ongoing responsibilities", "Drive slowly and stay attentive in transit", "Practice patience and measured speech"], donts: ["Avoid lending large sums or signing major contracts", "Postpone risky ventures for a better day"], remedyTitle: "Jaggery & Ganesha Prayer", remedyDesc: "Take a small piece of jaggery or offer a quick prayer to Lord Ganesha before starting." },
+                    4: { energy: "85% (Peace & Well-being)", headline: "A comforting day for family harmony and wellness", summary: "Kshema Tara supports health recovery, domestic peace, and strengthening supportive relationships.", dos: ["Focus on family, home, and personal well-being", "Wrap up pending tasks smoothly", "Good day to begin health or wellness routines"], donts: ["Avoid over-worrying about minor matters"], remedyTitle: "Fresh Flower Offering", remedyDesc: "Offer a fresh fragrant flower at your altar and start the day peacefully." },
+                    5: { energy: "45% (Patience Needed)", headline: "Keep communication calm and avoid friction", summary: "Differences of opinion or slower progress may test your patience today. Respond thoughtfully rather than reacting.", dos: ["Focus strictly on your own responsibilities", "Double-check documents and messages before sending"], donts: ["Avoid arguments, ego clashes, or debates", "Avoid unnecessary travel or new commitments"], remedyTitle: "3 Deep Breaths & Prayer", remedyDesc: "Take 3 slow, deep breaths before important conversations and stay centered." },
+                    6: { energy: "90% (Achievement & Success)", headline: "Strong momentum to accomplish challenging goals", summary: "Sadhaka Tara empowers your efforts, making this great for interviews, exams, and key deliverables.", dos: ["Tackle important tasks, interviews, and strategic goals", "Work on resolving long-standing problems", "Excellent day for meditation and focused study"], donts: ["Do not waste today's productive energy on distractions"], remedyTitle: "Light a Lamp", remedyDesc: "Light a lamp in the morning and step forward with clear intention." },
+                    7: { energy: "30% (Rest & Simplicity Best)", headline: "Keep today simple — postpone major decisions", summary: "Naidhana Tara advises against starting new ventures, long journeys, or financial risks today.", dos: ["Limit activities to light routine tasks and rest", "Focus on meditation, silence, and health care"], donts: ["Strictly avoid new business starts, travel, or major spending", "Avoid financial dealings with strangers"], remedyTitle: "Feed Birds / Shiva Mantra", remedyDesc: "Feed grains to birds or chant 'Om Namah Shivaya' 21 times before heading out." },
+                    8: { energy: "85% (Friendship & Teamwork)", headline: "Supportive day for collaboration and networking", summary: "Mitra Tara favors teamwork, social gatherings, and productive discussions with friends and colleagues.", dos: ["Meet friends, well-wishers, and supportive clients", "Participate in group work and constructive discussions", "Proceed with travel and auspicious plans"], donts: ["Consult trusted advisors rather than deciding in isolation"], remedyTitle: "Seek Elders' Blessings", remedyDesc: "Take blessings from elders at home before starting your day." },
+                    9: { energy: "95% (Supreme Auspiciousness)", headline: "Ideal day for all auspicious beginnings and progress", summary: "Parama Mitra Tara brings clarity, smooth execution, and positive support across your endeavors.", dos: ["Start auspicious events, investments, travel, and new work", "Take important decisions with clarity and confidence", "Engage in charity and constructive service"], donts: ["Leave self-doubt behind and move forward decisively"], remedyTitle: "Surya Namaskar / Fruit Offering", remedyDesc: "Offer fresh fruit in prayer and begin your day with joy." }
+                };
+                const gEn = TARA_EN_GUIDE[taraNum] || TARA_EN_GUIDE[1];
+                const sEn = VARA_EN_STYLE[varaIdx] || VARA_EN_STYLE[0];
+                document.getElementById("dg-context-label").textContent = `Birth Star: ${jNakName} • Today's Star: ${gNakName}`;
+                document.getElementById("dg-energy-badge").textContent = isAshtama ? "Today's Energy: 35% (8th Moon Caution)" : `Today's Energy: ${gEn.energy}`;
+                document.getElementById("dg-headline").textContent = isAshtama ? "Give your mind rest today — postpone major decisions" : gEn.headline;
+                document.getElementById("dg-summary-text").textContent = isAshtama
+                    ? "With the Moon transiting your 8th house today, minor issues can feel mentally tiring. Stick to gentle routine tasks."
+                    : gEn.summary;
+                document.getElementById("dg-dos-list").innerHTML = gEn.dos.map(i => `<li>${i}</li>`).join("");
+                document.getElementById("dg-donts-list").innerHTML = gEn.donts.map(i => `<li>${i}</li>`).join("");
+                document.getElementById("dg-color-title").textContent = sEn.color;
+                document.getElementById("dg-color-desc").textContent = sEn.colorDesc;
+                document.getElementById("dg-food-title").textContent = sEn.food;
+                document.getElementById("dg-food-desc").textContent = sEn.foodDesc;
+                document.getElementById("dg-remedy-title").textContent = gEn.remedyTitle;
+                document.getElementById("dg-remedy-desc").textContent = gEn.remedyDesc;
+                document.getElementById("dg-fasting-title").textContent = isBirthStarToday ? "Monthly Birth Star Today!" : "10-Min Silent Meditation";
+                document.getElementById("dg-fasting-desc").textContent = isBirthStarToday
+                    ? `Today aligns with your birth star (${jNakName}). A light sattvic diet or gentle fasting is deeply rejuvenating.`
+                    : `Spend 10 quiet minutes observing your breath; plan a light fast on your upcoming monthly ${jNakName} star day.`;
+                lastDailyGuideText = `✨ Veda Astrolight - Daily Lifestyle Guide\nBirth Star: ${jNakName} | Today: ${gNakName}\n• Guidance: ${gEn.headline}\n• Lucky Color: ${sEn.color}\n• Sattvic Food: ${sEn.food}\n• Simple Remedy: ${gEn.remedyTitle} - ${gEn.remedyDesc}`;
+                return;
+            }
+                        lastDailyGuideText = `✨ ವೇದ ಆಸ್ಟ್ರೋಲೈಟ್ - ಇಂದಿನ ಸರಳ ದಿನಚರಿ ಮಾರ್ಗದರ್ಶಿ\nಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} | ಇಂದು: ${gNakName}\n• ಸಲಹೆ: ${guide.headline}\n• ಶುಭ ಬಣ್ಣ: ${styleInfo.color}\n• ಆಹಾರ: ${styleInfo.food}\n• ಸರಳ ಪರಿಹಾರ: ${guide.remedyTitle} - ${guide.remedyDesc}`;
         }
 
         function copyDailyGuideReport() {
@@ -2866,6 +3000,337 @@ Listen • Study • Understand • Guide`;
             navigator.clipboard.writeText(lastDailyGuideText).then(() => {
                 alert("ಇಂದಿನ ಸರಳ ಮಾರ್ಗದರ್ಶಿ ವರದಿಯನ್ನು ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!");
             });
+        }
+
+        let lastPsychologyText = "";
+
+        function renderPsychologyTab() {
+            const jNak = parseInt(document.getElementById("janma-nakshatra").value) || 0;
+            const gNak = parseInt(document.getElementById("gochara-nakshatra").value) || 0;
+            const jRashi = parseInt(document.getElementById("janma-rashi").value) || 0;
+            const gRashi = parseInt(document.getElementById("gochara-rashi").value) || 0;
+
+            const distance = (gNak - jNak + 27) % 27 + 1;
+            const taraNum = ((distance - 1) % 9) + 1;
+            const chandraHouse = (gRashi - jRashi + 12) % 12 + 1;
+
+            const jNakName = NAKSHATRAS[jNak].split(" ")[0];
+            const gNakName = NAKSHATRAS[gNak].split(" ")[0];
+
+            const NAK_PSYCHOLOGY = [
+                { strength: "ತ್ವರಿತ ನಿರ್ಧಾರ, ಹೊಸ ಆರಂಭದ ಉತ್ಸಾಹ ಮತ್ತು ಚುರುಕುತನ.", blindspot: "ಆತುರದಿಂದ ಅರ್ಧಕ್ಕೆ ಕೆಲಸ ಬಿಡುವುದು ಅಥವಾ ತಾಳ್ಮೆ ಕಳೆದುಕೊಳ್ಳುವುದು." },
+                { strength: "ಕಠಿಣ ಪರಿಶ್ರಮ, ಜವಾಬ್ದಾರಿ ನಿರ್ವಹಣೆ ಮತ್ತು ಆಳವಾದ ಬದ್ಧತೆ.", blindspot: "ಎಲ್ಲಾ ಹೊರೆಯನ್ನು ಒಬ್ಬರೇ ಹೊತ್ತು ಮಾನಸಿಕ ಒತ್ತಡಕ್ಕೆ ಒಳಗಾಗುವುದು." },
+                { strength: "ಸ್ಪಷ್ಟ ನಿಲುವು, ಸತ್ಯನಿಷ್ಠೆ ಮತ್ತು ಸ್ವಾಭಿಮಾನದ ನಾಯಕತ್ವ.", blindspot: "ಕಠಿಣ ಮಾತು ಅಥವಾ ಅತಿಯಾದ ಪರಿಪೂರ್ಣತೆಯ ನಿರೀಕ್ಷೆ (Perfectionism)." },
+                { strength: "ಸೃಜನಶೀಲತೆ, ಪ್ರೀತಿ-ವಾತ್ಸಲ್ಯ ಮತ್ತು ಸ್ಥಿರವಾದ ಬಾಂಧವ್ಯ.", blindspot: "ಅತಿಯಾದ ಭಾವುಕತೆ ಮತ್ತು ಹಳೆಯ ನೆನಪುಗಳಿಗೆ ಅಂಟಿಕೊಳ್ಳುವುದು." },
+                { strength: "ಕುತೂಹಲ, ಹೊಸ ವಿಷಯಗಳ ಅನ್ವೇಷಣೆ ಮತ್ತು ಸಂವಹನ ಕೌಶಲ್ಯ.", blindspot: "ಒಂದೇ ವಿಷಯದಲ್ಲಿ ಸ್ಥಿರವಾಗಿರದೆ ಮನಸ್ಸು ಚಂಚಲವಾಗುವುದು." },
+                { strength: "ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ, ಸತ್ಯಶೋಧನೆ ಮತ್ತು ಕಷ್ಟಗಳನ್ನು ಎದುರಿಸುವ ಶಕ್ತಿ.", blindspot: "ಅತಿಯಾಗಿ ಆಲೋಚಿಸುವುದು (Overthinking) ಮತ್ತು ಭಾವುಕ ತೀವ್ರತೆ." },
+                { strength: "ಆಶಾವಾದ, ಕ್ಷಮಾಗುಣ ಮತ್ತು ಮತ್ತೆ ಪುಟಿದೇಳುವ ಮಾನಸಿಕ ಸ್ಥೈರ್ಯ.", blindspot: "ಎಲ್ಲರನ್ನೂ ಅತಿಯಾಗಿ ನಂಬಿ ನಿರಾಸೆ ಅನುಭವಿಸುವುದು." },
+                { strength: "ಪೋಷಣೆ, ಶಿಸ್ತು, ಕರ್ತವ್ಯನಿಷ್ಠೆ ಮತ್ತು ಇತರರಿಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡುವ ಗುಣ.", blindspot: "ತನ್ನ ಭಾವನೆಗಳನ್ನು ಮುಚ್ಚಿಟ್ಟು ಒಳಗೊಳಗೇ ಕೊರಗುವುದು." },
+                { strength: "ತೀಕ್ಷ್ಣ ಬುದ್ಧಿಶಕ್ತಿ, ಅಂತಃಪ್ರಜ್ಞೆ (Intuition) ಮತ್ತು ಸೂಕ್ಷ್ಮ ಗ್ರಹಿಕೆ.", blindspot: "ಸಂಶಯ ಪ್ರವೃತ್ತಿ ಮತ್ತು ಸುಲಭವಾಗಿ ಭಾವನಾತ್ಮಕವಾಗಿ ಘಾಸಿಗೊಳ್ಳುವುದು." },
+                { strength: "ಗೌರವ, ಆತ್ಮವಿಶ್ವಾಸ ಮತ್ತು ಸಂಪ್ರದಾಯ-ಮೌಲ್ಯಗಳ ಪಾಲನೆ.", blindspot: "ಅಹಂಕಾರಕ್ಕೆ ಧಕ್ಕೆಯಾದಾಗ ತೀವ್ರವಾಗಿ ನೋಯುವುದು." },
+                { strength: "ಸೌಹಾರ್ದತೆ, ಕಲಾತ್ಮಕತೆ ಮತ್ತು ಸಂತೋಷ ಹಂಚುವ ಸ್ವಭಾವ.", blindspot: "ಇತರರ ಮೆಚ್ಚುಗೆಗಾಗಿ ತನ್ನ ಅಗತ್ಯಗಳನ್ನು ಕಡೆಗಣಿಸುವುದು." },
+                { strength: "ಸಹಾಯ ಮನೋಭಾವ, ಸಂಘಟನಾ ಚಾತುರ್ಯ ಮತ್ತು ದೂರದೃಷ್ಟಿ.", blindspot: "ಅತಿಯಾದ ಜವಾಬ್ದಾರಿಯಿಂದ ವಿಶ್ರಾಂತಿ ಮರೆಯುವುದು." },
+                { strength: "ಕೌಶಲ್ಯ, ಕಾರ್ಯತತ್ಪರತೆ ಮತ್ತು ಸೂಕ್ಷ್ಮ ವಿವರಗಳ ಕಡೆಗಿನ ಗಮನ.", blindspot: "ಸಣ್ಣ ವಿಷಯಗಳಿಗೂ ಅತಿಯಾಗಿ ಚಿಂತಿಸಿ ನಿಯಂತ್ರಣ ಬಯಸುವುದು." },
+                { strength: "ಸೌಂದರ್ಯ ಪ್ರಜ್ಞೆ, ಹೊಸ ವಿನ್ಯಾಸ ಮತ್ತು ಆಕರ್ಷಕ ವ್ಯಕ್ತಿತ್ವ.", blindspot: "ಹೋಲಿಕೆ ಮಾಡಿಕೊಳ್ಳುವುದು ಮತ್ತು ಅಸಮಾಧಾನಗೊಳ್ಳುವುದು." },
+                { strength: "ಸ್ವತಂತ್ರ ಚಿಂತನೆ, ಹೊಂದಾಣಿಕೆ ಮತ್ತು ಸಮತೋಲನದ ದೃಷ್ಟಿಕೋನ.", blindspot: "ನಿರ್ಧಾರ ತೆಗೆದುಕೊಳ್ಳುವಲ್ಲಿ ವಿಳಂಬ ಮತ್ತು ಅನಿಶ್ಚಿತತೆ." },
+                { strength: "ಗುರಿಸಾಧನೆಯ ಛಲ, ಏಕಾಗ್ರತೆ ಮತ್ತು ಪರಿವರ್ತನೆಯ ಶಕ್ತಿ.", blindspot: "ಹಠಮಾರಿತನ ಮತ್ತು ಫಲಿತಾಂಶಕ್ಕಾಗಿ ಅತಿಯಾದ ತವಕ." },
+                { strength: "ನಿಷ್ಠೆ, ಸ್ನೇಹಪರತೆ ಮತ್ತು ಕಷ್ಟದಲ್ಲೂ ತಾಳ್ಮೆ ಕಾಯ್ದುಕೊಳ್ಳುವ ಗುಣ.", blindspot: "ಹಳೆಯ ನೋವುಗಳನ್ನು ಮನಸ್ಸಿನಲ್ಲೇ ಉಳಿಸಿಕೊಳ್ಳುವುದು." },
+                { strength: "ರಕ್ಷಣಾ ಮನೋಭಾವ, ಪ್ರಬುದ್ಧತೆ ಮತ್ತು ಸಂಕಷ್ಟ ನಿವಾರಿಸುವ ಸಾಮರ್ಥ್ಯ.", blindspot: "ಎಲ್ಲವನ್ನೂ ನಾನೇ ನಿಯಂತ್ರಿಸಬೇಕು ಎಂಬ ಒತ್ತಡ." },
+                { strength: "ಮೂಲಭೂತ ಸತ್ಯದ ಹುಡುಕಾಟ, ಧೈರ್ಯ ಮತ್ತು ನಿರ್ಲಿಪ್ತತೆ.", blindspot: "ಅಸಹನೆ ಮತ್ತು ದಿಢೀರ್ ಬದಲಾವಣೆಯ ಬಯಕೆ." },
+                { strength: "ಉತ್ಸಾಹ, ಪ್ರೇರಣೆ ನೀಡುವ ಮಾತು ಮತ್ತು ಅಜೇಯ ಆತ್ಮಬಲ.", blindspot: "ಇತರರ ಸಲಹೆಯನ್ನು ಕೇಳದೆ ಮುನ್ನುಗ್ಗುವುದು." },
+                { strength: "ಸ್ಥಿರತೆ, ನೈತಿಕ ಬಲ ಮತ್ತು ದೀರ್ಘಕಾಲೀನ ಯೋಜನಾ ಶಕ್ತಿ.", blindspot: "ಒಂಟಿತನ ಅನುಭವಿಸುವುದು ಮತ್ತು ಭಾವನೆಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳದಿರುವುದು." },
+                { strength: "ಶಾಂತ ಚಿತ್ತ, ಕೇಳುವ ತಾಳ್ಮೆ ಮತ್ತು ಜ್ಞಾನ ಗ್ರಹಿಸುವ ಸಾಮರ್ಥ್ಯ.", blindspot: "ಅತಿಯಾದ ಸೂಕ್ಷ್ಮತೆ ಮತ್ತು ನಿರಾಸೆಯ ಭಯ." },
+                { strength: "ಕ್ರಿಯಾಶೀಲತೆ, ಸಂಗೀತ-ಲಯ ಪ್ರಜ್ಞೆ ಮತ್ತು ಸಮಯಪಾಲನೆ.", blindspot: "ಆಂತರಿಕ ಅಸಮಾಧಾನ ಮತ್ತು ಸಂಬಂಧಗಳಲ್ಲಿ ಅಂತರ." },
+                { strength: "ಸ್ವತಂತ್ರ ಸಂಶೋಧನೆ, ಗೋಪ್ಯತೆ ಮತ್ತು ಆಳವಾದ ಒಳನೋಟ.", blindspot: "ಏಕಾಂಗಿತನ ಮತ್ತು ಮನಸ್ಸಿನ ಭಾರವನ್ನು ಯಾರಿಗೂ ಹೇಳದಿರುವುದು." },
+                { strength: "ಆದರ್ಶವಾದ, ತತ್ವನಿಷ್ಠೆ ಮತ್ತು ಆಳವಾದ ಚಿಂತನೆ.", blindspot: "ಅತಿಯಾದ ಗಂಭೀರತೆ ಮತ್ತು ಭಾವನಾತ್ಮಕ ಏರಿಳಿತ." },
+                { strength: "ಆಳವಾದ ಶಾಂತಿ, ಸಹನೆ ಮತ್ತು ಆಧ್ಯಾತ್ಮಿಕ ಪ್ರಬುದ್ಧತೆ.", blindspot: "ನಿರ್ಧಾರ ತೆಗೆದುಕೊಳ್ಳಲು ಹಿಂಜರಿಯುವುದು." },
+                { strength: "ಕರುಣೆ, ಪೋಷಣೆ ಮತ್ತು ಎಲ್ಲರನ್ನೂ ಒಳಗೊಳ್ಳುವ ಮೃದು ಹೃದಯ.", blindspot: "ಇತರರ ಕಷ್ಟಗಳನ್ನು ತನ್ನದೇ ಎಂದು ಭಾವಿಸಿ ಬಳಲುವುದು." }
+            ];
+
+            const CHANDRA_MIND_STATE = {
+                1:  { clarity: "85%", border: "border-emerald-600", title: "ಸ್ವಯಂ ಜಾಗೃತಿ & ಆತ್ಮವಿಶ್ವಾಸದ ದಿನ", desc: "ಚಂದ್ರನು ನಿಮ್ಮ ಜನ್ಮ ರಾಶಿಯಲ್ಲೇ ಸಂಚರಿಸುತ್ತಿರುವುದರಿಂದ ಭಾವನೆಗಳು ತೀವ್ರವಾಗಿರುತ್ತವೆ. ನಿಮ್ಮ ಅಂತಃಪ್ರಜ್ಞೆ (Intuition) ಸ್ಪಷ್ಟವಾಗಿದೆ; ಶಾಂತವಾಗಿ ನಿಮ್ಮ ಆದ್ಯತೆಗಳನ್ನು ನಿರ್ಧರಿಸಿ.", comm: "ನಿಮ್ಮ ಭಾವನೆಗಳನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಮತ್ತು ಸೌಮ್ಯವಾಗಿ ವ್ಯಕ್ತಪಡಿಸಲು ಇದು ಉತ್ತಮ ಸಮಯ.", freewill: "ಇಂದಿನ ಮನಸ್ಸಿನ ಉತ್ಸಾಹವನ್ನು ಸೃಜನಶೀಲ ಕೆಲಸಗಳಿಗೆ ಬಳಸಿ; ಆತುರದ ಪ್ರತಿಕ್ರಿಯೆ ತಪ್ಪಿಸಿ." },
+                2:  { clarity: "80%", border: "border-emerald-600", title: "ಸ್ಥಿರತೆ & ಮೌಲ್ಯಗಳ ಕಡೆಗಿನ ಗಮನ", desc: "ಮನಸ್ಸು ಕುಟುಂಬ, ಆರ್ಥಿಕ ಭದ್ರತೆ ಮತ್ತು ಸ್ಥಿರತೆಯ ಕಡೆಗೆ ವಾಲುತ್ತದೆ. ಮಾತಿನಲ್ಲಿ ಸಂಯಮವಿದ್ದರೆ ಎಲ್ಲವೂ ಸುಗಮ.", comm: "ಮನೆಯವರೊಂದಿಗೆ ಮತ್ತು ಆಪ್ತರೊಂದಿಗೆ ಪ್ರೀತಿಯಿಂದ ಮಾತನಾಡಿ; ಕಠಿಣ ಶಬ್ದ ಬೇಡ.", freewill: "ನಮ್ಮ ಮಾತಿನ ಆಯ್ಕೆಯೇ ಇಂದಿನ ಸಂಬಂಧಗಳ ಗುಣಮಟ್ಟವನ್ನು ನಿರ್ಧರಿಸುತ್ತದೆ." },
+                3:  { clarity: "90%", border: "border-emerald-600", title: "ಧೈರ್ಯ, ಸಂವಹನ & ಹೊಸ ಆಲೋಚನೆಗಳ ದಿನ", desc: "ಮನಸ್ಸು ಚುರುಕಾಗಿದೆ ಮತ್ತು ಹೊಸ ಪ್ರಯತ್ನಗಳಿಗೆ ಸಿದ್ಧವಾಗಿದೆ. ಬರವಣಿಗೆ, ಮಾತುಕತೆ ಮತ್ತು ಸಣ್ಣ ಪ್ರಯಾಣಗಳಿಂದ ಉಲ್ಲಾಸ ಸಿಗುತ್ತದೆ.", comm: "ನಿಮ್ಮ ವಿಚಾರಗಳನ್ನು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಮಂಡಿಸಿ; ಇತರರು ನಿಮ್ಮ ಮಾತನ್ನು ಗೌರವಿಸುತ್ತಾರೆ.", freewill: "ಸಣ್ಣ ಹೆಜ್ಜೆಗಳ ಮೂಲಕ ದೊಡ್ಡ ಬದಲಾವಣೆ ತರುವ ಶಕ್ತಿ ಇಂದು ನಿಮ್ಮ ಕೈಯಲ್ಲಿದೆ." },
+                4:  { clarity: "50%", border: "border-amber-500", title: "ಭಾವುಕತೆ & ಆಂತರಿಕ ವಿಶ್ರಾಂತಿಯ ಅಗತ್ಯವಿರುವ ದಿನ", desc: "ಚಂದ್ರನು 4ನೇ ಮನೆಯಲ್ಲಿರುವುದರಿಂದ ಮನಸ್ಸು ಸ್ವಲ್ಪ ಸೂಕ್ಷ್ಮವಾಗಿರುತ್ತದೆ. ಹಳೆಯ ನೆನಪುಗಳು ಅಥವಾ ಮನೆಯ ವಿಚಾರಗಳು ಮನಸ್ಸನ್ನು ಆವರಿಸಬಹುದು.", comm: "ಇತರರ ಸಣ್ಣ ಮಾತಿಗೂ ಬೇಗನೆ ನೋವಾಗುವ ಸಾಧ್ಯತೆ ಇದೆ; ಪ್ರತಿಕ್ರಿಯಿಸುವ ಮೊದಲು 10 ಸೆಕೆಂಡ್ ತಡೆಯಿರಿ.", freewill: "ಬಾಹ್ಯ ಜಗತ್ತನ್ನು ಬದಲಾಯಿಸುವ ಬದಲು ಇಂದು ನಿಮ್ಮ ಆಂತರಿಕ ಶಾಂತಿಗೆ ಆದ್ಯತೆ ನೀಡಿ." },
+                5:  { clarity: "82%", border: "border-indigo-600", title: "ಸೃಜನಶೀಲತೆ & ಬೌದ್ಧಿಕ ಸ್ಪಷ್ಟತೆಯ ದಿನ", desc: "ಮನಸ್ಸಿನಲ್ಲಿ ಹೊಸ ಆಲೋಚನೆಗಳು ಮತ್ತು ಸಕಾರಾತ್ಮಕ ಉತ್ಸಾಹ ಮೂಡುತ್ತದೆ. ಮಕ್ಕಳು, ಕಲೆ ಅಥವಾ ಅಧ್ಯಯನದಿಂದ ಸಂತೋಷ ಲಭಿಸುತ್ತದೆ.", comm: "ಹೃದಯಪೂರ್ವಕ ಮತ್ತು ಪ್ರೇರಣಾದಾಯಕ ಮಾತುಕತೆಗೆ ಇಂದು ಅತ್ಯುತ್ತಮ ದಿನ.", freewill: "ನಿಮ್ಮ ಪ್ರತಿಭೆ ಮತ್ತು ಜ್ಞಾನವನ್ನು ಇತರರಿಗೆ ನೆರವಾಗಲು ಬಳಸಿ." },
+                6:  { clarity: "88%", border: "border-emerald-600", title: "ಸಮಸ್ಯೆ ಪರಿಹರಿಸುವ & ಶಿಸ್ತಿನ ಮನೋಭಾವ", desc: "ಇಂದು ಮನಸ್ಸು ಪ್ರಾಯೋಗಿಕವಾಗಿದೆ. ಬಾಕಿ ಇರುವ ಕೆಲಸಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಮತ್ತು ಅಡೆತಡೆಗಳನ್ನು ನಿವಾರಿಸಲು ಮಾನಸಿಕ ಬಲವಿದೆ.", comm: "ನೇರ ಮತ್ತು ವಸ್ತುನಿಷ್ಠ ಮಾತುಕತೆ ನಡೆಸಿ; ಅನಾವಶ್ಯಕ ವಾದಗಳಿಗೆ ಅವಕಾಶ ಕೊಡಬೇಡಿ.", freewill: "ಕಷ್ಟಗಳನ್ನು ದೂರುವ ಬದಲು ಪರಿಹಾರದ ಕಡೆಗೆ ಗಮನ ಹರಿಸುವುದು ಇಂದಿನ ನಿಮ್ಮ ಶಕ್ತಿ." },
+                7:  { clarity: "84%", border: "border-blue-600", title: "ಸಹಕಾರ & ಪರಸ್ಪರ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವ ದಿನ", desc: "ಮನಸ್ಸು ಇತರರೊಂದಿಗೆ ಬೆರೆಯಲು ಮತ್ತು ಪಾಲುದಾರಿಕೆಯ ಕೆಲಸಗಳಲ್ಲಿ ತೊಡಗಲು ಬಯಸುತ್ತದೆ.", comm: "ಇತರರ ಮಾತನ್ನು ಪೂರ್ತಿಯಾಗಿ ಕೇಳಿಸಿಕೊಂಡು ನಂತರ ನಿಮ್ಮ ಅಭಿಪ್ರಾಯ ತಿಳಿಸಿ.", freewill: "ನಮ್ಮ ಅಹಂಕಾರವನ್ನು ಬದಿಗಿಟ್ಟು ಸಹಕರಿಸಿದಾಗ ಸಂಬಂಧಗಳು ಇನ್ನಷ್ಟು ಗಟ್ಟಿಯಾಗುತ್ತವೆ." },
+                8:  { clarity: "35%", border: "border-rose-500", title: "ಆಳವಾದ ಆಲೋಚನೆ & ಭಾವನಾತ್ಮಕ ಏರಿಳಿತ (ಅಷ್ಟಮ ಚಂದ್ರ)", desc: "ಚಂದ್ರನು 8ನೇ ಮನೆಯಲ್ಲಿರುವುದರಿಂದ ಕಾರಣವಿಲ್ಲದ ಆತಂಕ, ಸಂಶಯ ಅಥವಾ ಹಳೆಯ ನೋವುಗಳು ನೆನಪಾಗಬಹುದು. ಇದು ಕೇವಲ ಚಂದ್ರನ ಸಂಚಾರದ ತಾತ್ಕಾಲಿಕ ಅಲೆ ಮಾತ್ರ — ಶಾಶ್ವತವಲ್ಲ.", comm: "ಇಂದು ಮಹತ್ವದ ಭಾವನಾತ್ಮಕ ಚರ್ಚೆ ಅಥವಾ ವಾದವನ್ನು ಮುಂದೂಡಿ; ಮೌನವೇ ಅತ್ಯುತ್ತಮ ರಕ್ಷಣೆ.", freewill: "ಮನಸ್ಸಿನಲ್ಲಿ ಏಳುವ ನಕಾರಾತ್ಮಕ ಆಲೋಚನೆಗಳನ್ನು ಕೇವಲ ಸಾಕ್ಷಿಯಾಗಿ ಗಮನಿಸಿ, ಅವುಗಳಿಗೆ ಬಲಿಯಾಗಬೇಡಿ." },
+                9:  { clarity: "86%", border: "border-indigo-600", title: "ದೂರದೃಷ್ಟಿ & ಆಧ್ಯಾತ್ಮಿಕ ಪ್ರಶಾಂತತೆಯ ದಿನ", desc: "ಮನಸ್ಸು ವಿಶಾಲವಾಗಿ ಯೋಚಿಸುತ್ತದೆ. ಗುರುಗಳ ಮಾರ್ಗದರ್ಶನ, ಓದು ಮತ್ತು ಜೀವನದ ಉದ್ದೇಶದ ಬಗ್ಗೆ ಸ್ಪಷ್ಟತೆ ಮೂಡುತ್ತದೆ.", comm: "ಹಿರಿಯರು ಮತ್ತು ಜ್ಞಾನಿಗಳೊಂದಿಗೆ ಅರ್ಥಪೂರ್ಣ ಸಂವಾದ ನಡೆಸಲು ಉತ್ತಮ ದಿನ.", freewill: "ಸಣ್ಣಪುಟ್ಟ ವಿಷಯಗಳನ್ನು ಮೀರಿ ದೊಡ್ಡ ಗುರಿಯತ್ತ ಗಮನ ಹರಿಸಿ." },
+                10: { clarity: "90%", border: "border-emerald-600", title: "ಕರ್ತವ್ಯನಿಷ್ಠೆ & ಗುರಿ ಸಾಧನೆಯ ಮನಸ್ಥಿತಿ", desc: "ಮನಸ್ಸು ಕೆಲಸ ಮತ್ತು ಜವಾಬ್ದಾರಿಗಳ ಮೇಲೆ ಸಂಪೂರ್ಣ ಕೇಂದ್ರೀಕೃತವಾಗಿದೆ. ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಮುನ್ನಡೆಯುವ ದಿನ.", comm: "ವೃತ್ತಿಪರ ಮತ್ತು ಗೌರವಯುತ ಸಂವಹನದಿಂದ ಇಂದು ನಿಮಗೆ ಮನ್ನಣೆ ಸಿಗುತ್ತದೆ.", freewill: "ಫಲಿತಾಂಶದ ಚಿಂತೆ ಬಿಟ್ಟು ನಿಮ್ಮ ಕರ್ತವ್ಯವನ್ನು ಅತ್ಯುತ್ತಮವಾಗಿ ನಿರ್ವಹಿಸಿ." },
+                11: { clarity: "92%", border: "border-emerald-600", title: "ಆಶಾವಾದ, ಸ್ನೇಹ & ಸಂತೋಷದ ಮನಸ್ಸು", desc: "ಚಂದ್ರನು 11ನೇ ಮನೆಯಲ್ಲಿರುವುದರಿಂದ ಮನಸ್ಸು ಹಗುರವಾಗಿದೆ ಮತ್ತು ಭವಿಷ್ಯದ ಬಗ್ಗೆ ಭರವಸೆ ಹೆಚ್ಚಾಗಿದೆ.", comm: "ಮಿತ್ರರು ಮತ್ತು ಹಿತೈಷಿಗಳೊಂದಿಗೆ ಸಂತೋಷದ ಕ್ಷಣಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ.", freewill: "ಇಂದು ಪಡೆದ ಸಕಾರಾತ್ಮಕ ಶಕ್ತಿಯನ್ನು ಇತರರಿಗೂ ಹಂಚಿ." },
+                12: { clarity: "45%", border: "border-amber-500", title: "ಏಕಾಂತ, ಧ್ಯಾನ & ಮನಸ್ಸಿನ ವಿಶ್ರಾಂತಿಯ ದಿನ", desc: "ಚಂದ್ರನು 12ನೇ ಮನೆಯಲ್ಲಿರುವುದರಿಂದ ಹೊರಗಿನ ಗದ್ದಲಕ್ಕಿಂತ ಏಕಾಂತ ಮತ್ತು ವಿಶ್ರಾಂತಿಯನ್ನು ಮನಸ್ಸು ಬಯಸುತ್ತದೆ. ನಿದ್ರೆಗೆ ಆದ್ಯತೆ ನೀಡಿ.", comm: "ಅನಗತ್ಯ ಮಾತು ಮತ್ತು ಸಾಮಾಜಿಕ ಒತ್ತಡದಿಂದ ಸ್ವಲ್ಪ ವಿರಾಮ ತೆಗೆದುಕೊಳ್ಳಿ.", freewill: "ಬಿಟ್ಟುಬಿಡುವ ಕಲೆ (Letting Go) ಮತ್ತು ಕ್ಷಮಾಗುಣ ಇಂದು ನಿಮಗೆ ಅಪಾರ ನೆಮ್ಮದಿ ನೀಡುತ್ತದೆ." }
+            };
+
+            const arch = NAK_PSYCHOLOGY[jNak] || NAK_PSYCHOLOGY[0];
+            const mind = CHANDRA_MIND_STATE[chandraHouse] || CHANDRA_MIND_STATE[1];
+
+            const isSensitiveDay = ([4, 8, 12].includes(chandraHouse) || [3, 5, 7].includes(taraNum));
+
+            const weatherCard = document.getElementById("psy-weather-card");
+            if (weatherCard) weatherCard.className = `mt-4 p-4 rounded-2xl bg-white border-l-4 ${mind.border} shadow-xs space-y-1.5`;
+
+            document.getElementById("psy-context-tag").textContent = `ಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} • ಇಂದಿನ ಚಂದ್ರ: ${chandraHouse}ನೇ ಮನೆ (${gNakName})`;
+            document.getElementById("psy-clarity-badge").textContent = `ಮಾನಸಿಕ ಸ್ಪಷ್ಟತೆ: ${mind.clarity}`;
+            document.getElementById("psy-weather-title").textContent = mind.title;
+            document.getElementById("psy-weather-desc").textContent = mind.desc;
+
+            document.getElementById("psy-strength-text").textContent = arch.strength;
+            document.getElementById("psy-blindspot-text").textContent = arch.blindspot;
+            document.getElementById("psy-comm-text").textContent = mind.comm;
+            document.getElementById("psy-freewill-text").textContent = mind.freewill;
+
+            if (isSensitiveDay) {
+                document.getElementById("psy-reset-title").textContent = "4-7-8 ಶಾಂತ ಉಸಿರಾಟ & ಸಾಕ್ಷಿ ಭಾವ (Witnessing)";
+                document.getElementById("psy-reset-desc").textContent = "4 ಸೆಕೆಂಡ್ ಉಸಿರು ಒಳಗೆ ತೆಗೆದುಕೊಳ್ಳಿ, 7 ಸೆಕೆಂಡ್ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಿ, 8 ಸೆಕೆಂಡ್ ನಿಧಾನವಾಗಿ ಹೊರಬಿಡಿ (4 ಬಾರಿ). ಮನಸ್ಸಿನ ಆತಂಕ ಕೇವಲ ಒಂದು ಮೋಡದಂತೆ ಹಾದುಹೋಗುತ್ತದೆ ಎಂದು ಗಮನಿಸಿ.";
+                document.getElementById("psy-affirmation-text").textContent = "“ನನ್ನ ಮನಸ್ಸಿನಲ್ಲಿ ಏಳುವ ಪ್ರತಿಯೊಂದು ಆಲೋಚನೆಗೂ ನಾನು ಪ್ರತಿಕ್ರಿಯಿಸಬೇಕಿಲ್ಲ; ನಾನು ಶಾಂತ ಮತ್ತು ಸ್ಥಿರವಾಗಿದ್ದೇನೆ.”";
+            } else {
+                document.getElementById("psy-reset-title").textContent = "3-ನಿಮಿಷದ ಕೃತಜ್ಞತೆ & ಏಕಾಗ್ರತಾ ಸಂಕಲ್ಪ";
+                document.getElementById("psy-reset-desc").textContent = "ಕಣ್ಣು ಮುಚ್ಚಿ ಇಂದು ನಿಮ್ಮ ಜೀವನದಲ್ಲಿ ಚೆನ್ನಾಗಿರುವ 3 ವಿಷಯಗಳನ್ನು ಮನಸ್ಸಿನಲ್ಲಿ ಸ್ಮರಿಸಿ, ನಂತರ ಇಂದಿನ ಅತ್ಯಂತ ಮುಖ್ಯವಾದ ಒಂದು ಕೆಲಸದ ಮೇಲೆ ಗಮನ ಕೇಂದ್ರೀಕರಿಸಿ.";
+                document.getElementById("psy-affirmation-text").textContent = "“ನನ್ನ ಆಲೋಚನೆ ಸ್ಪಷ್ಟವಾಗಿದೆ; ನಾನು ನನ್ನ ಕರ್ತವ್ಯವನ್ನು ಶ್ರದ್ಧೆ ಮತ್ತು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಪೂರ್ಣಗೊಳಿಸುತ್ತೇನೆ.”";
+            }
+
+            if (currentLang === "en") {
+                const CHANDRA_EN = {
+                    1:  { clarity: "85%", title: "Self-Awareness & Emotional Clarity", desc: "The Moon transits your natal sign today, heightening intuition and personal focus. Channel this clarity into meaningful priorities.", comm: "Express your thoughts gently and authentically today.", freewill: "Use today's heightened energy for creative action rather than impulsive reactions." },
+                    2:  { clarity: "80%", title: "Grounded Stability & Value Focus", desc: "Your mind gravitates toward security, family, and practical stability. Measured speech keeps everything harmonious.", comm: "Speak warmly with family and close associates; avoid harsh tones.", freewill: "Your conscious choice of words shapes the harmony of your relationships today." },
+                    3:  { clarity: "90%", title: "Courage, Communication & Fresh Ideas", desc: "Your mind is alert and ready for constructive initiative. Writing, networking, and short trips feel energizing.", comm: "Present your ideas with confidence; others are receptive to your voice today.", freewill: "Small, consistent steps today can unlock major momentum." },
+                    4:  { clarity: "50%", title: "Emotional Sensitivity & Need for Inner Rest", desc: "With the Moon in your 4th house, old memories or domestic concerns may surface. Honor your need for quiet comfort.", comm: "Pause 10 seconds before reacting to minor remarks today.", freewill: "Instead of trying to control external events, prioritize inner peace today." },
+                    5:  { clarity: "82%", title: "Creativity & Intellectual Inspiration", desc: "Fresh creative energy and optimism uplift your mood. Study, mentoring, and artistic pursuits bring joy.", comm: "Heartfelt and encouraging conversations flourish today.", freewill: "Share your insights generously to uplift those around you." },
+                    6:  { clarity: "88%", title: "Problem-Solving & Disciplined Focus", desc: "Your mindset is practical and solution-oriented today, ideal for clearing pending tasks and organizing details.", comm: "Keep communication direct, objective, and free from unnecessary debate.", freewill: "Focusing on solutions rather than complaints is your superpower today." },
+                    7:  { clarity: "84%", title: "Cooperation & Mutual Understanding", desc: "Your mind seeks connection, fairness, and collaborative harmony in partnerships.", comm: "Listen deeply to others before sharing your perspective.", freewill: "Setting ego aside strengthens trust and mutual respect." },
+                    8:  { clarity: "35%", title: "Deep Reflection & Emotional Waves (8th Moon)", desc: "With the Moon transiting your 8th house, passing anxiety or overthinking may arise. Remember: this is just a temporary lunar wave, not permanent reality.", comm: "Postpone heavy emotional confrontations today; calm silence protects your peace.", freewill: "Observe passing worries as a neutral witness without identifying with them." },
+                    9:  { clarity: "86%", title: "Broader Vision & Spiritual Serenity", desc: "Your mind looks at the bigger picture. Reading, mentorship, and philosophical reflection bring clarity.", comm: "Engage in meaningful dialogue with mentors and wise peers.", freewill: "Rise above minor distractions and align with your higher purpose." },
+                    10: { clarity: "90%", title: "Duty, Focus & Goal Achievement", desc: "Your mind is sharply focused on responsibilities and career milestones. Step forward with steady confidence.", comm: "Professional, respectful communication earns recognition today.", freewill: "Focus on excellence in your effort without worrying about outcomes." },
+                    11: { clarity: "92%", title: "Optimism, Friendship & Joyful Outlook", desc: "The Moon in your 11th house brings lightness, hope, and supportive social connections.", comm: "Share positive ideas and gratitude with friends and well-wishers.", freewill: "Multiply today's positive momentum by encouraging others." },
+                    12: { clarity: "45%", title: "Solitude, Reflection & Mental Unwinding", desc: "The Moon in your 12th house invites quiet reflection, rest, and letting go of mental clutter.", comm: "Take a healthy break from noisy social obligations today.", freewill: "Practicing forgiveness and letting go brings deep inner relief." }
+                };
+                const mEn = CHANDRA_EN[chandraHouse] || CHANDRA_EN[1];
+                document.getElementById("psy-context-tag").textContent = `Birth Star: ${jNakName} • Transit Moon: House ${chandraHouse} (${gNakName})`;
+                document.getElementById("psy-clarity-badge").textContent = `Mental Clarity: ${mEn.clarity}`;
+                document.getElementById("psy-weather-title").textContent = mEn.title;
+                document.getElementById("psy-weather-desc").textContent = mEn.desc;
+                document.getElementById("psy-strength-text").textContent = `Natural strength of ${jNakName}: resilience, intuition, and purposeful focus.`;
+                document.getElementById("psy-blindspot-text").textContent = `Under stress, watch out for overthinking or rushing decisions before pausing.`;
+                document.getElementById("psy-comm-text").textContent = mEn.comm;
+                document.getElementById("psy-freewill-text").textContent = mEn.freewill;
+                if (isSensitiveDay) {
+                    document.getElementById("psy-reset-title").textContent = "4-7-8 Calming Breath & Neutral Witnessing";
+                    document.getElementById("psy-reset-desc").textContent = "Inhale for 4 seconds, hold for 7 seconds, exhale slowly for 8 seconds (4 rounds). Watch passing thoughts like clouds drifting across the sky.";
+                    document.getElementById("psy-affirmation-text").textContent = "“I do not need to react to every passing thought; I am calm, grounded, and steady.”";
+                } else {
+                    document.getElementById("psy-reset-title").textContent = "3-Minute Gratitude & Single-Task Focus";
+                    document.getElementById("psy-reset-desc").textContent = "Close your eyes, recall 3 things going well in your life today, and dedicate your full attention to your single most important task.";
+                    document.getElementById("psy-affirmation-text").textContent = "“My mind is clear; I fulfill my responsibilities with dedication and calm confidence.”";
+                }
+                lastPsychologyText = `🧠 Veda Astrolight - Astro-Psychology Guide\nBirth Star: ${jNakName} | Today's State: ${mEn.title}\n• Insight: ${mEn.desc}\n• Communication: ${mEn.comm}\n• Affirmation: ${document.getElementById("psy-affirmation-text").textContent}`;
+                return;
+            }
+                        lastPsychologyText = `🧠 ವೇದ ಆಸ್ಟ್ರೋಲೈಟ್ - ಮನಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶಿ
+ಜನ್ಮ ನಕ್ಷತ್ರ: ${jNakName} | ಇಂದಿನ ಮನಸ್ಥಿತಿ: ${mind.title}
+• ಒಳನೋಟ: ${mind.desc}
+• ಸಂವಹನ ಸಲಹೆ: ${mind.comm}
+• ಇಂದಿನ ಸಂಕಲ್ಪ: ${document.getElementById("psy-affirmation-text").textContent}`;
+        }
+
+        function copyPsychologyReport() {
+            renderPsychologyTab();
+            navigator.clipboard.writeText(lastPsychologyText).then(() => {
+                alert("ಮನಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶಿ ವರದಿಯನ್ನು ಕಾಪಿ ಮಾಡಲಾಗಿದೆ!");
+            });
+        }
+
+        
+        // ==================== BILINGUAL (KANNADA / ENGLISH) ENGINE ====================
+        let currentLang = localStorage.getItem("veda_app_lang") || "kn";
+
+        const NAKSHATRAS_KN = [
+            "ಅಶ್ವಿನಿ (Ashwini)", "ಭರಣಿ (Bharani)", "ಕೃತ್ತಿಕಾ (Krittika)", "ರೋಹಿಣಿ (Rohini)", "ಮೃಗಶಿರಾ (Mrigashira)",
+            "ಆರಿದ್ರಾ (Ardra)", "ಪುನರ್ವಸು (Punarvasu)", "ಪುಷ್ಯ (Pushya)", "ಆಶ್ಲೇಷಾ (Ashlesha)", "ಮಖಾ (Magha)",
+            "ಪುಬ್ಬಾ (Purva Phalguni)", "ಉತ್ತರಾ (Uttara Phalguni)", "ಹಸ್ತಾ (Hasta)", "ಚಿತ್ತಾ (Chitra)", "ಸ್ವಾತಿ (Swati)",
+            "ವಿಶಾಖಾ (Vishakha)", "ಅನುರಾಧಾ (Anuradha)", "ಜ್ಯೇಷ್ಠಾ (Jyeshtha)", "ಮೂಲಾ (Moola)", "ಪೂರ್ವಾಷಾಢ (Purva Ashadha)",
+            "ಉತ್ತರಾಷಾಢ (Uttara Ashadha)", "ಶ್ರವಣಾ (Shravana)", "ಧನಿಷ್ಠಾ (Dhanishta)", "ಶತಭಿಷಾ (Shatabhisha)",
+            "ಪೂರ್ವಾಭಾದ್ರಾ (Purva Bhadrapada)", "ಉತ್ತರಾಭಾದ್ರಾ (Uttara Bhadrapada)", "ರೇವತಿ (Revati)"
+        ];
+        const NAKSHATRAS_EN = [
+            "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira",
+            "Ardra", "Punarvasu", "Pushya", "Ashlesha", "Magha",
+            "Purva Phalguni", "Uttara Phalguni", "Hasta", "Chitra", "Swati",
+            "Vishakha", "Anuradha", "Jyeshtha", "Moola", "Purva Ashadha",
+            "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
+            "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+        ];
+
+        const RASHIS_KN = [
+            "ಮೇಷ (Aries)", "ವೃಷಭ (Taurus)", "ಮಿಥುನ (Gemini)", "ಕರ್ಕಾಟಕ (Cancer)",
+            "ಸಿಂಹ (Leo)", "ಕನ್ಯಾ (Virgo)", "ತುಲಾ (Libra)", "ವೃಶ್ಚಿಕ (Scorpio)",
+            "ಧನುಸ್ಸು (Sagittarius)", "ಮಕರ (Capricorn)", "ಕುಂಭ (Aquarius)", "ಮೀನ (Pisces)"
+        ];
+        const RASHIS_EN = [
+            "Aries (Mesha)", "Taurus (Vrishabha)", "Gemini (Mithuna)", "Cancer (Karkataka)",
+            "Leo (Simha)", "Virgo (Kanya)", "Libra (Tula)", "Scorpio (Vrishchika)",
+            "Sagittarius (Dhanu)", "Capricorn (Makara)", "Aquarius (Kumbha)", "Pisces (Meena)"
+        ];
+
+        const VARAS_KN = ["ಭಾನುವಾರ", "ಸೋಮವಾರ", "ಮಂಗಳವಾರ", "ಬುಧವಾರ", "ಗುರುವಾರ", "ಶುಕ್ರವಾರ", "ಶನಿವಾರ"];
+        const VARAS_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        const TITHIS_KN = [
+            "ಶುಕ್ಲ ಪಾಡ್ಯ", "ಶುಕ್ಲ ಬಿದಿಗೆ", "ಶುಕ್ಲ ತದಿಗೆ", "ಶುಕ್ಲ ಚೌತಿ", "ಶುಕ್ಲ ಪಂಚಮಿ", "ಶುಕ್ಲ ಷಷ್ಠಿ",
+            "ಶುಕ್ಲ ಸಪ್ತಮಿ", "ಶುಕ್ಲ ಅಷ್ಟಮಿ", "ಶುಕ್ಲ ನವಮಿ", "ಶುಕ್ಲ ದಶಮಿ", "ಶುಕ್ಲ ಏಕಾದಶಿ", "ಶುಕ್ಲ ದ್ವಾದಶಿ",
+            "ಶುಕ್ಲ ತ್ರಯೋದಶಿ", "ಶುಕ್ಲ ಚತುರ್ದಶಿ", "ಹುಣ್ಣಿಮೆ (ಪೌರ್ಣಮಿ)",
+            "ಕೃಷ್ಣ ಪಾಡ್ಯ", "ಕೃಷ್ಣ ಬಿದಿಗೆ", "ಕೃಷ್ಣ ತದಿಗೆ", "ಕೃಷ್ಣ ಚೌತಿ", "ಕೃಷ್ಣ ಪಂಚಮಿ", "ಕೃಷ್ಣ ಷಷ್ಠಿ",
+            "ಕೃಷ್ಣ ಸಪ್ತಮಿ", "ಕೃಷ್ಣ ಅಷ್ಟಮಿ", "ಕೃಷ್ಣ ನವಮಿ", "ಕೃಷ್ಣ ದಶಮಿ", "ಕೃಷ್ಣ ಏಕಾದಶಿ", "ಕೃಷ್ಣ ದ್ವಾದಶಿ",
+            "ಕೃಷ್ಣ ತ್ರಯೋದಶಿ", "ಕೃಷ್ಣ ಚತುರ್ದಶಿ", "ಅಮಾವಾಸ್ಯೆ"
+        ];
+        const TITHIS_EN = [
+            "Shukla Pratipada", "Shukla Dwitiya", "Shukla Tritiya", "Shukla Chaturthi", "Shukla Panchami", "Shukla Shashthi",
+            "Shukla Saptami", "Shukla Ashtami", "Shukla Navami", "Shukla Dashami", "Shukla Ekadashi", "Shukla Dwadashi",
+            "Shukla Trayodashi", "Shukla Chaturdashi", "Purnima (Full Moon)",
+            "Krishna Pratipada", "Krishna Dwitiya", "Krishna Tritiya", "Krishna Chaturthi", "Krishna Panchami", "Krishna Shashthi",
+            "Krishna Saptami", "Krishna Ashtami", "Krishna Navami", "Krishna Dashami", "Krishna Ekadashi", "Krishna Dwadashi",
+            "Krishna Trayodashi", "Krishna Chaturdashi", "Amavasya (New Moon)"
+        ];
+
+        const YOGAS_KN = [
+            "ವಿಷ್ಕಂಭ", "ಪ್ರೀತಿ", "ಆಯುಷ್ಮಾನ್", "ಸೌಭಾಗ್ಯ", "ಶೋಭನ", "ಅತಿಗಂಡ", "ಸುಕರ್ಮ", "ಧೃತಿ",
+            "ಶೂಲ", "ಗಂಡ", "ವೃದ್ಧಿ", "ಧ್ರುವ", "ವ್ಯಾಘಾತ", "ಹರ್ಷಣ", "ವಜ್ರ", "ಸಿದ್ಧಿ",
+            "ವ್ಯತೀಪಾತ", "ವರೀಯಾನ್", "ಪರಿಘ", "ಶಿವ", "ಸಿದ್ಧ", "ಸಾಧ್ಯ", "ಶುಭ", "ಶುಕ್ಲ",
+            "ಬ್ರಹ್ಮ", "ಐಂದ್ರ", "ವೈಧೃತಿ"
+        ];
+        const YOGAS_EN = [
+            "Vishkambha", "Priti", "Ayushman", "Saubhagya", "Shobhana", "Atiganda", "Sukarma", "Dhriti",
+            "Shoola", "Ganda", "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra", "Siddhi",
+            "Vyatipata", "Variyan", "Parigha", "Shiva", "Siddha", "Sadhya", "Shubha", "Shukla",
+            "Brahma", "Indra", "Vaidhriti"
+        ];
+
+        const KARANAS_KN = [
+            "ಬವ", "ಬಾಲವ", "ಕೌಲವ", "ತೈತಿಲ", "ಗರಜ", "ವಣಿಜ", "ಭದ್ರಾ (ವಿಷ್ಟಿ)",
+            "ಶಕುನಿ", "ಚತುಷ್ಪಾದ", "ನಾಗವ", "ಕಿಂಸ್ತುಘ್ನ"
+        ];
+        const KARANAS_EN = [
+            "Bava", "Balava", "Kaulava", "Taitila", "Garaja", "Vanija", "Vishti (Bhadra)",
+            "Shakuni", "Chatushpada", "Nagava", "Kimstughna"
+        ];
+
+        const TARA_NAMES_KN = [
+            { name: "ಜನ್ಮ (Janma)", nature: "ವರ್ಜ್ಯ / ಎಚ್ಚರಿಕೆ", cls: "text-amber-800" },
+            { name: "ಸಂಪತ್ (Sampat)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" },
+            { name: "ವಿಪತ್ (Vipat)", nature: "ಅಶುಭ / ವಿಘ್ನ", cls: "text-rose-700" },
+            { name: "ಕ್ಷೇಮ (Kshema)", nature: "ಶುಭ / ರಕ್ಷಣೆ", cls: "text-emerald-700" },
+            { name: "ಪ್ರತ್ಯಕ್ (Pratyak)", nature: "ಅಶುಭ / ವಿರೋಧ", cls: "text-rose-700" },
+            { name: "ಸಾಧಕ (Sadhaka)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" },
+            { name: "ನೈಧನ (Naidhana)", nature: "ಮಹಾ ವರ್ಜ್ಯ", cls: "text-rose-800 font-extrabold" },
+            { name: "ಮಿತ್ರ (Mitra)", nature: "ಶುಭ / ಅನುಕೂಲ", cls: "text-emerald-700" },
+            { name: "ಪರಮ ಮಿತ್ರ (Parama Mitra)", nature: "ಅತ್ಯಂತ ಶುಭ", cls: "text-emerald-700" }
+        ];
+        const TARA_NAMES_EN = [
+            { name: "Janma (1st)", nature: "Caution / Avoid", cls: "text-amber-800" },
+            { name: "Sampat (2nd)", nature: "Highly Auspicious", cls: "text-emerald-700" },
+            { name: "Vipat (3rd)", nature: "Inauspicious / Obstacles", cls: "text-rose-700" },
+            { name: "Kshema (4th)", nature: "Auspicious / Safe", cls: "text-emerald-700" },
+            { name: "Pratyak (5th)", nature: "Inauspicious / Friction", cls: "text-rose-700" },
+            { name: "Sadhaka (6th)", nature: "Highly Auspicious", cls: "text-emerald-700" },
+            { name: "Naidhana (7th)", nature: "Strictly Avoid", cls: "text-rose-800 font-extrabold" },
+            { name: "Mitra (8th)", nature: "Auspicious / Supportive", cls: "text-emerald-700" },
+            { name: "Parama Mitra (9th)", nature: "Supreme Auspicious", cls: "text-emerald-700" }
+        ];
+
+        function applyLanguageArrays() {
+            const isEn = (currentLang === "en");
+            NAKSHATRAS.splice(0, NAKSHATRAS.length, ...(isEn ? NAKSHATRAS_EN : NAKSHATRAS_KN));
+            RASHIS.splice(0, RASHIS.length, ...(isEn ? RASHIS_EN : RASHIS_KN));
+            VARAS.splice(0, VARAS.length, ...(isEn ? VARAS_EN : VARAS_KN));
+            TITHIS.splice(0, TITHIS.length, ...(isEn ? TITHIS_EN : TITHIS_KN));
+            YOGAS.splice(0, YOGAS.length, ...(isEn ? YOGAS_EN : YOGAS_KN));
+            KARANAS.splice(0, KARANAS.length, ...(isEn ? KARANAS_EN : KARANAS_KN));
+            TARA_NAMES.splice(0, TARA_NAMES.length, ...(isEn ? TARA_NAMES_EN : TARA_NAMES_KN));
+        }
+
+        function refreshDropdownLabelsPreserveSelection() {
+            const ids = [
+                { id: "janma-nakshatra", arr: NAKSHATRAS },
+                { id: "gochara-nakshatra", arr: NAKSHATRAS },
+                { id: "janma-rashi", arr: RASHIS },
+                { id: "gochara-rashi", arr: RASHIS }
+            ];
+            ids.forEach(item => {
+                const sel = document.getElementById(item.id);
+                if (!sel) return;
+                const prevVal = parseInt(sel.value) || 0;
+                populateDropdown(item.id, item.arr, prevVal);
+            });
+
+            const isEn = (currentLang === "en");
+            ["janma-pada", "gochara-pada"].forEach(pid => {
+                const psel = document.getElementById(pid);
+                if (!psel) return;
+                Array.from(psel.options).forEach((opt, i) => {
+                    opt.textContent = isEn ? `Pada ${i + 1}` : `${i + 1} ನೇ ಪಾದ`;
+                });
+            });
+
+            const karyaSel = document.getElementById("karya-select");
+            if (karyaSel) {
+                const karyaLabels = isEn
+                    ? ["General Auspicious Work / Routine", "Travel / Journey / Vehicle Purchase", "Finance / Investment / Business Start", "Medical Treatment / Starting Medicine", "Marriage / Engagement / Auspicious Ceremony", "Housewarming / Property Purchase"]
+                    : ["ಸಾಮಾನ್ಯ ಶುಭಕಾರ್ಯ / ದಿನಚರಿ", "ಪ್ರಯಾಣ / ದೇಶಾಂತರ / ವಾಹನ ಖರೀದಿ", "ಹಣಕಾಸು / ಹೂಡಿಕೆ / ವ್ಯಾಪಾರ ಆರಂಭ", "ವೈದ್ಯಕೀಯ ಚಿಕಿತ್ಸೆ / ಔಷಧ ಸೇವನೆ", "ವಿವಾಹ / ನಿಶ್ಚಿತಾರ್ಥ / ಮಂಗಳ ಕಾರ್ಯ", "ಗೃಹಪ್ರವೇಶ / ಆಸ್ತಿ ಖರೀದಿ"];
+                Array.from(karyaSel.options).forEach((opt, i) => {
+                    if (karyaLabels[i]) opt.textContent = karyaLabels[i];
+                });
+            }
+        }
+
+        function applyStaticUITranslations() {
+            const isEn = (currentLang === "en");
+            const langLabel = document.getElementById("lang-toggle-label");
+            if (langLabel) langLabel.textContent = isEn ? "ಕನ್ನಡ" : "English";
+
+            const tabMap = {
+                "btn-main-tab": isEn ? "⚡ Main Analysis" : "⚡ ಮುಖ್ಯ ವಿಶ್ಲೇಷಣೆ",
+                "btn-daily-guide-tab": isEn ? "✨ Daily Guide" : "✨ ದೈನಂದಿನ ಮಾರ್ಗದರ್ಶಿ",
+                "btn-panchanga-tab": isEn ? "📅 Daily Panchanga" : "📅 ದಿನದ ಪಂಚಾಂಗ",
+                "btn-matrix-tab": isEn ? "☸ 27 Nakshatra Matrix" : "☸ 27 ನಕ್ಷತ್ರ ಚಕ್ರ",
+                "btn-sutra-tab": isEn ? "🧠 Astro-Psychology" : "🧠 ಮನಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶಿ",
+                "btn-kundali-tab": isEn ? "🪐 Kundali & Gochara" : "🪐 ಜಾತಕ & ಶನಿ/ಗುರು ಗೋಚಾರ"
+            };
+            Object.entries(tabMap).forEach(([id, txt]) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = txt;
+            });
+
+            const activeProf = getActiveProfile();
+            const profBtn = document.getElementById("active-profile-nav-label");
+            if (profBtn) {
+                profBtn.textContent = (activeProf && activeProf.name)
+                    ? `👤 ${activeProf.name}`
+                    : (isEn ? "👤 Create Profile" : "👤 ಪ್ರೊಫೈಲ್ ರಚಿಸಿ");
+            }
+        }
+
+        function toggleAppLanguage() {
+            currentLang = (currentLang === "kn") ? "en" : "kn";
+            localStorage.setItem("veda_app_lang", currentLang);
+            applyLanguageArrays();
+            refreshDropdownLabelsPreserveSelection();
+            applyStaticUITranslations();
+
+            const overrideVal = document.getElementById("live-dt-override").value;
+            const dt = overrideVal ? new Date(overrideVal) : new Date();
+            const eph = computeRigorousEphemeris(dt);
+            const deg = Math.floor(eph.moon.deg);
+            const min = Math.floor((eph.moon.deg - deg) * 60);
+            const rashiName = RASHIS[eph.moon.rashi].split(" ")[0];
+            const nakName = NAKSHATRAS[eph.moon.nak].split(" ")[0];
+            document.getElementById("live-moon-display").textContent = (currentLang === "en")
+                ? `${nakName} (Pada ${eph.moon.pada}) • ${rashiName} ${deg}°${min}' • Ayanamsha: ${eph.ayanamsha.toFixed(2)}°`
+                : `${nakName} (${eph.moon.pada}ನೇ ಪಾದ) • ${rashiName} ${deg}°${min}' • ಅಯನಾಂಶ: ${eph.ayanamsha.toFixed(2)}°`;
+
+            runAnalysis();
+            updatePanchangaDisplay(dt);
+            renderMatrix();
+            calculateKundaliTab();
         }
 
         window.addEventListener("DOMContentLoaded", initApp);
